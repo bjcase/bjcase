@@ -3,22 +3,24 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>BJ Case — Home</title>
+<title>BJ CASE — Home</title>
 
-<!-- Display font for the logo/title -->
 <style>
-/* If you host the Venice font, point these to your files. Family name must be "Venice". */
+/* ===============================
+   LOGO FONT — Venice Classic
+   =============================== */
+/* Host your Venice Classic font (converted to WOFF2/WOFF) at this path, or swap the URLs below. */
 @font-face{
-  font-family:"Venice";
+  font-family:"Venice Classic";
   src:
-    url("/fonts/Venice.woff2") format("woff2"),
-    url("/fonts/Venice.woff") format("woff");
+    url("/fonts/VeniceClassic.woff2") format("woff2"),
+    url("/fonts/VeniceClassic.woff") format("woff");
   font-display:swap;
 }
 
-/* =========================
-   THEME (kept from your vibe)
-   ========================= */
+/* ===============================
+   THEME (kept)
+   =============================== */
 :root{
   --bg1:#1a0018;
   --bg2:#2b0030;
@@ -30,25 +32,26 @@
   --accent:#ff4de3;
 }
 
-/* ============ Base ============ */
+/* Base */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0; color:var(--ink);
-  font-family: Arial, Helvetica, sans-serif; /* light skin Arial for body */
+  font-family: Arial, Helvetica, sans-serif; /* Light, readable */
   font-weight:400;
-  /* PINK GLITTER BACKGROUND (do not touch) */
+  /* Pink glitter background (as provided) */
   background-color:var(--bg1);
-  background-image:
-    url('https://sadhost.neocities.org/images/tiles/pinkstars.gif'); /* DO NOT TOUCH */
+  background-image: url('https://sadhost.neocities.org/images/tiles/pinkstars.gif'); /* DO NOT TOUCH */
   background-repeat: repeat;
   background-attachment: fixed;
 }
 
-/* Skinny but “maximized” column */
+/* Skinny wrapper */
 .wrapper{max-width:860px; margin:0 auto; padding:16px}
 
-/* ============ Header (opaque) ============ */
+/* ===============================
+   HEADER (opaque, kept vibe)
+   =============================== */
 .site-header{
   position:relative;
   border:2px solid var(--border);
@@ -57,7 +60,7 @@ body{
   margin:16px 0 18px; padding:18px; overflow:hidden;
 }
 
-/* NEW header animation: a soft chrome “shine bar” sweeping behind the logo + subtle scanlines */
+/* New header animation (kept approach from your last version) */
 .site-header::before{
   content:"";
   position:absolute; inset:0;
@@ -73,25 +76,24 @@ body{
   100% { background-position: 0 0,   140% 0 }
 }
 
-/* Logo block */
+/* LOGO */
 .logo-wrap{
   position:relative; display:flex; align-items:center; justify-content:center;
   padding:12px 10px 8px; overflow:hidden;
 }
 
-/* “BJ Case” — VENICE, shiny rubber 3D (non-spacey) */
 .logo{
-  font-family: "Venice","Impact","Arial Black",sans-serif;
+  font-family: "Venice Classic","Impact","Arial Black",sans-serif;
   font-size: clamp(56px, 12vw, 150px);
   line-height:.84; letter-spacing:.01em; text-transform:uppercase;
 
-  /* Candy rubber chrome: layered gradients */
+  /* Rubber-chrome texture */
   background:
     radial-gradient(120% 160% at 50% 18%, #ffffff 0%, #ffdffb 22%, #ffb4ee 46%, #ff74de 66%, #e500c0 84%, #a9008e 100%),
     repeating-linear-gradient(135deg, rgba(255,255,255,.08) 0 6px, rgba(0,0,0,.06) 6px 12px);
   -webkit-background-clip:text; background-clip:text; color:transparent;
 
-  /* 3D rounded edge */
+  /* Rounded, rubbery edge depth */
   text-shadow:
      0 1px 0 #fff,
      0 2px 0 #ffd5fa,
@@ -106,7 +108,7 @@ body{
   position:relative;
 }
 
-/* Replace the old glint with a gentle “specular flicker” that pulses (different approach) */
+/* Subtle specular flicker (different from old glint) */
 .logo::after{
   content:"";
   position:absolute; inset:0;
@@ -117,37 +119,89 @@ body{
   opacity:.0;
   animation: specular 3.2s ease-in-out infinite;
 }
-@keyframes specular{
-  0%,100%{opacity:.0}
-  47%{opacity:.35}
-  53%{opacity:.2}
-}
+@keyframes specular{ 0%,100%{opacity:.0} 47%{opacity:.35} 53%{opacity:.2} }
 
-/* ✧ STAR SPRITES (not dots) across header area */
-.starfield, .starfield::before, .starfield::after{
-  position:absolute; inset:0; content:"";
-  pointer-events:none;
+/* ======================================
+   FOUR-POINT STAR SPARKLES (no dots)
+   ====================================== */
+/* Helper: a 4-point star built with a conic-gradient cross (✧ shape) */
+:root{
+  --star-white: #fff;
+  --star-soft: #ffdfff;
+}
+.starfield,
+.starfield::before,
+.starfield::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  /* Build many discrete 4-point stars at fixed positions */
   background:
-    /* Repeat little ✧ shapes via conic/masks */
-    radial-gradient(8px 8px at 10% 30%, #fff 40%, transparent 41%) ,
-    radial-gradient(7px 7px  at 22% 15%, #ffdfff 40%, transparent 41%),
-    radial-gradient(9px 9px  at 42% 25%, #fff 40%, transparent 41%) ,
-    radial-gradient(8px 8px  at 66% 20%, #ffdfff 40%, transparent 41%),
-    radial-gradient(8px 8px  at 82% 35%, #fff 40%, transparent 41%),
-    radial-gradient(9px 9px  at 35% 70%, #fff 40%, transparent 41%),
-    radial-gradient(7px 7px  at 55% 62%, #ffdfff 40%, transparent 41%),
-    radial-gradient(10px 10px at 78% 62%, #fff 40%, transparent 41%);
-  filter: drop-shadow(0 0 4px #fff);
+    /* each conic-gradient is a single star; we position them with background-position later via multiple layers */
+    conic-gradient(from 0deg,    transparent 0 47%, var(--star-white) 47% 53%, transparent 53% 100%)  no-repeat,
+    conic-gradient(from 90deg,   transparent 0 47%, var(--star-white) 47% 53%, transparent 53% 100%) no-repeat,
+    conic-gradient(from 0deg,    transparent 0 47%, var(--star-soft)  47% 53%, transparent 53% 100%) no-repeat,
+    conic-gradient(from 90deg,   transparent 0 47%, var(--star-soft)  47% 53%, transparent 53% 100%) no-repeat,
+    conic-gradient(from 0deg,    transparent 0 47%, var(--star-white) 47% 53%, transparent 53% 100%)  no-repeat,
+    conic-gradient(from 90deg,   transparent 0 47%, var(--star-white) 47% 53%, transparent 53% 100%) no-repeat,
+    conic-gradient(from 0deg,    transparent 0 47%, var(--star-soft)  47% 53%, transparent 53% 100%) no-repeat,
+    conic-gradient(from 90deg,   transparent 0 47%, var(--star-soft)  47% 53%, transparent 53% 100%) no-repeat;
+  /* Size of each star */
+  background-size:
+    10px 10px, 10px 10px,
+    8px 8px,   8px 8px,
+    12px 12px, 12px 12px,
+    9px 9px,   9px 9px;
+  /* Position of stars */
+  background-position:
+    10% 28%, 10% 28%,
+    22% 16%, 22% 16%,
+    58% 24%, 58% 24%,
+    80% 34%, 80% 34%;
+  filter: drop-shadow(0 0 6px #fff);
   animation: twinkleAll 6s ease-in-out infinite;
 }
-.starfield::before{animation-delay:1s; filter: drop-shadow(0 0 5px #ffdfff)}
-.starfield::after{animation-delay:2s; filter: drop-shadow(0 0 5px #ffe6ff)}
+.starfield::before{
+  background-size: 9px 9px,9px 9px, 7px 7px,7px 7px, 11px 11px,11px 11px, 8px 8px,8px 8px;
+  background-position:
+    36% 70%,36% 70%,
+    48% 64%,48% 64%,
+    72% 62%,72% 62%,
+    83% 42%,83% 42%;
+  filter: drop-shadow(0 0 5px #ffdfff);
+  animation-delay: .8s;
+}
+.starfield::after{
+  background-size: 8px 8px,8px 8px, 7px 7px,7px 7px, 10px 10px,10px 10px, 8px 8px,8px 8px;
+  background-position:
+    32% 30%,32% 30%,
+    66% 20%,66% 20%,
+    74% 18%,74% 18%,
+    48% 68%,48% 68%;
+  filter: drop-shadow(0 0 5px #ffeaff);
+  animation-delay: 1.6s;
+}
 @keyframes twinkleAll{
-  0%,100%{opacity:.6; transform: translateY(0)}
+  0%,100%{opacity:.65; transform: translateY(0)}
   50%{opacity:1; transform: translateY(-1px)}
 }
 
-/* ============ Nav ============ */
+/* Also add subtle stars inside panels */
+.panel::after{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.55;
+  background:
+    conic-gradient(from 0deg,  transparent 0 47%, #fff 47% 53%, transparent 53% 100%) 0% 15%/8px 8px no-repeat,
+    conic-gradient(from 90deg, transparent 0 47%, #fff 47% 53%, transparent 53% 100%) 0% 15%/8px 8px no-repeat,
+    conic-gradient(from 0deg,  transparent 0 47%, #ffdfff 47% 53%, transparent 53% 100%) 40% 40%/9px 9px no-repeat,
+    conic-gradient(from 90deg, transparent 0 47%, #ffdfff 47% 53%, transparent 53% 100%) 40% 40%/9px 9px no-repeat,
+    conic-gradient(from 0deg,  transparent 0 47%, #fff 47% 53%, transparent 53% 100%) 78% 62%/10px 10px no-repeat,
+    conic-gradient(from 90deg, transparent 0 47%, #fff 47% 53%, transparent 53% 100%) 78% 62%/10px 10px no-repeat;
+  filter: drop-shadow(0 0 4px #fff);
+  animation: panelStars 8s ease-in-out infinite;
+}
+@keyframes panelStars{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-1px)} }
+
+/* ===============================
+   NAV (kept with extra shines)
+   =============================== */
 .nav{
   display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:14px 0 8px;
 }
@@ -161,29 +215,20 @@ body{
 }
 .nav a::after{
   content:""; position:absolute; top:0; bottom:0; width:60px; left:-70px;
-  background:var(--shine); transform:skewX(-20deg);
-  opacity:.0;
+  background:var(--shine); transform:skewX(-20deg); opacity:.0;
 }
 .nav a:hover{
   box-shadow:0 0 16px 4px #ff9ef6cc,0 0 0 3px #000 inset;
   animation: btnPulse .9s ease-in-out;
 }
 .nav a:active{ transform: scale(.98) }
-.nav a:hover::after{
-  animation: shine 0.9s ease;
-  opacity:1;
-}
-@keyframes shine{
-  from{ left:-70px }
-  to{ left:120% }
-}
-@keyframes btnPulse{
-  0%{ transform: scale(1) }
-  50%{ transform: scale(1.03) }
-  100%{ transform: scale(1) }
-}
+.nav a:hover::after{ animation: shine 0.9s ease; opacity:1 }
+@keyframes shine{ from{ left:-70px } to{ left:120% } }
+@keyframes btnPulse{ 0%{transform:scale(1)} 50%{transform:scale(1.03)} 100%{transform:scale(1)} }
 
-/* ============ Ticker (your exact text) ============ */
+/* ===============================
+   Ticker — unchanged text
+   =============================== */
 .ticker{
   overflow:hidden; white-space:nowrap; border:2px solid var(--border);
   background:linear-gradient(180deg,#330033,#240024);
@@ -193,41 +238,23 @@ body{
 .ticker span{display:inline-block; padding-left:100%; animation:slide 18s linear infinite}
 @keyframes slide{to{transform:translateX(-100%)}}
 
-/* ============ Grid ============ */
+/* ===============================
+   Grid / Panels / Winamp / Footer
+   =============================== */
 .grid{display:grid; gap:14px; grid-template-columns:1fr}
 @media(min-width:880px){ .grid{grid-template-columns:2fr 1fr} }
 
-/* ============ Panels ============ */
 .panel{
   border:2px solid var(--border);
   background:linear-gradient(180deg,#43004e 0%,#2d0032 60%,#1f001f 100%);
   box-shadow:0 0 0 2px #000 inset, 0 12px 22px #0007;
   padding:16px; border-radius:3px; position:relative; overflow:hidden;
 }
-/* subtle drifting stars inside panels too */
-.panel::after{
-  content:""; position:absolute; inset:0; pointer-events:none; opacity:.5;
-  background:
-    radial-gradient(7px 7px at 14% 22%, #fff 40%, transparent 41%),
-    radial-gradient(8px 8px at 36% 18%, #ffdfff 40%, transparent 41%),
-    radial-gradient(7px 7px at 62% 30%, #fff 40%, transparent 41%),
-    radial-gradient(8px 8px at 80% 26%, #ffdfff 40%, transparent 41%),
-    radial-gradient(7px 7px at 44% 72%, #fff 40%, transparent 41%),
-    radial-gradient(8px 8px at 72% 64%, #ffdfff 40%, transparent 41%);
-  filter: drop-shadow(0 0 3px #fff);
-  animation: panelStars 8s ease-in-out infinite;
-}
-@keyframes panelStars{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-1px)}
-}
-
 .panel h2{
   margin:0 0 12px; font:800 16px/1.2 "Verdana",Tahoma,Arial,sans-serif;
   text-transform:uppercase; letter-spacing:.08em; color:#ffbdfb;
 }
 
-/* ============ Winamp (decorative) ============ */
 .winamp{
   border:1px solid #ff7ef6; background:#1b001d;
   box-shadow:0 0 0 2px #000 inset; padding:10px;
@@ -244,7 +271,6 @@ body{
 }
 .btn:hover::after{ animation: shine .9s ease; opacity:1 }
 
-/* ============ Badges ============ */
 .badges{display:flex; flex-wrap:wrap; gap:6px}
 .badges a{
   display:inline-block; width:88px; height:31px; border:1px solid #ff9ef6; box-shadow:0 0 0 2px #000 inset;
@@ -256,7 +282,6 @@ body{
 }
 .badges a:hover::after{ animation: shine 1s ease }
 
-/* ============ Footer ============ */
 footer{
   margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,Tahoma,Arial,sans-serif;
 }
@@ -276,10 +301,11 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 
   <!-- HEADER -->
   <header class="site-header">
+    <!-- Four-point star sparkle layers -->
     <div class="starfield" aria-hidden="true"></div>
 
     <div class="logo-wrap">
-      <div class="logo" id="siteLogo">BJ Case</div>
+      <div class="logo" id="siteLogo">BJ CASE</div>
     </div>
 
     <nav class="nav" aria-label="Main">
@@ -291,18 +317,18 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
       <a href="#contact">Contact</a>
     </nav>
 
-    <!-- Your exact marquee line, unchanged -->
+    <!-- Marquee: unchanged -->
     <div class="ticker"><span>✧ Welcome to the official BJ Case webzone • New music coming soon • Clicking things since 2003 ✧</span></div>
   </header>
 
-  <!-- CONTENT (hash-routed so nothing 404s) -->
+  <!-- CONTENT (hash-routed so links never 404) -->
   <main class="grid" id="pageRoot">
 
-    <!-- LEFT COLUMN -->
+    <!-- LEFT -->
     <section class="panel" id="leftPane">
       <h2 id="leftTitle">Feature</h2>
       <div id="leftContent">
-        <p><strong>BJ Case</strong> — moody, textured, late-2000s-coded pop. This site is my digital dressing room: handmade, glittery, and unapologetically extra.</p>
+        <p><strong>BJ CASE</strong> — moody, textured, late-2000s-coded pop. This site is my digital dressing room: handmade, glittery, and unapologetically extra.</p>
         <p><em>Latest drop:</em> <strong>“Performance”</strong> (demo). Cinematic, glossy, and a little dangerous.</p>
         <hr />
         <h2>Status</h2>
@@ -312,7 +338,7 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
         <hr />
         <h2>Now Playing</h2>
         <div class="winamp" role="group" aria-label="Now Playing">
-          <div id="nowPlayingTrack">01. BJ Case — Performance (demo)</div>
+          <div id="nowPlayingTrack">01. BJ CASE — Performance (demo)</div>
           <div class="row">
             <div class="btn" title="Prev">⏮</div>
             <div class="btn" title="Play">▶</div>
@@ -325,7 +351,7 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
       </div>
     </section>
 
-    <!-- RIGHT COLUMN -->
+    <!-- RIGHT -->
     <aside class="panel" id="rightPane">
       <h2>Site Updates</h2>
       <ul style="margin:0 0 10px 18px; padding:0;" id="updatesList">
@@ -349,21 +375,21 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 
   <!-- FOOTER -->
   <footer>
-    <div>© <span id="y">2025</span> BJ Case. All rights reserved. <a href="mailto:hello@bjcase.com">Email</a> • <a href="#journal">Guestbook</a></div>
+    <div>© <span id="y">2025</span> BJ CASE. All rights reserved. <a href="mailto:hello@bjcase.com">Email</a> • <a href="#journal">Guestbook</a></div>
     <small class="counter">000174</small>
   </footer>
 </div>
 
 <script>
-/* Update year */
+/* Year */
 document.getElementById('y').textContent = new Date().getFullYear();
 
-/* Simple hash router (so nav never 404s) */
+/* Hash router (so nav never 404s) */
 const pages = {
   home: {
     leftTitle: "Feature",
     leftHTML: `
-      <p><strong>BJ Case</strong> — moody, textured, late-2000s-coded pop. This site is my digital dressing room: handmade, glittery, and unapologetically extra.</p>
+      <p><strong>BJ CASE</strong> — moody, textured, late-2000s-coded pop. This site is my digital dressing room: handmade, glittery, and unapologetically extra.</p>
       <p><em>Latest drop:</em> <strong>“Performance”</strong> (demo). Cinematic, glossy, and a little dangerous.</p>
       <hr />
       <h2>Status</h2>
@@ -373,7 +399,7 @@ const pages = {
       <hr />
       <h2>Now Playing</h2>
       <div class="winamp" role="group" aria-label="Now Playing">
-        <div>01. BJ Case — Performance (demo)</div>
+        <div>01. BJ CASE — Performance (demo)</div>
         <div class="row">
           <div class="btn" title="Prev">⏮</div>
           <div class="btn" title="Play">▶</div>
@@ -405,7 +431,7 @@ const pages = {
       <strong>Next:</strong> vocal doubles + delay throws.</p>
       <hr />
       <h2>Player</h2>
-      <div class="winamp"><div>02. BJ Case — Flip Phone (work in progress)</div>
+      <div class="winamp"><div>02. BJ CASE — Flip Phone (work in progress)</div>
         <div class="row">
           <div class="btn">⏮</div><div class="btn">▶</div><div class="btn">⏸</div><div class="btn">⏭</div>
           <div class="scrubber"></div><div>03:11</div>
@@ -444,7 +470,7 @@ const pages = {
   about: {
     leftTitle: "About",
     leftHTML: `
-      <p>I’m BJ Case — a loud, glossy heart with a moody core. Music that feels like midnight chrome.</p>
+      <p>I’m BJ CASE — a loud, glossy heart with a moody core. Music that feels like midnight chrome.</p>
       <p>Influences: Britney *Blackout/Circus*, Bloodshy & Avant, Danja, 2007–2009 pop futurism.</p>
     `,
     updates: `<li><strong>Oct 29:</strong> Bio stub posted</li>`
@@ -468,7 +494,7 @@ function render(route){
 }
 function onHash(){ render(location.hash.replace("#","").toLowerCase()); }
 window.addEventListener("hashchange", onHash);
-onHash(); // initial
+onHash();
 document.getElementById("siteLogo").addEventListener("click", ()=>{location.hash="#home";});
 </script>
 </body>
