@@ -5,38 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>bj case — home</title>
 
-<!-- Fonts: Orbitron (logo) + Atma (section headings) -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Atma:wght@400&display=swap" rel="stylesheet" />
 
 <style>
-/* ===========================================================
-   🌈  BJ CASE 2003 WEBZONE — FULL INDEX (single file)
-   =========================================================== */
-
-/* ---------- COLOR PALETTE ---------- */
 :root{
   --pink:#ff9ef6;
   --neon-blue:#49c9ff;
   --orange:#ffb35e;
   --red:#ff4d4d;
-  --bg1:#150016;
-  --panel:#230025;
   --ink:#ffeaff;
   --link:#ffbffb;
 }
-
-/* ---------- BASE ---------- */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
-  margin:0; color:var(--ink);
+  margin:0;color:var(--ink);
   font-family:Arial,Helvetica,sans-serif;
   background:#000 url('https://sadhost.neocities.org/images/tiles/pinkstars.gif') repeat fixed;
-  cursor:url('https://cur.cursors-4u.net/cursors/cur-2/cur116.cur'), auto;
+  cursor:url('https://cur.cursors-4u.net/cursors/cur-2/cur116.cur'),auto;
 }
 .wrapper{max-width:860px;margin:0 auto;padding:16px}
 
-/* ---------- HEADER ---------- */
 .site-header{
   border:2px solid var(--pink);
   background:linear-gradient(180deg,#520061 0%,#36003e 60%,#240024 100%);
@@ -44,154 +33,121 @@ body{
   margin:16px 0 18px; padding:22px 18px 18px; position:relative; overflow:hidden;
 }
 
-/* Logo with strong text-only shine sweep and side hearts (balanced) */
+/* --- logo & hearts --- */
 .logo{
   position:relative;
   font-family:"Orbitron","Arial Black",sans-serif;
   font-size:clamp(36px,8vw,108px);
   text-transform:lowercase;
   text-align:center;
-  /* Layer 1: shine sweep (on text only) ; Layer 2: static multi gradient */
   background-image:
-    linear-gradient(120deg, transparent 45%, rgba(255,255,255,.98) 50%, transparent 55%),
-    linear-gradient(90deg, var(--neon-blue), var(--orange), var(--red), var(--pink), var(--neon-blue));
-  background-size: 220% 100%, 400% 400%;
-  background-position: -180% 0, 0 50%;
-  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
-  animation: logoShine 3s linear infinite;
-  text-shadow:0 0 8px var(--neon-blue),0 0 14px var(--pink);
-  margin: 0 auto;
-  width:max-content;
+    linear-gradient(120deg,transparent 45%,rgba(255,255,255,.98) 50%,transparent 55%),
+    linear-gradient(90deg,var(--neon-blue),var(--orange),var(--red),var(--pink),var(--neon-blue));
+  background-size:220% 100%,400% 400%;
+  background-position:-180% 0,0 50%;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:logoShine 3s linear infinite;
+  text-shadow:0 0 6px var(--neon-blue),0 0 10px var(--pink);
+  margin:0 auto;width:max-content;
 }
-@keyframes logoShine{
-  0%   { background-position: -180% 0, 0 50%; }
-  100% { background-position:  180% 0, 0 50%; }
-}
+@keyframes logoShine{0%{background-position:-180% 0,0 50%}100%{background-position:180% 0,0 50%}}
 
-/* Big hearts flanking the logo (less stretched & sharper). They’re secret links. */
-.logo::before, .logo::after{
+.logo::before,.logo::after{
   content:"♥";
-  position:absolute; top:50%; transform:translateY(-50%) scaleX(1.3); /* balanced width */
-  font-size: 0.9em; line-height:1; color:#fff;
-  text-shadow:
-    0 0 6px var(--pink),
-    0 0 10px var(--neon-blue),
-    0 0 14px var(--pink);         /* reduced blur for sharpness */
-  filter:saturate(1.1);
+  position:absolute;top:50%;transform:translateY(-50%) scaleX(1.3);
+  font-size:.9em;line-height:1;color:#fff;
+  text-shadow:0 0 4px var(--pink),0 0 8px var(--neon-blue);
   cursor:pointer;
 }
-.logo::before{ left:-1.4em; }
-.logo::after { right:-1.4em; }
-
-/* Click targets for hearts (larger for mobile) */
+.logo::before{left:-1.3em}
+.logo::after{right:-1.3em}
 .header-hotspot{
-  position:absolute; top:50%; width:2.1em; height:1.6em; transform:translateY(-50%);
-  cursor:pointer; background:transparent;
+  position:absolute;top:50%;width:2.1em;height:1.6em;transform:translateY(-50%);
+  cursor:pointer;background:transparent;
 }
-#hot-left{ left: calc(50% - 7.8ch - 2.2em); }   /* approx left of text */
-#hot-right{ right: calc(50% - 7.8ch - 2.2em); } /* approx right */
+#hot-left{left:calc(50% - 7.8ch - 2.2em)}
+#hot-right{right:calc(50% - 7.8ch - 2.2em)}
 
-/* ---------- Decorative music notes (NON-clickable) ---------- */
-/* All notes must stay inside header and away from the logo center. */
+/* --- decorative notes --- */
 .note{
-  position:absolute; user-select:none; pointer-events:none; /* purely decorative */
-  color:#ffd1fa;           /* soft pink */
-  text-shadow:0 0 6px var(--pink), 0 0 10px #fff8;
-  opacity:.95;
-  animation: floatY var(--dur,4.6s) ease-in-out infinite;
+  position:absolute;user-select:none;pointer-events:none;
+  color:#ffd1fa;text-shadow:0 0 6px var(--pink),0 0 10px #fff8;
+  opacity:.95;animation:floatY var(--dur,4.6s) ease-in-out infinite;
 }
-@keyframes floatY{
-  0%,100%{ transform:translateY(0) }
-  50%{ transform:translateY(var(--amp,7px)) }
-}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(var(--amp,7px))}}
 
-/* ---------- NAV (lighter weight) ---------- */
 .nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:14px 0 8px}
 .nav a{
-  text-decoration:none; color:#fff; font-weight:600; letter-spacing:.02em;
+  text-decoration:none;color:#fff;font-weight:600;letter-spacing:.02em;
   background:linear-gradient(180deg,#3b0050,#220032);
-  padding:9px 14px; border:2px solid var(--pink); border-radius:4px;
-  text-shadow:0 1px 0 #001; font-size:15px; position:relative; overflow:hidden; transition:all .25s ease;
+  padding:9px 14px;border:2px solid var(--pink);border-radius:4px;
+  text-shadow:0 1px 0 #001;font-size:15px;transition:.25s;
 }
-.nav a:hover{
-  border-color:var(--neon-blue); color:var(--neon-blue);
-  box-shadow:0 0 10px var(--neon-blue);
-  background:linear-gradient(180deg,#2d003d,#190020);
-}
+.nav a:hover{border-color:var(--neon-blue);color:var(--neon-blue);box-shadow:0 0 10px var(--neon-blue)}
 
-/* ---------- TICKER ---------- */
-.ticker{
-  overflow:hidden; white-space:nowrap; border:2px solid var(--pink);
+.ticker{overflow:hidden;white-space:nowrap;border:2px solid var(--pink);
   background:linear-gradient(180deg,#330033,#240024);
-  font:800 13px/2.1 Verdana,Tahoma,Arial,sans-serif;
-  color:#ffdfff; text-transform:uppercase; letter-spacing:.08em; position:relative;
-}
-.ticker span{display:inline-block; padding-left:100%; animation:slide 18s linear infinite}
+  font:800 13px/2.1 Verdana,Tahoma,Arial,sans-serif;color:#ffdfff;text-transform:uppercase;letter-spacing:.08em}
+.ticker span{display:inline-block;padding-left:100%;animation:slide 18s linear infinite}
 @keyframes slide{to{transform:translateX(-100%)}}
-
-/* ---------- GRID / PANELS ---------- */
-.grid{display:grid; gap:14px; grid-template-columns:1fr}
-@media(min-width:880px){ .grid{grid-template-columns:2fr 1fr} }
-
+/* ====== PANELS / CONTENT ====== */
+.grid{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:880px){.grid{grid-template-columns:2fr 1fr}}
 .panel{
   border:2px solid var(--pink);
   background:linear-gradient(180deg,#3d0055 0%,#21002a 60%,#1a001a 100%);
-  box-shadow:0 0 0 2px #000 inset, 0 12px 22px #0007;
-  padding:16px; border-radius:3px; position:relative; overflow:hidden;
+  box-shadow:0 0 0 2px #000 inset,0 12px 22px #0007;
+  padding:16px;border-radius:3px;position:relative;overflow:hidden;
 }
 .panel h2{
   margin:0 0 12px;
-  font-family:"Atma", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight:400; font-size:20px; line-height:1.2;
-  text-transform:uppercase; letter-spacing:.08em; color:var(--neon-blue);
+  font-family:"Atma",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  font-weight:400;font-size:20px;line-height:1.2;
+  text-transform:uppercase;letter-spacing:.08em;color:var(--neon-blue);
 }
-hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--neon-blue),transparent); margin:12px 0}
-a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
+hr{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--neon-blue),transparent);margin:12px 0}
+a{color:var(--link)}a:hover{color:#fff;text-decoration:underline}
 
-/* ---------- WINAMP (decorative) ---------- */
+/* ====== WINAMP (decorative) ====== */
 .winamp{
-  border:1px solid #ff7ef6; background:#1b001d;
-  box-shadow:0 0 0 2px #000 inset; padding:10px;
-  font:12px "Tahoma",Verdana,Arial,sans-serif; color:#ffe5ff;
+  border:1px solid #ff7ef6;background:#1b001d;
+  box-shadow:0 0 0 2px #000 inset;padding:10px;
+  font:12px "Tahoma",Verdana,Arial,sans-serif;color:#ffe5ff;
 }
-.winamp .row{display:flex; align-items:center; gap:8px; margin-top:6px}
+.winamp .row{display:flex;align-items:center;gap:8px;margin-top:6px}
 .btn{
-  display:inline-block; width:22px; height:22px; border:1px solid #ff7ef6; background:#350036;
-  box-shadow:0 0 0 2px #000 inset; text-align:center; line-height:20px; font-weight:800; cursor:pointer; user-select:none; position:relative; overflow:hidden;
+  display:inline-block;width:22px;height:22px;border:1px solid #ff7ef6;background:#350036;
+  box-shadow:0 0 0 2px #000 inset;text-align:center;line-height:20px;font-weight:800;user-select:none;position:relative;overflow:hidden;cursor:pointer;
 }
-.btn::after{
-  content:""; position:absolute; inset:0; background:linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
-  transform:translateX(-120%); opacity:.0;
-}
-.btn:hover::after{ animation: shine .9s ease; opacity:1 }
-@keyframes shine{ from{ left:-70px } to{ left:120% } }
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);transform:translateX(-120%);opacity:0}
+.btn:hover::after{animation:shine .9s ease;opacity:1}
+@keyframes shine{from{left:-70px}to{left:120%}}
 
-/* ---------- BADGES (Quick Links) ---------- */
-.badges{display:flex; flex-wrap:wrap; gap:6px}
+/* ====== QUICK LINKS ====== */
+.badges{display:flex;flex-wrap:wrap;gap:6px}
 .badges a{
-  display:inline-block; padding:6px 10px; border:1px solid var(--pink); box-shadow:0 0 0 2px #000 inset;
-  background:#300033; color:#ffbdfb; font:800 10px/1 Verdana; text-align:center; text-decoration:none;
+  display:inline-block;padding:6px 10px;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset;
+  background:#300033;color:#ffbdfb;font:800 10px/1 Verdana;text-align:center;text-decoration:none;
 }
 
-/* ---------- POLL: force options on separate lines ---------- */
-.poll label{display:block; margin:6px 0; font:12px Verdana,Tahoma,Arial,sans-serif}
+/* ====== POLL (stacked options) ====== */
+.poll label{display:block;margin:6px 0;font:12px Verdana,Tahoma,Arial,sans-serif}
 
-/* ---------- FOOTER ---------- */
-footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,Tahoma,Arial,sans-serif}
+/* ====== FOOTER ====== */
+footer{margin:18px 0 32px;text-align:center;color:#ffdfff;font:12px Verdana,Tahoma,Arial,sans-serif}
 
-/* ---------- CURSOR GLITTER STARS (multicolor, fast fade) ---------- */
+/* ====== CURSOR GLITTER ====== */
 .cursor-star{
-  position:absolute; /* natural scroll */
-  width:7px; height:7px; pointer-events:none;
+  position:absolute;width:7px;height:7px;pointer-events:none;
   background:radial-gradient(circle,#fff 0%,transparent 70%);
-  opacity:.95; filter:drop-shadow(0 0 4px currentColor);
+  opacity:.95;filter:drop-shadow(0 0 4px currentColor);
   animation:starFade .5s linear forwards;
 }
-@keyframes starFade{ from{transform:scale(1);opacity:.95} to{transform:scale(0);opacity:0} }
+@keyframes starFade{from{transform:scale(1);opacity:.95}to{transform:scale(0);opacity:0}}
 
-/* ---------- RESPONSIVE ---------- */
+/* ====== RESPONSIVE ====== */
 @media(max-width:520px){
-  .nav a{font-size:14px; padding:8px 12px}
+  .nav a{font-size:14px;padding:8px 12px}
   .logo{font-size:clamp(32px,9vw,88px)}
 }
 </style>
@@ -199,31 +155,23 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 <body>
 <div class="wrapper">
 
-  <!-- HEADER -->
+  <!-- ===== HEADER ===== -->
   <header class="site-header" id="header">
-    <!-- Decorative music notes (strictly within header, away from logo) -->
+    <!-- Decorative music notes (NON-clickable; strictly within header; not near logo) -->
     <!-- left cluster -->
-    <span class="note" style="left:10px; top:6px; font-size:16px; --dur:4.8s; --amp:8px;">♪</span>
+    <span class="note" style="left:10px; top:6px;  font-size:16px; --dur:4.8s; --amp:8px;">♪</span>
     <span class="note" style="left:36px; top:28px; font-size:22px; --dur:4.2s; --amp:6px;">♫</span>
     <span class="note" style="left:18px; top:64px; font-size:14px; --dur:5.1s; --amp:7px;">♪</span>
-    <!-- near nav but left -->
     <span class="note" style="left:70px; top:98px; font-size:18px; --dur:4.5s; --amp:6px;">♫</span>
-
     <!-- right cluster -->
-    <span class="note" style="right:12px; top:10px; font-size:20px; --dur:4.6s; --amp:8px;">♫</span>
-    <span class="note" style="right:42px; top:30px; font-size:14px; --dur:4.0s; --amp:6px;">♪</span>
-    <span class="note" style="right:22px; top:66px; font-size:24px; --dur:5.0s; --amp:7px;">♫</span>
-    <!-- near nav but right -->
-    <span class="note" style="right:78px; top:96px; font-size:16px; --dur:4.3s; --amp:6px;">♪</span>
-
-    <!-- lower corners to balance -->
-    <span class="note" style="left:22px; bottom:10px; font-size:15px; --dur:4.7s; --amp:7px;">♫</span>
-    <span class="note" style="right:26px; bottom:12px; font-size:13px; --dur:5.2s; --amp:6px;">♪</span>
-    <span class="note" style="left:56px; bottom:30px; font-size:18px; --dur:4.4s; --amp:7px;">♪</span>
-    <span class="note" style="right:52px; bottom:28px; font-size:16px; --dur:4.9s; --amp:8px;">♫</span>
+    <span class="note" style="right:12px; top:10px;  font-size:20px; --dur:4.6s; --amp:8px;">♫</span>
+    <span class="note" style="right:42px; top:30px;  font-size:14px; --dur:4.0s; --amp:6px;">♪</span>
+    <span class="note" style="right:22px; top:66px;  font-size:24px; --dur:5.0s; --amp:7px;">♫</span>
+    <span class="note" style="right:78px; top:96px;  font-size:16px; --dur:4.3s; --amp:6px;">♪</span>
+    <!-- NOTE: bottom-corner notes removed per your request -->
 
     <!-- hearts click areas (left/right) -->
-    <span id="hot-left" class="header-hotspot" data-route="music" title="secret: music"></span>
+    <span id="hot-left"  class="header-hotspot" data-route="music"   title="secret: music"></span>
     <span id="hot-right" class="header-hotspot" data-route="visuals" title="secret: visuals"></span>
 
     <div class="logo" id="logo">bj case</div>
@@ -236,10 +184,13 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
-    <div class="ticker"><span>✧ Welcome to the official BJ Case webzone • New music coming soon • Clicking things since 2003 ✧</span></div>
+
+    <div class="ticker">
+      <span>✧ Welcome to the official BJ Case webzone • New music coming soon • Clicking things since 2003 ✧</span>
+    </div>
   </header>
 
-  <!-- MAIN GRID -->
+  <!-- ===== MAIN GRID ===== -->
   <main class="grid" id="pageRoot">
     <!-- LEFT -->
     <section class="panel" id="leftPane">
@@ -334,7 +285,6 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
   <!-- FOOTER -->
   <footer>© <span id="y">2025</span> bj case — handmade glitter webzone</footer>
 </div>
-
 <script>
 /* ===== YEAR ===== */
 document.getElementById('y').textContent = new Date().getFullYear();
@@ -453,9 +403,9 @@ onHash();
 /* ===== SECRET LINKS ON HEARTS ONLY ===== */
 function routeTo(r){ if(!r) return; location.hash = "#"+r; }
 document.querySelectorAll('.header-hotspot').forEach(el=>{
-  el.addEventListener('click', ()=> routeTo(el.getAttribute('data-route')));
+  el.addEventListener('click',()=>routeTo(el.getAttribute('data-route')));
 });
-document.getElementById('logo').addEventListener('click', ()=> routeTo('home'));
+document.getElementById('logo').addEventListener('click',()=>routeTo('home'));
 
 /* ===== POLL (localStorage) ===== */
 const POLL_KEY="bj_poll_v4";
@@ -484,8 +434,8 @@ function pollDraw(d){
 }
 if(els.btn){
   els.btn.addEventListener('click',()=>{
-    const chosen = document.querySelector('input[name="poll"]:checked'); if(!chosen) return;
-    const voted = localStorage.getItem(POLL_KEY+"_voted"); const data=pollRead();
+    const chosen=document.querySelector('input[name="poll"]:checked'); if(!chosen) return;
+    const voted=localStorage.getItem(POLL_KEY+"_voted"); const data=pollRead();
     if(voted){ pollDraw(data); return; }
     if(chosen.value==="performance") data.performance++;
     if(chosen.value==="flip") data.flip++;
@@ -497,38 +447,34 @@ if(els.btn){
 
 /* ===== MULTICOLOR CURSOR GLITTER (natural scroll, fast fade) ===== */
 (()=> {
-  const colors = ["#ff9ef6","#49c9ff","#ffb35e","#ff4d4d","#ffffff"];
-  let lastT = 0;
-  document.addEventListener("mousemove", (e)=>{
-    const now = performance.now();
-    if (now - lastT < 12) return; // throttle ~80fps max
-    lastT = now;
-
-    const star = document.createElement("span");
-    star.className = "cursor-star";
-    star.style.left = (window.scrollX + e.clientX - 3) + "px";
-    star.style.top  = (window.scrollY + e.clientY - 3) + "px";
-    const c = colors[(Math.random()*colors.length)|0];
-    star.style.color = c;
-    star.style.background = `radial-gradient(circle, ${c} 0%, transparent 70%)`;
+  const colors=["#ff9ef6","#49c9ff","#ffb35e","#ff4d4d","#ffffff"];
+  let lastT=0;
+  document.addEventListener("mousemove",(e)=>{
+    const now=performance.now(); if(now-lastT<12) return; lastT=now;
+    const star=document.createElement("span");
+    star.className="cursor-star";
+    star.style.left=(window.scrollX+e.clientX-3)+"px";
+    star.style.top =(window.scrollY+e.clientY-3)+"px";
+    const c=colors[(Math.random()*colors.length)|0];
+    star.style.color=c;
+    star.style.background=`radial-gradient(circle, ${c} 0%, transparent 70%)`;
     document.body.appendChild(star);
     setTimeout(()=>{ star.remove(); }, 550);
-  }, {passive:true});
+  },{passive:true});
 
-  // Extra sparkle on click
   document.addEventListener("click",(e)=>{
     for(let i=0;i<6;i++){
       const star=document.createElement("span");
       star.className="cursor-star";
-      star.style.left=(window.scrollX+e.clientX + (Math.random()*14-7))+"px";
-      star.style.top=(window.scrollY+e.clientY + (Math.random()*14-7))+"px";
+      star.style.left=(window.scrollX+e.clientX+(Math.random()*14-7))+"px";
+      star.style.top =(window.scrollY+e.clientY+(Math.random()*14-7))+"px";
       const c=colors[(Math.random()*colors.length)|0];
       star.style.color=c;
       star.style.background=`radial-gradient(circle, ${c} 0%, transparent 70%)`;
       document.body.appendChild(star);
       setTimeout(()=>star.remove(), 500+Math.random()*200);
     }
-  }, {passive:true});
+  },{passive:true});
 })();
 </script>
 </body>
