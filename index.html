@@ -5,11 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>BJ CASE — Home</title>
 
-<!-- Orbitron font -->
+<!-- Orbitron header font -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
 
 <style>
-/* ======= Core palette with new tones ======= */
+/* ===========================================================
+   🌈  BJ CASE 2003 WEBZONE — THEME + VISUALS (Part 1 / 3)
+   =========================================================== */
+
+/* ---------- COLOR PALETTE ---------- */
 :root{
   --pink:#ff9ef6;
   --neon-blue:#49c9ff;
@@ -21,32 +25,30 @@
   --ink:#ffeaff;
 }
 
-/* Base / background */
-*{box-sizing:border-box;cursor:url('https://cur.cursors-4u.net/cursors/cur-2/cur116.cur'),auto}
+/* ---------- BASE ---------- */
+*{box-sizing:border-box}
 body{
   margin:0;
   color:var(--ink);
   font-family:Arial,Helvetica,sans-serif;
-  background:#000;
-  background-image:url('https://sadhost.neocities.org/images/tiles/pinkstars.gif');
-  background-repeat:repeat;
-  background-attachment:fixed;
+  background:#000 url('https://sadhost.neocities.org/images/tiles/pinkstars.gif') repeat fixed;
+  cursor:url('https://cur.cursors-4u.net/cursors/cur-2/cur116.cur'),auto;
 }
 .wrapper{max-width:860px;margin:0 auto;padding:16px}
 
-/* ======= Header / Logo ======= */
+/* ---------- HEADER ---------- */
 .site-header{
   border:2px solid var(--pink);
   background:linear-gradient(180deg,#520061 0%,#36003e 60%,#240024 100%);
   box-shadow:0 0 0 2px #000 inset,0 12px 26px #000c;
   margin:16px 0 18px;
   padding:18px;
-  position:relative;
   overflow:hidden;
+  position:relative;
 }
 .logo{
   font-family:"Orbitron","Arial Black",sans-serif;
-  font-size:clamp(36px,8.5vw,110px);
+  font-size:clamp(36px,8vw,108px);
   text-transform:uppercase;
   text-align:center;
   background:linear-gradient(90deg,
@@ -67,12 +69,12 @@ body{
   100%{background-position:0% 50%}
 }
 
-/* ======= Nav buttons (lighter weight) ======= */
+/* ---------- NAV ---------- */
 .nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:14px 0 8px}
 .nav a{
   text-decoration:none;
   color:#fff;
-  font-weight:600;        /* lighter */
+  font-weight:600;
   letter-spacing:.02em;
   background:linear-gradient(180deg,#3b0050,#220032);
   padding:9px 14px;
@@ -91,7 +93,7 @@ body{
   background:linear-gradient(180deg,#2d003d,#190020);
 }
 
-/* ======= Panels ======= */
+/* ---------- PANELS ---------- */
 .panel{
   border:2px solid var(--pink);
   background:linear-gradient(180deg,#3d0055 0%,#21002a 60%,#1a001a 100%);
@@ -101,13 +103,13 @@ body{
   margin-bottom:14px;
 }
 .panel h2{
-  font:800 16px/1.2 "Verdana",Tahoma,Arial,sans-serif;
+  font:800 16px/1.2 Verdana,Tahoma,Arial,sans-serif;
   text-transform:uppercase;
   letter-spacing:.08em;
   color:var(--neon-blue);
 }
 
-/* ======= Peel-a-Sticker (holographic) ======= */
+/* ---------- HOLOGRAPHIC STICKERS ---------- */
 .stickers{display:flex;flex-wrap:wrap;gap:10px}
 .sticker{
   width:120px;height:120px;position:relative;cursor:pointer;
@@ -115,7 +117,9 @@ body{
   box-shadow:0 0 0 2px #000 inset;
   border-radius:6px;
   display:flex;align-items:center;justify-content:center;
-  text-align:center;font:700 12px/1 Verdana,Tahoma,Arial,sans-serif;color:#300033;
+  text-align:center;
+  font:700 12px/1 Verdana,Tahoma,Arial,sans-serif;
+  color:#300033;
   background:linear-gradient(135deg,
     #fff 0%,
     #e0b0ff 25%,
@@ -133,7 +137,8 @@ body{
 .sticker .peel{
   position:absolute;width:42px;height:42px;right:-1px;bottom:-1px;
   background:linear-gradient(135deg,#fff,#a2f0ff,#ffb0d6);
-  border-left:2px solid var(--pink);border-top:2px solid var(--pink);
+  border-left:2px solid var(--pink);
+  border-top:2px solid var(--pink);
   clip-path:polygon(0 0,100% 0,100% 100%);
   transform-origin:100% 100%;
   transition:transform .25s ease;
@@ -141,27 +146,52 @@ body{
 .sticker:hover .peel{transform:rotate(-15deg)}
 .sticker.revealed .peel{transform:rotate(-45deg)}
 .sticker .secret{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  background:#300033;color:#ffbdfb;text-decoration:underline;opacity:0;transition:opacity .3s ease;
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:#300033;color:#ffbdfb;text-decoration:underline;
+  opacity:0;transition:opacity .3s ease;
 }
 .sticker.revealed .secret{opacity:1}
 
-/* ======= Fun cursor (pixel big) ======= */
-body, a, button {
-  cursor:url('https://cur.cursors-4u.net/cursors/cur-2/cur116.cur'), auto !important;
+/* ---------- GLITTER HR ---------- */
+hr{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--neon-blue),transparent);margin:12px 0}
+
+/* ---------- FOOTER ---------- */
+footer{
+  margin:18px 0 32px;
+  text-align:center;
+  color:#ffdfff;
+  font:12px Verdana,Tahoma,Arial,sans-serif;
 }
 
-/* ======= Extras ======= */
-footer{margin:18px 0 32px;text-align:center;color:#ffdfff;font:12px Verdana,Tahoma,Arial,sans-serif}
-hr{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--neon-blue),transparent);margin:12px 0}
+/* ---------- PIXEL STAR CURSOR TRAIL ---------- */
+.star{
+  position:fixed;
+  width:8px;height:8px;
+  background:radial-gradient(circle,#fff 0%,transparent 70%);
+  filter:drop-shadow(0 0 4px var(--neon-blue));
+  pointer-events:none;
+  opacity:0.9;
+  animation:trailFade .6s linear forwards;
+}
+@keyframes trailFade{
+  0%{transform:scale(1);opacity:.9}
+  100%{transform:scale(0);opacity:0}
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:520px){
+  .nav a{font-size:14px;padding:8px 12px}
+  .logo{font-size:clamp(32px,9vw,88px)}
+}
 </style>
 </head>
 <body>
 <div class="wrapper">
 
+  <!-- HEADER -->
   <header class="site-header">
     <div class="logo">BJ CASE</div>
-
     <nav class="nav">
       <a href="#home">Home</a>
       <a href="#music">Music</a>
@@ -172,33 +202,115 @@ hr{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--neo
     </nav>
   </header>
 
+  <!-- MAIN GRID -->
+  <main class="grid">
+
+    <!-- LEFT PANEL -->
+    <section class="panel" id="mainContent">
+      <h2>Feature</h2>
+      <p><strong>BJ CASE</strong> — moody, textured, late-2000s-coded pop. This site is my digital dressing room: handmade, glittery, and unapologetically extra.</p>
+      <p><em>Latest drop:</em> <strong>“Performance”</strong> (demo). Cinematic, glossy, and a little dangerous.</p>
+
+      <hr />
+      <h2>Status</h2>
+      <p><strong>Currently:</strong> polishing “Flip Phone” synth stack.<br>
+         <strong>Listening:</strong> Britney — “Phonography”.<br>
+         <strong>Mood:</strong> caffeinated + plotting.</p>
+
+      <hr />
+      <h2>Now Playing</h2>
+      <div class="winamp">
+        <div>01. BJ CASE — Performance (demo)</div>
+        <div class="row">
+          <div class="btn">⏮</div>
+          <div class="btn">▶</div>
+          <div class="btn">⏸</div>
+          <div class="btn">⏭</div>
+          <div class="scrubber"></div>
+          <div>02:47</div>
+        </div>
+      </div>
+
+      <hr />
+      <h2>Peel-A-Sticker</h2>
+      <div class="stickers">
+        <div class="sticker">
+          <div>STICKER #1</div>
+          <div class="peel"></div>
+          <a class="secret" href="#music">Go to MUSIC →</a>
+        </div>
+        <div class="sticker">
+          <div>STICKER #2</div>
+          <div class="peel"></div>
+          <a class="secret" href="#journal">Open JOURNAL →</a>
+        </div>
+        <div class="sticker">
+          <div>STICKER #3</div>
+          <div class="peel"></div>
+          <a class="secret" href="#visuals">See VISUALS →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="panel" id="sidebar">
+      <h2>Site Updates</h2>
+      <ul>
+        <li><strong>Nov 1 2025:</strong> Pink glitter background restored.</li>
+        <li><strong>Oct 31 2025:</strong> Mobile layout fixed.</li>
+        <li><strong>Oct 29 2025:</strong> “Performance” mix tweaks.</li>
+      </ul>
+
+      <hr />
+      <h2>Poll</h2>
+      <form>
+        <label><input type="radio" name="vote"> Performance rocks!</label><br>
+        <label><input type="radio" name="vote"> Flip Phone next please</label><br>
+        <label><input type="radio" name="vote"> Look But Don’t Touch !</label><br>
+        <button type="button" onclick="alert('Vote counted 💖')">Vote</button>
+      </form>
+
+      <hr />
+      <h2>Links</h2>
+      <div class="badges">
+        <a href="#journal">Journal</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#music">Music</a>
+      </div>
+    </aside>
+  </main>
+
+  <!-- SHOUTBOX -->
   <section class="panel">
-    <h2>Peel-a-Sticker (secret links)</h2>
-    <div class="stickers">
-      <div class="sticker">
-        <div>STICKER #1</div>
-        <div class="peel"></div>
-        <a class="secret" href="#music">Go to MUSIC →</a>
-      </div>
-      <div class="sticker">
-        <div>STICKER #2</div>
-        <div class="peel"></div>
-        <a class="secret" href="#journal">Open JOURNAL →</a>
-      </div>
-      <div class="sticker">
-        <div>STICKER #3</div>
-        <div class="peel"></div>
-        <a class="secret" href="#visuals">See VISUALS →</a>
-      </div>
-    </div>
+    <h2>Shoutbox</h2>
+    <p><strong>anon123:</strong> love the sparkle bg!</p>
+    <p><strong>bjcase:</strong> thanks!! new music soon.</p>
   </section>
 
-  <footer>© 2025 BJ CASE — handmade glitter webzone</footer>
-</div>
+  <!-- FOOTER -->
+  <footer>
+    © <span id="year"></span> BJ CASE — All Rights Reserved.
+  </footer>
 
+</div>
 <script>
+/* ===== YEAR ===== */
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* ===== STICKER REVEAL ===== */
 document.querySelectorAll('.sticker').forEach(s=>{
   s.addEventListener('click',()=>s.classList.toggle('revealed'));
+});
+
+/* ===== PIXEL STAR CURSOR TRAIL ===== */
+document.addEventListener("mousemove", e=>{
+  const star=document.createElement("div");
+  star.className="star";
+  star.style.left=`${e.pageX}px`;
+  star.style.top=`${e.pageY}px`;
+  document.body.appendChild(star);
+  setTimeout(()=>star.remove(),600);
 });
 </script>
 </body>
