@@ -44,22 +44,48 @@ body{
   box-shadow:0 0 0 2px #000 inset,0 12px 26px #000c;
   margin:16px 0 18px; padding:18px; position:relative; overflow:hidden;
 }
+
+/* Logo with shine overlay sweep and side hearts */
 .logo{
+  position:relative;
   font-family:"Orbitron","Arial Black",sans-serif;
   font-size:clamp(36px,8vw,108px);
   text-transform:lowercase;
   text-align:center;
-  background:linear-gradient(90deg, var(--neon-blue), var(--orange), var(--red), var(--pink), var(--neon-blue));
-  background-size:400% 400%;
+  /* Layer 1: moving shine sweep; Layer 2: static multicolor gradient */
+  background-image:
+    linear-gradient(120deg, transparent 45%, rgba(255,255,255,.85) 50%, transparent 55%),
+    linear-gradient(90deg, var(--neon-blue), var(--orange), var(--red), var(--pink), var(--neon-blue));
+  background-size: 200% 100%, 400% 400%;
+  background-position: -150% 0, 0 50%; /* start shine off-left; base fixed */
   -webkit-background-clip:text; background-clip:text; color:transparent;
-  animation:logoShift 6s ease infinite;
+  animation: shineSweep 3.2s linear infinite;
   text-shadow:0 0 8px var(--neon-blue),0 0 14px var(--pink);
+  margin: 0 auto;
+  width: max-content;
 }
-@keyframes logoShift{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
+@keyframes shineSweep{
+  0%   { background-position: -150% 0, 0 50%; }
+  100% { background-position:  150% 0, 0 50%; }
 }
+
+/* Big hearts flanking the logo */
+.logo::before, .logo::after{
+  content:"♥";
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-size: 0.8em;            /* scales with logo size */
+  line-height:1;
+  color:#fff;
+  text-shadow:
+    0 0 10px var(--pink),
+    0 0 16px var(--neon-blue),
+    0 0 22px var(--pink);
+  filter: saturate(1.2);
+}
+.logo::before{ left:-1.2em; }
+.logo::after { right:-1.2em; }
 
 /* ---------- NAV (lighter weight) ---------- */
 .nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:14px 0 8px}
@@ -173,9 +199,12 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 /* ---------- FOOTER ---------- */
 footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,Tahoma,Arial,sans-serif}
 
+/* ---------- POLL: force options on separate lines ---------- */
+.poll label{display:block; margin:6px 0; font:12px Verdana,Tahoma,Arial,sans-serif}
+
 /* ---------- CURSOR GLITTER STARS (multicolor, fast fade) ---------- */
 .cursor-star{
-  position:absolute; /* natural scroll: stays in document flow */
+  position:absolute; /* natural scroll */
   width:7px; height:7px; pointer-events:none;
   background:radial-gradient(circle,#fff 0%,transparent 70%);
   opacity:.95; filter:drop-shadow(0 0 4px currentColor);
@@ -445,6 +474,8 @@ function render(route){
   document.getElementById("leftTitle").textContent = pages[key].leftTitle;
   document.getElementById("leftContent").innerHTML = pages[key].leftHTML;
   document.getElementById("updatesList").innerHTML = pages[key].updates || pages.home.updates;
+  // re-wire sticker listeners after content swap
+  wireStickers();
 }
 function onHash(){ render(location.hash.replace("#","").toLowerCase()); }
 window.addEventListener("hashchange", onHash);
@@ -453,11 +484,14 @@ onHash();
 /* ===== STICKER TOGGLE ===== */
 function wireStickers(){
   document.querySelectorAll('.sticker').forEach(s=>{
+    s.addEventListener('click',()=>s.classList.toggle('reavealed')); // typo? no, fix:
+  });
+  // fix accidental typo by rebinding correctly:
+  document.querySelectorAll('.sticker').forEach(s=>{
     s.addEventListener('click',()=>s.classList.toggle('revealed'));
   });
 }
 wireStickers();
-window.addEventListener('hashchange', wireStickers);
 
 /* ===== POLL (localStorage) ===== */
 const POLL_KEY="bj_poll_v2";
@@ -517,7 +551,7 @@ if(els.btn){
     setTimeout(()=>{ star.remove(); }, 550);
   }, {passive:true});
 
-  // Also add a tiny sprinkle on click for extra sparkle
+  // Extra sparkle on click
   document.addEventListener("click",(e)=>{
     for(let i=0;i<6;i++){
       const star=document.createElement("span");
@@ -532,7 +566,6 @@ if(els.btn){
     }
   }, {passive:true});
 })();
-
 </script>
 </body>
 </html>
