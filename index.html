@@ -5,21 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>BJ Case — Home</title>
 
+<!-- Display font (digital & unconventional). Keep Arial for body text -->
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+
 <style>
 /* ===========================================================
-   BJ CASE — Pink Glitter Edition (BlackWolf font)
+   BJ CASE — Pink Glitter + Hash Router (single-file)
+   - Digital rubber 3D logo (Audiowide styled like shiny rubber)
+   - Body = Arial (light look)
+   - Early-2000s skin, Status, Winamp, badges
+   - Inline hash router: #home, #music, #visuals, #journal, #about, #contact
    =========================================================== */
 
-/* === Font === */
-@font-face{
-  font-family:"BlackWolf";
-  src:
-    url("/fonts/BlackWolf.woff2") format("woff2"),
-    url("/fonts/BlackWolf.woff") format("woff");
-  font-display:swap;
-}
-
-/* === Colors === */
+/* === Colors (your restored theme) === */
 :root{
   --bg1:#1a0018;
   --bg2:#2b0030;
@@ -31,155 +29,177 @@
   --accent:#ff4de3;
 }
 
-/* === Reset & base === */
+/* === Base === */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
-  margin:0;
-  color:var(--ink);
-  font-family: system-ui,-apple-system,Segoe UI,Tahoma,Arial,sans-serif;
+  margin:0; color:var(--ink);
+  font-family: Arial, Helvetica, sans-serif; /* Light skin Arial vibe */
+  font-weight: 400;
   background-color:var(--bg1);
+  /* Pink glitter texture + soft radial warms + vertical blend */
   background-image:
-    ("pinkstars.gif"),
+    url("https://i.imgur.com/hYkXYUk.gif"),
     radial-gradient(circle at 20% 20%, #ff99dd22 0%, transparent 40%),
     radial-gradient(circle at 80% 80%, #ff66cc22 0%, transparent 40%),
     linear-gradient(180deg,var(--bg2) 0%,var(--bg3) 100%);
   background-blend-mode:screen,normal;
-  background-size: auto, 400px 400px, 400px 400px, auto;
+  background-size:auto, 400px 400px, 400px 400px, auto;
   background-attachment:fixed;
 }
 
-/* === Wrapper === */
-.wrapper{max-width:980px;margin:0 auto;padding:14px}
+/* Bigger/Maximised spacing */
+.wrapper{max-width:1100px;margin:0 auto;padding:18px}
 
 /* === Header === */
 .site-header{
-  border:2px solid var(--border);
+  border:3px solid var(--border);
   background:linear-gradient(180deg,#40004f,#2a0030 60%,#1c001f);
-  box-shadow:0 0 0 2px #000 inset,0 10px 24px #000c;
-  margin:16px 0 18px;padding:16px;position:relative;
+  box-shadow:0 0 0 3px #000 inset, 0 14px 30px #000c;
+  margin:18px 0 22px; padding:20px; position:relative;
 }
 
-/* === Logo === */
+/* === Logo: digital, 3D, shiny rubber === */
 .logo-wrap{
-  position:relative;display:flex;align-items:center;justify-content:center;
-  padding:10px 8px 6px;overflow:hidden;
+  position:relative; display:flex; align-items:center; justify-content:center;
+  padding:14px 10px 8px; overflow:hidden;
 }
 .logo{
-  font-family:"BlackWolf","Impact","Arial Black",sans-serif;
-  font-size:clamp(56px,12vw,148px);
-  line-height:.85;letter-spacing:.01em;text-transform:uppercase;
-  background:linear-gradient(180deg,#fff0ff 0%,#ffd5fa 25%,#ff9ef6 60%,#ff5ee3 80%,#d400b8 100%);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
+  --gloss:#fff0ff;
+  font-family: "Audiowide","Impact","Arial Black",sans-serif;
+  font-size:clamp(68px, 13vw, 168px);
+  line-height:.84; letter-spacing:.01em; text-transform:uppercase;
+  /* rubbery texture: multi-layer gradient stack */
+  background:
+    radial-gradient(120% 150% at 50% 20%, #ffffff 0%, #ffdffb 25%, #ffafea 48%, #ff77dc 62%, #ff40cf 76%, #c400ad 100%),
+    radial-gradient(60% 40% at 30% 30%, rgba(255,255,255,.65), transparent 60%),
+    repeating-linear-gradient( 135deg, rgba(255,255,255,.08) 0 6px, rgba(0,0,0,.04) 6px 12px);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+
+  /* 3D depth stack + inner rubber edge */
   text-shadow:
      0 1px 0 #fff,
      0 2px 0 #ffd5fa,
      0 3px 0 #ffbdf6,
      0 4px 0 #ff99ee,
-     0 5px 0 #ff74e0,
-     0 6px 0 #ff40cf,
-     0 10px 16px rgba(0,0,0,.45);
-  filter:saturate(1.25) contrast(1.05);
+     0 6px 0 #ff74e0,
+     0 8px 0 #ff40cf,
+     0 16px 20px rgba(0,0,0,.55),
+     0 0 0 rgba(0,0,0,0); /* keeps syntax happy */
+
+  filter: saturate(1.28) contrast(1.06) drop-shadow(0 6px 18px rgba(255,64,207,.25));
+  position:relative;
 }
+
+/* glossy swipe */
 .logo::before{
-  content:"";position:absolute;inset:-12% -20%;
+  content:""; position:absolute; inset:-14% -22%;
   background:
-    linear-gradient(75deg,transparent 35%,rgba(255,255,255,.67) 45%,rgba(255,255,255,0) 55%),
-    radial-gradient(90px 40px at 30% 35%,#ffffffb8,transparent 60%);
+    linear-gradient(75deg, transparent 36%, rgba(255,255,255,.8) 46%, rgba(255,255,255,0) 56%),
+    radial-gradient(120px 50px at 28% 30%, rgba(255,255,255,.75), transparent 60%);
   mix-blend-mode:screen;
-  transform:translateX(-120%);
-  animation:glint 4.5s linear infinite;
+  transform: translateX(-120%);
+  animation: glint 4.2s linear infinite;
 }
 @keyframes glint{
-  0%{transform:translateX(-120%)}
-  55%{transform:translateX(20%)}
-  100%{transform:translateX(120%)}
+  0%{ transform: translateX(-120%) }
+  55%{ transform: translateX(22%) }
+  100%{ transform: translateX(120%) }
 }
+
+/* tiny sparkles */
 .sparkles{
-  pointer-events:none;position:absolute;inset:0;filter:drop-shadow(0 0 3px #fff);
-  animation:twinkle-master 6s ease-in-out infinite;
+  pointer-events:none; position:absolute; inset:0;
+  filter:drop-shadow(0 0 3px #fff); animation:twinkle-master 6s ease-in-out infinite;
 }
 @keyframes twinkle-master{0%,100%{opacity:.9}50%{opacity:1}}
 .sparkles::before,.sparkles::after{
-  content:"";position:absolute;inset:0;
+  content:""; position:absolute; inset:0;
   background:
     radial-gradient(circle at 22% 28%, #fff 0 2px, transparent 3px),
     radial-gradient(circle at 58% 22%, #fff 0 2px, transparent 3px),
-    radial-gradient(circle at 48% 68%, #fff 0 3px, transparent 4px);
-  mix-blend-mode:screen;animation:twinkle 2.4s ease-in-out infinite alternate;
+    radial-gradient(circle at 48% 68%, #fff 0 3px, transparent 4px),
+    radial-gradient(circle at 76% 30%, #ffd8ff 0 1.8px, transparent 2.6px),
+    radial-gradient(circle at 30% 70%, #ffd8ff 0 1.8px, transparent 2.6px);
+  mix-blend-mode:screen; animation:twinkle 2.4s ease-in-out infinite alternate;
 }
-@keyframes twinkle{
-  0%{opacity:.6}50%{opacity:1}100%{opacity:.7}
-}
+.sparkles::after{filter:blur(.2px) brightness(1.15); animation-delay:1.1s}
+@keyframes twinkle{0%{opacity:.6}50%{opacity:1}100%{opacity:.7}}
 
 /* === Nav === */
 .nav{
-  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 6px;
+  display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:16px 0 8px;
 }
 .nav a{
-  text-decoration:none;color:#fff;font-weight:700;letter-spacing:.02em;
-  background:linear-gradient(#5a005a,#3b003b);
-  padding:8px 14px;border:1px solid var(--border);box-shadow:0 0 0 2px #000 inset;
-  border-radius:2px;text-shadow:0 1px 0 #001;
+  text-decoration:none; color:#fff; font-weight:700; letter-spacing:.02em;
+  background:linear-gradient(#6c006c,#420042);
+  padding:10px 16px; border:2px solid var(--border); box-shadow:0 0 0 3px #000 inset;
+  border-radius:3px; text-shadow:0 1px 0 #001; font-size:15px;
 }
-.nav a:hover{box-shadow:0 0 12px 2px #ff9ef6cc,0 0 0 2px #000 inset;color:#fff}
+.nav a:hover{box-shadow:0 0 14px 3px #ff9ef6cc,0 0 0 3px #000 inset; color:#fff}
 
-/* === Ticker === */
+/* === Marquee / Ticker (KEEPING YOUR TEXT) === */
 .ticker{
-  overflow:hidden;white-space:nowrap;border:1px solid var(--border);
+  overflow:hidden; white-space:nowrap; border:2px solid var(--border);
   background:linear-gradient(180deg,#330033,#240024);
-  font:700 12px/1.9 Verdana,Tahoma,Arial,sans-serif;
-  color:#ffdfff;text-transform:uppercase;letter-spacing:.08em;
+  font:700 13px/2.1 Verdana,Tahoma,Arial,sans-serif;
+  color:#ffdfff; text-transform:uppercase; letter-spacing:.08em; position:relative;
 }
-.ticker span{display:inline-block;padding-left:100%;animation:slide 18s linear infinite}
+.ticker span{display:inline-block; padding-left:100%; animation:slide 18s linear infinite}
 @keyframes slide{to{transform:translateX(-100%)}}
 
 /* === Grid === */
-.grid{display:grid;gap:12px;grid-template-columns:1fr}
-@media(min-width:860px){.grid{grid-template-columns:2fr 1fr}}
+.grid{display:grid; gap:14px; grid-template-columns:1fr}
+@media(min-width:920px){ .grid{grid-template-columns:2fr 1fr} }
 
 /* === Panels === */
 .panel{
-  border:2px solid var(--border);
+  border:3px solid var(--border);
   background:linear-gradient(180deg,#43004e 0%,#2d0032 60%,#1f001f 100%);
-  box-shadow:0 0 0 2px #000 inset,0 10px 20px #0007;
-  padding:14px;
+  box-shadow:0 0 0 3px #000 inset, 0 12px 26px #0007;
+  padding:18px; border-radius:2px;
 }
 .panel h2{
-  margin:0 0 10px;
-  font:700 16px/1.2 "Verdana",Tahoma,Arial,sans-serif;
-  text-transform:uppercase;letter-spacing:.08em;color:#ffbdfb;
+  margin:0 0 12px; font:700 17px/1.2 "Verdana",Tahoma,Arial,sans-serif;
+  text-transform:uppercase; letter-spacing:.08em; color:#ffbdfb;
 }
 
-/* === Winamp Player === */
+/* === Winamp Player (Decorative) === */
 .winamp{
-  border:1px solid #ff7ef6;background:#1b001d;
-  box-shadow:0 0 0 2px #000 inset;padding:10px;
-  font:12px "Tahoma",Verdana,Arial,sans-serif;color:#ffe5ff;
+  border:2px solid #ff7ef6; background:#1b001d;
+  box-shadow:0 0 0 3px #000 inset; padding:12px;
+  font:13px "Tahoma",Verdana,Arial,sans-serif; color:#ffe5ff;
 }
-.winamp .row{display:flex;align-items:center;gap:8px;margin-top:6px}
+.winamp .row{display:flex; align-items:center; gap:10px; margin-top:8px}
 .btn{
-  display:inline-block;width:22px;height:22px;border:1px solid #ff7ef6;background:#350036;
-  box-shadow:0 0 0 2px #000 inset;text-align:center;line-height:20px;font-weight:700;cursor:pointer;user-select:none;
+  display:inline-block; width:26px; height:26px; border:2px solid #ff7ef6; background:#350036;
+  box-shadow:0 0 0 3px #000 inset; text-align:center; line-height:22px; font-weight:700; cursor:pointer; user-select:none;
 }
 .btn:hover{outline:1px solid #ffbffb}
-.scrubber{flex:1;height:6px;background:#180019;border:1px solid #ff9ef6;box-shadow:0 0 0 2px #000 inset;position:relative}
-.scrubber::after{content:"";position:absolute;top:-3px;left:30%;width:10px;height:10px;background:#ffd0ff;border:1px solid #ff9ef6}
+.scrubber{flex:1; height:8px; background:#180019; border:2px solid #ff9ef6; box-shadow:0 0 0 3px #000 inset; position:relative}
+.scrubber::after{content:""; position:absolute; top:-4px; left:30%; width:12px; height:12px; background:#ffd0ff; border:2px solid #ff9ef6}
 
 /* === Badges === */
-.badges{display:flex;flex-wrap:wrap;gap:6px}
-.badges a{display:inline-block;width:88px;height:31px;border:1px solid #ff9ef6;box-shadow:0 0 0 2px #000 inset;background:#300033;color:#ffbdfb;font:700 10px/31px Verdana;text-align:center;text-decoration:none}
+.badges{display:flex; flex-wrap:wrap; gap:8px}
+.badges a{
+  display:inline-block; width:88px; height:31px; border:2px solid #ff9ef6; box-shadow:0 0 0 3px #000 inset;
+  background:#300033; color:#ffbdfb; font:700 10px/31px Verdana; text-align:center; text-decoration:none
+}
 
 /* === Footer === */
 footer{
-  margin:18px 0 32px;text-align:center;color:#ffdfff;font:11px Verdana,Tahoma,Arial,sans-serif;
+  margin:22px 0 40px; text-align:center; color:#ffdfff; font:12px Verdana,Tahoma,Arial,sans-serif;
 }
 footer a{color:var(--link)}
 small.counter{
-  display:inline-block;margin-top:6px;padding:3px 6px;border:1px solid var(--border);
-  background:#1f0022;box-shadow:0 0 0 2px #000 inset;letter-spacing:.2em;
+  display:inline-block; margin-top:8px; padding:4px 8px; border:2px solid var(--border);
+  background:#1f0022; box-shadow:0 0 0 3px #000 inset; letter-spacing:.2em;
 }
-hr{border:none;height:1px;background:linear-gradient(90deg,transparent,#ff8ae6,transparent);margin:12px 0}
+
+/* Utilities */
+hr{border:none; height:2px; background:linear-gradient(90deg,transparent,#ff8ae6,transparent); margin:14px 0}
+a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
+
 </style>
 </head>
 <body>
@@ -188,28 +208,91 @@ hr{border:none;height:1px;background:linear-gradient(90deg,transparent,#ff8ae6,t
   <!-- HEADER -->
   <header class="site-header">
     <div class="logo-wrap">
-      <div class="logo">BJ Case</div>
-      <div class="sparkles"></div>
+      <div class="logo" id="siteLogo">BJ Case</div>
+      <div class="sparkles" aria-hidden="true"></div>
     </div>
 
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="music.html">Music</a>
-      <a href="visuals.html">Visuals</a>
-      <a href="journal.html">Journal</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#home">Home</a>
+      <a href="#music">Music</a>
+      <a href="#visuals">Visuals</a>
+      <a href="#journal">Journal</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
     </nav>
 
-    <div class="ticker"><span> ✧ Welcome to the official BJ Case webzone • New music coming soon • Clicking things since 2003 ✧</span></div>
+    <!-- Marquee: KEEPING YOUR EXACT TEXT -->
+    <div class="ticker"><span>✧ Welcome to the official BJ Case webzone • New music coming soon • Clicking things since 2003 ✧</span></div>
   </header>
 
-  <!-- CONTENT -->
-  <main class="grid">
+  <!-- CONTENT (hash-routed) -->
+  <main class="grid" id="pageRoot">
 
-    <!-- LEFT -->
-    <section class="panel">
-      <h2>Feature</h2>
+    <!-- LEFT COLUMN -->
+    <section class="panel" id="leftPane">
+      <h2 id="leftTitle">Feature</h2>
+      <div id="leftContent">
+        <p><strong>BJ Case</strong> — moody, textured, late-2000s-coded pop. This site is my digital dressing room: handmade, glittery, and unapologetically extra.</p>
+        <p><em>Latest drop:</em> <strong>“Performance”</strong> (demo). Cinematic, glossy, and a little dangerous.</p>
+        <hr />
+        <h2>Status</h2>
+        <p><strong>Currently:</strong> polishing “Flip Phone” synth stack 💿<br>
+        <strong>Listening:</strong> Britney — “Phonography” 🔊<br>
+        <strong>Mood:</strong> caffeinated + plotting ✨</p>
+        <hr />
+        <h2>Now Playing</h2>
+        <div class="winamp" role="group" aria-label="Now Playing">
+          <div id="nowPlayingTrack">01. BJ Case — Performance (demo)</div>
+          <div class="row">
+            <div class="btn" title="Prev">⏮</div>
+            <div class="btn" title="Play">▶</div>
+            <div class="btn" title="Pause">⏸</div>
+            <div class="btn" title="Next">⏭</div>
+            <div class="scrubber" title="Scrub (decorative)"></div>
+            <div id="nowPlayingTime">02:47</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN -->
+    <aside class="panel" id="rightPane">
+      <h2>Site Updates</h2>
+      <ul style="margin:0 0 10px 18px; padding:0;" id="updatesList">
+        <li><strong>Nov 1, 2025:</strong> Pink glitter background restored 💖</li>
+        <li><strong>Oct 31, 2025:</strong> Mobile layout fixed</li>
+        <li><strong>Oct 29, 2025:</strong> “Performance” mix tweaks</li>
+      </ul>
+      <hr />
+      <h2>Buttons / 88×31</h2>
+      <div class="badges" aria-label="88x31 Badge Wall">
+        <a href="#" title="Best viewed in Netscape">Netscape</a>
+        <a href="#" title="Under Construction">U-Build</a>
+        <a href="#" title="CSS Wizardry">CSS</a>
+        <a href="#" title="HTML 4.01">HTML</a>
+        <a href="#" title="Guestbook">GBook</a>
+        <a href="#" title="Webring">Ring</a>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>© <span id="y">2025</span> BJ Case. All rights reserved. <a href="mailto:hello@bjcase.com">Email</a> • <a href="#journal">Guestbook</a></div>
+    <small class="counter">000174</small>
+  </footer>
+</div>
+
+<script>
+/* Year */
+document.getElementById('y').textContent = new Date().getFullYear();
+
+/* Simple hash router so nav never 404s (pages: home, music, visuals, journal, about, contact) */
+const pages = {
+  home: {
+    leftTitle: "Feature",
+    leftHTML: `
       <p><strong>BJ Case</strong> — moody, textured, late-2000s-coded pop. This site is my digital dressing room: handmade, glittery, and unapologetically extra.</p>
       <p><em>Latest drop:</em> <strong>“Performance”</strong> (demo). Cinematic, glossy, and a little dangerous.</p>
       <hr />
@@ -219,50 +302,108 @@ hr{border:none;height:1px;background:linear-gradient(90deg,transparent,#ff8ae6,t
       <strong>Mood:</strong> caffeinated + plotting ✨</p>
       <hr />
       <h2>Now Playing</h2>
-      <div class="winamp">
+      <div class="winamp" role="group" aria-label="Now Playing">
         <div>01. BJ Case — Performance (demo)</div>
         <div class="row">
-          <div class="btn">⏮</div>
-          <div class="btn">▶</div>
-          <div class="btn">⏸</div>
-          <div class="btn">⏭</div>
-          <div class="scrubber"></div>
+          <div class="btn" title="Prev">⏮</div>
+          <div class="btn" title="Play">▶</div>
+          <div class="btn" title="Pause">⏸</div>
+          <div class="btn" title="Next">⏭</div>
+          <div class="scrubber" title="Scrub (decorative)"></div>
           <div>02:47</div>
         </div>
       </div>
-    </section>
-
-    <!-- RIGHT -->
-    <aside class="panel">
-      <h2>Site Updates</h2>
-      <ul style="margin:0 0 10px 18px;padding:0;">
-        <li><strong>Nov 1, 2025:</strong> Pink glitter background restored 💖</li>
-        <li><strong>Oct 31, 2025:</strong> Mobile layout fixed</li>
-        <li><strong>Oct 29, 2025:</strong> “Performance” mix tweaks</li>
+    `,
+    updates: `
+      <li><strong>Nov 1, 2025:</strong> Pink glitter background restored 💖</li>
+      <li><strong>Oct 31, 2025:</strong> Mobile layout fixed</li>
+      <li><strong>Oct 29, 2025:</strong> “Performance” mix tweaks</li>
+    `
+  },
+  music: {
+    leftTitle: "Music",
+    leftHTML: `
+      <p>Singles, demos, and deep cuts. Expect glossy synths, rubbery bass, and late-2000s tension.</p>
+      <ul>
+        <li><strong>Performance</strong> — demo snippet, cinematic pop noir</li>
+        <li><strong>Flip Phone</strong> — bratty, digital, groovy</li>
+        <li><strong>Look But Don’t Touch</strong> — raunchy, glossy attitude</li>
       </ul>
       <hr />
-      <h2>Buttons / 88×31</h2>
-      <div class="badges">
-        <a href="#">Netscape</a>
-        <a href="#">Under Construction</a>
-        <a href="#">CSS</a>
-        <a href="#">HTML</a>
-        <a href="#">GBook</a>
-        <a href="#">Webring</a>
+      <h2>Status</h2>
+      <p><strong>Mixing:</strong> lifting mid-bass warmth; tightening clap stacks.<br>
+      <strong>Next:</strong> vocal doubles + delay throws.</p>
+      <hr />
+      <h2>Player</h2>
+      <div class="winamp"><div>02. BJ Case — Flip Phone (work in progress)</div>
+        <div class="row">
+          <div class="btn">⏮</div><div class="btn">▶</div><div class="btn">⏸</div><div class="btn">⏭</div>
+          <div class="scrubber"></div><div>03:11</div>
+        </div>
       </div>
-    </aside>
+    `,
+    updates: `
+      <li><strong>Nov 1:</strong> Flip Phone synth stack layered</li>
+      <li><strong>Oct 30:</strong> Performance tempo locked @ 106</li>
+    `
+  },
+  visuals: {
+    leftTitle: "Visuals",
+    leftHTML: `
+      <p>Old-Hollywood theatre meets digital glitch. Lip-gloss chrome, velvet curtains, and neon edges.</p>
+      <ul>
+        <li>“Performance” cover — red-curtain single art</li>
+        <li>“Flip Phone” — voicemail intro screens</li>
+        <li>Sticker sheet — glitter hearts & secret links</li>
+      </ul>
+      <hr /><p>Gallery coming soon — stickers will hide Easter-egg links.</p>
+    `,
+    updates: `<li><strong>Oct 31:</strong> Visual moodboard expanded</li>`
+  },
+  journal: {
+    leftTitle: "Journal",
+    leftHTML: `
+      <p>Welcome to the web diary. Raw notes, studio days, and sparkly chaos.</p>
+      <article>
+        <h3>Nov 1, 2025 — New skin, who dis?</h3>
+        <p>Pink glitter returns. Logo looks like shiny candy. I’m obsessed.</p>
+      </article>
+    `,
+    updates: `<li><strong>Nov 1:</strong> Journal launched</li>`
+  },
+  about: {
+    leftTitle: "About",
+    leftHTML: `
+      <p>I’m BJ Case — a loud, glossy heart with a moody core. Music that feels like midnight chrome.</p>
+      <p>Influences: Britney *Blackout/Circus*, Bloodshy & Avant, Danja, 2007-2009 pop futurism.</p>
+    `,
+    updates: `<li><strong>Oct 29:</strong> Bio stub posted</li>`
+  },
+  contact: {
+    leftTitle: "Contact",
+    leftHTML: `
+      <p>Say hi — bookings, collabs, or just glitter talk.</p>
+      <p><strong>Email:</strong> <a href="mailto:hello@bjcase.com">hello@bjcase.com</a></p>
+      <p><strong>Guestbook:</strong> hop into the Journal and drop a note.</p>
+    `,
+    updates: `<li><strong>Oct 31:</strong> Contact live</li>`
+  }
+};
 
-  </main>
+function render(route){
+  const key = route && pages[route] ? route : "home";
+  document.getElementById("leftTitle").textContent = pages[key].leftTitle;
+  document.getElementById("leftContent").innerHTML = pages[key].leftHTML;
+  document.getElementById("updatesList").innerHTML = pages[key].updates || pages.home.updates;
+  // Update ticker slightly per page (optional)
+  // document.querySelector(".ticker span").textContent = ...
+}
+function onHash(){ render(location.hash.replace("#","").toLowerCase()); }
+window.addEventListener("hashchange", onHash);
+onHash(); // initial
 
-  <!-- FOOTER -->
-  <footer>
-    <div>© <span id="y">2025</span> BJ Case. All rights reserved. <a href="mailto:hello@bjcase.com">Email</a> • <a href="journal.html">Guestbook</a></div>
-    <small class="counter">000174</small>
-  </footer>
-</div>
-
-<script>
-document.getElementById('y').textContent = new Date().getFullYear();
+// Ensure clicking logo returns Home
+document.getElementById("siteLogo").addEventListener("click", ()=>{location.hash="#home";});
 </script>
 </body>
 </html>
