@@ -1,227 +1,282 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BJ Case</title>
-  <link rel="stylesheet" href="mobile.css?v=1">
-</head>
-<body>
-<div id="container">
-  <div id="headerArea">
-    <div id="header" style="height: 188px;">
-      <h1 style="margin:0; padding-top:28px; text-align:center;">BJ's Blog</h1>
-      <div class="tagline" style="text-align:center; margin-top:6px;">active since 2003</div>
-    </div>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BJ Case — Home</title>
 
-    <!-- REAL PAGES (change filenames if you use different ones) -->
-    <nav id="navbar">
-      <ul>
-        <li><a class="y2k-btn" href="index.html">Home</a></li>
-        <li><a class="y2k-btn" href="about.html">About</a></li>
-        <li><a class="y2k-btn" href="journal.html">Journal</a></li>
-        <li><a class="y2k-btn" href="archive.html">Archive</a></li>
-        <li><a class="y2k-btn" href="contact.html">Contact</a></li>
-        <li><a class="y2k-btn" href="links.html">Links</a></li>
-      </ul>
-    </nav>
-  </div>
-
-  <div id="flex">
-    <aside id="leftSidebar" style="margin-right: 10px;">
-      <h2>Updates</h2>
-      <div class="box">
-        <p>Site refresh • glitter online ✨</p>
-        <ul style="padding-left:10px;">
-          <li>Buttons: sparkle-sweep + neon</li>
-          <li>Borders: double + dotted bling</li>
-          <li>Rhinestone dividers</li>
-        </ul>
-      </div>
-
-      <h2>Hi there!</h2>
-      <h3>Other Tools</h3>
-      <ul>
-        <li><a href="https://sadgrlonline.github.io/html-cheatsheet/" target="_blank">HTML Cheatsheet</a></li>
-        <li><a href="/sadgrl/webmastery/webmaster-links.html" target="_blank">Webmaster Links</a></li>
-        <li><a href="/sadgrl/webmastery/downloads/tiledbgs.html" target="_blank">Tiled BGs</a></li>
-        <li><a href="/sadgrl/webmastery/downloads/fonts.html" target="_blank">Fonts</a></li>
-        <li><a href="/sadgrl/projects/ideas/" target="_blank">Site Ideas</a></li>
-      </ul>
-    </aside>
-
-    <main>
-      <div class="blingbar"></div>
-
-      <h1>Welcome to my Layout Maker!</h1>
-      <p><strong>Please read this first!</strong></p>
-      <p>This tool generates a layout that is responsive, which means it looks great on phones! Use dropdowns above to customize your layout's general features. Click the button to generate your HTML and CSS, and paste it into a file on Neocities.</p>
-      <p>Then you can replace all of the text with your own. For more customization, the CSS code has comments to explain what each part changes. Please read through the code - even if you have no idea what it means.</p>
-      <p>If you're feeling up for a challenge, I put together <a href="/sadgrl/learn/understanding-tweaking-my-layout-maker/" target="_blank">a guide</a>…</p>
-
-      <div class="rhinestones"></div>
-
-      <p> - Cat Ipsum - </p>
-      <p>Rub my belly hiss swipe at owner's legs…</p>
-      <p>Head nudges eat my own ears…</p>
-
-      <div class="blingbar"></div>
-    </main>
-
-    <aside id="rightSidebar" style="margin-left: 10px;">
-      <h2>Status</h2>
-      <div class="box">
-        <p>currently: <em>online</em></p>
-        <p>mood: <em>sparkly</em></p>
-        <p>now playing: <em>’03 club</em></p>
-      </div>
-
-      <h2>Tags</h2>
-      <h3>Other Tools</h3>
-      <ul>
-        <li><a href="https://sadgrlonline.github.io/html-cheatsheet/" target="_blank">HTML Cheatsheet</a></li>
-        <li><a href="/sadgrl/webmastery/webmaster-links.html" target="_blank">Webmaster Links</a></li>
-      </ul>
-    </aside>
-  </div>
-
-  <footer id="footer" style="margin-top: 10px;">© 2003–2025 BJ CASE — handcrafted Y2K web</footer>
-</div>
-
-<!-- ===== INLINE CSS (keeps your pinkstars.gif background) ===== -->
 <style>
-/* ===== keep your variables exactly as-is ===== */
-:root{
-  --header-image: url('https://www.freepik.com/free-vector/gradient-hot-pink-background_74890424.htm#fromView=search&page=1&position=26&uuid=314745bc-cb6d-4fc8-bfc4-4baa91ca3bbe&query=pink'); /* unused now */
-  --body-bg-image: url('https://sadhost.neocities.org/images/tiles/pinkstars.gif'); /* DO NOT TOUCH */
-  --content: #43256E;
+/* ===========================================================
+   BJ CASE — early 2000s single-file skin (no external CSS)
+   - Cyberwave 2000 specified; will gracefully fall back if missing
+   - 3D shiny logo with animated sparkles/glint
+   - Pixel borders, Winamp-style player, 88x31 badges
+   =========================================================== */
+
+/* If you host the font later, keep this family name. */
+@font-face{
+  font-family: "Cyberwave 2000";
+  /* Optional: if you have a hosted file, swap the URL below.
+     This block is safe to leave as-is — it will just fall back if the file isn't there. */
+  src:
+    url("/fonts/Cyberwave2000.woff2") format("woff2"),
+    url("/fonts/Cyberwave2000.woff") format("woff");
+  font-display: swap;
 }
 
-/* fonts from Sadgrl kept, but body uses Arial for crisp Y2K */
-@font-face{font-family:Nunito;src:url('https://sadhost.neocities.org/fonts/Nunito-Regular.ttf')}
-@font-face{font-family:Nunito;src:url('https://sadhost.neocities.org/fonts/Nunito-Bold.ttf');font-weight:bold}
-@font-face{font-family:Nunito;src:url('https://sadhost.neocities.org/fonts/Nunito-Italic.ttf');font-style:italic}
-@font-face{font-family:Nunito;src:url('https://sadhost.neocities.org/fonts/Nunito-BoldItalic.ttf');font-style:italic;font-weight:bold}
+/* COLORS */
+:root{
+  --bg1:#0b0e1a;
+  --bg2:#10142e;
+  --bg3:#0c1026;
+  --panel:#151a38;
+  --border:#8bb8ff;
+  --neon:#5ee3ff;
+  --pink:#ff61f6;
+  --ink:#e9eeff;
+  --link:#bfe2ff;
+}
 
+/* RESET-ish */
 *{box-sizing:border-box}
 html,body{height:100%}
-
-/* ====== DO NOT CHANGE BACKGROUND ====== */
 body{
   margin:0;
-  background-color:#08031A;
-  background-image: var(--body-bg-image); /* pinkstars.gif */
-  background-size:65px;
-  color:#fceaff;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height:1.55;
-  /* optional: only shows if you upload a cursor image; otherwise ignored */
-  cursor: url("/assets/cursor_pink.png") 8 2, auto;
-}
-
-/* ===== layout base ===== */
-#container{max-width:900px;margin:0 auto}
-#container a{color:#ED64F5;font-weight:bold;text-decoration:none}
-#container a:hover{color:#ff7ec6;text-decoration:underline}
-
-/* ===== header: light pink, no image ===== */
-#header{
-  width:100%; height:150px;
-  background:#ffd6eb !important; /* light pink */
-  background-image:none !important;
-  border:3px solid #ff4da6; border-radius:16px;
-  box-shadow:0 0 22px rgba(255,77,166,.45),0 0 18px rgba(25,195,255,.25);
-}
-#header h1{
-  font-family:"Trebuchet MS", Tahoma, Verdana, Arial, sans-serif;
-  font-weight:700; font-size:34px; letter-spacing:.14em; text-transform:uppercase; color:#000;
-}
-#header .tagline{
-  font:600 12px/1.2 "Trebuchet MS", Tahoma, Verdana, Arial, sans-serif;
-  letter-spacing:.22em; color:#000; opacity:.8;
-}
-
-/* ===== nav: jelly buttons w/sparkle sweep (real pages) ===== */
-#navbar{height:auto;background:transparent;width:100%;margin-top:8px}
-#navbar ul{display:flex;padding:0;margin:0;list-style:none;justify-content:space-evenly;gap:8px;flex-wrap:wrap}
-#navbar li{padding:4px 0}
-.y2k-btn{
-  position:relative; overflow:hidden; display:inline-block;
-  padding:9px 16px; border-radius:18px; background:#0b0a14; color:#ffd1ea;
-  border:2px solid #a45cff; font:700 12px/1 "Trebuchet MS", Tahoma, Verdana, Arial, sans-serif;
-  text-transform:uppercase; letter-spacing:.08em;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 3px 10px rgba(0,0,0,.45), 0 0 0 3px rgba(0,0,0,.2);
-  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease, color .15s ease, background .15s ease;
-}
-.y2k-btn::before{
-  content:""; position:absolute; top:0; left:-150%; width:150%; height:100%;
-  background: linear-gradient(120deg, transparent 0 40%, rgba(255,255,255,.9) 50%, transparent 60% 100%);
-  opacity:.65; transform: skewX(-20deg);
-}
-.y2k-btn:hover{
-  border-color:#ff4da6; color:#fff; transform: translateY(-2px);
-  box-shadow: 0 0 14px #ff4da6, 0 0 22px rgba(25,195,255,.35), inset 0 0 0 2px rgba(255,255,255,.15);
-}
-.y2k-btn:hover::before{ animation: sweep .5s linear }
-@keyframes sweep{ to{ left:120% } }
-
-/* ===== layout rows ===== */
-#flex{display:flex}
-@media (max-width:800px){#flex{flex-wrap:wrap}}
-
-/* ===== panels: neon + dotted bling borders (no bg changes) ===== */
-aside, main{
-  background: rgba(12,8,20,.86);
-  border: 2px solid #3a1a44; border-radius: 14px; padding: 20px;
-  box-shadow: 0 10px 24px rgba(0,0,0,.45), inset 0 0 0 3px rgba(255,255,255,.04), 0 0 0 3px rgba(255,77,166,.15);
-  position:relative;
-}
-aside::after, main::after{
-  content:""; position:absolute; inset:8px; border-radius:10px; pointer-events:none;
-  border:1px dotted rgba(255,126,198,.55);
-}
-
-/* original sizes/orders preserved */
-aside{width:200px; font-size: smaller}
-main{flex:1; order:2}
-#leftSidebar{order:1}
-#rightSidebar{order:3}
-@media (max-width:800px){
-  aside{width:100%}
-  main{order:1} #leftSidebar{order:2} #rightSidebar{order:3}
-}
-
-/* ===== typography ===== */
-h1,h2,h3{color:#ED64F5; font-family:"Trebuchet MS", Tahoma, Verdana, Arial, sans-serif}
-h1{font-size:25px}
-strong{color:#ED64F5}
-
-/* ===== box ===== */
-.box{
-  background:#13092D; border:2px solid #ff4da6; border-radius:12px; padding:10px;
-  box-shadow:0 0 0 2px rgba(255,126,198,.25) inset;
-}
-
-/* ===== bling bars & rhinestones ===== */
-.blingbar{
-  height:10px; margin:8px 0 12px; border-radius:8px;
+  color:var(--ink);
+  font-family: system-ui, -apple-system, Segoe UI, Tahoma, Arial, sans-serif;
   background:
-    repeating-linear-gradient(90deg,#ff4da6 0 6px,transparent 6px 12px),
-    repeating-linear-gradient(90deg,#19c3ff 0 8px,transparent 8px 16px);
-  opacity:.95;
-}
-.rhinestones{
-  height:14px; margin:10px 0 14px;
-  background: radial-gradient(circle at 6px 7px, #fff 0 2px, #ffd1ea 3px, transparent 4px) repeat-x;
-  background-size: 20px 14px;
-  filter: drop-shadow(0 0 6px rgba(255,77,166,.6)) drop-shadow(0 0 6px rgba(25,195,255,.4));
+    radial-gradient(1px 1px at 12% 22%, #fff8 50%, transparent 51%),
+    radial-gradient(1px 1px at 72% 42%, #fff6 50%, transparent 51%),
+    radial-gradient(1px 1px at 38% 78%, #9bd0ff66 50%, transparent 51%),
+    linear-gradient(180deg,var(--bg2) 0%, var(--bg3) 60%, var(--bg1) 100%);
+  background-size:6px 6px,8px 8px,10px 10px,auto;
 }
 
-/* ===== footer ===== */
-footer{
-  background:#13092D; width:100%; height:auto; padding:10px; text-align:center; border-radius:12px;
-  border:2px solid #3a1a44; box-shadow:0 0 0 3px rgba(255,77,166,.15);
+/* Layout: classic centered wrapper */
+.wrapper{max-width:980px;margin:0 auto;padding:14px}
+
+/* --- Header with big logo --- */
+.site-header{
+  border:2px solid var(--border);
+  background:linear-gradient(180deg,#1e264f,#121737 60%,#0c1129);
+  box-shadow:0 0 0 2px #000 inset,0 10px 24px #000c;
+  margin:16px 0 18px; padding:16px; position:relative;
 }
+.logo-wrap{
+  position:relative; display:flex; align-items:center; justify-content:center;
+  padding:10px 8px 6px; overflow:hidden;
+}
+.logo{
+  position:relative;
+  font-family:"Cyberwave 2000","Impact","Arial Black",sans-serif;
+  font-size:clamp(56px,12vw,148px);
+  line-height:.85; letter-spacing:.01em; text-transform:uppercase;
+  /* chrome gradient */
+  background:linear-gradient(180deg,#ffffff 0%, #eef4ff 18%, #cfe1ff 38%, #8fb7ff 55%, #4a77ff 72%, #2036ff 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  /* stacked text-shadows to fake 3D depth */
+  text-shadow:
+     0 1px 0 #fff,
+     0 2px 0 #e9f1ff,
+     0 3px 0 #d6e4ff,
+     0 4px 0 #b9d2ff,
+     0 5px 0 #92b8ff,
+     0 6px 0 #6a98ff,
+     0 10px 16px rgba(0,0,0,.45);
+  filter:saturate(1.15) contrast(1.05);
+}
+/* moving “glint” stripe */
+.logo::before{
+  content:""; position:absolute; inset:-12% -20%;
+  background:
+    linear-gradient(75deg, transparent 35%, rgba(255,255,255,.67) 45%, rgba(255,255,255,0) 55%),
+    radial-gradient(90px 40px at 30% 35%, #ffffffb8, transparent 60%);
+  mix-blend-mode:screen;
+  transform:translateX(-120%);
+  animation:glint 4.5s linear infinite;
+}
+@keyframes glint{
+  0%{transform:translateX(-120%)}
+  55%{transform:translateX(20%)}
+  100%{transform:translateX(120%)}
+}
+/* sparkles layer */
+.sparkles{
+  pointer-events:none; position:absolute; inset:0;
+  filter:drop-shadow(0 0 3px #fff);
+  animation:twinkle-master 6s ease-in-out infinite;
+}
+@keyframes twinkle-master{0%,100%{opacity:.9}50%{opacity:1}}
+.sparkles::before,.sparkles::after{
+  content:""; position:absolute; inset:0;
+  background:
+    radial-gradient(circle at 22% 28%, #fff 0 2px, transparent 3px),
+    radial-gradient(circle at 34% 18%, #dff0ff 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 58% 22%, #fff 0 2px, transparent 3px),
+    radial-gradient(circle at 68% 34%, #fff 0 2.5px, transparent 3.5px),
+    radial-gradient(circle at 74% 18%, #dff0ff 0 1.5px, transparent 2.3px),
+    radial-gradient(circle at 83% 42%, #fff 0 2.2px, transparent 3.2px),
+    radial-gradient(circle at 48% 68%, #fff 0 3px, transparent 4px),
+    radial-gradient(circle at 36% 66%, #dff0ff 0 1.8px, transparent 2.8px);
+  mix-blend-mode:screen; animation:twinkle 2.4s ease-in-out infinite alternate;
+}
+.sparkles::after{filter:blur(.2px) brightness(1.15); animation-delay:1.2s}
+@keyframes twinkle{
+  0%{opacity:.6; transform:translateY(0)}
+  50%{opacity:1; transform:translateY(-1px)}
+  100%{opacity:.7; transform:translateY(0)}
+}
+
+/* Nav */
+.nav{
+  display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:14px 0 6px;
+}
+.nav a{
+  text-decoration:none; color:#eaf2ff; font-weight:700; letter-spacing:.02em;
+  background:linear-gradient(#26306b,#1b2150);
+  padding:8px 14px; border:1px solid var(--border); box-shadow:0 0 0 2px #000 inset;
+  text-shadow:0 1px 0 #001; border-radius:2px;
+}
+.nav a:hover{box-shadow:0 0 12px 2px #79d8ffcc,0 0 0 2px #000 inset;color:#fff}
+
+/* “Marquee” ticker */
+.ticker{
+  overflow:hidden; white-space:nowrap; border:1px solid var(--border);
+  background:linear-gradient(180deg,#0f1432,#0a0e23);
+  font:700 12px/1.9 Verdana,Tahoma,Arial,sans-serif;
+  color:#bfe2ff; text-transform:uppercase; letter-spacing:.08em; position:relative;
+}
+.ticker span{display:inline-block; padding-left:100%; animation:slide 18s linear infinite}
+@keyframes slide{to{transform:translateX(-100%)}}
+
+/* Panels */
+.grid{display:grid; gap:12px; grid-template-columns:1fr; margin:14px 0}
+@media (min-width:860px){ .grid{grid-template-columns: 2fr 1fr} }
+
+.panel{
+  border:2px solid var(--border);
+  background:linear-gradient(180deg,#1a2047 0%, #121737 60%, #0f1430 100%);
+  box-shadow:0 0 0 2px #000 inset, 0 10px 20px #0007;
+  padding:14px;
+}
+.panel h2{
+  margin:0 0 10px; font:700 16px/1.2 "Verdana",Tahoma,Arial,sans-serif;
+  text-transform:uppercase; letter-spacing:.08em; color:#cff0ff;
+}
+
+/* Winamp mini player (pure CSS look) */
+.winamp{
+  border:1px solid #3a5aa8; background:#0b0f22;
+  box-shadow:0 0 0 2px #000 inset; padding:10px; font:12px "Tahoma",Verdana,Arial,sans-serif;
+  color:#a8f9ff;
+}
+.winamp .row{display:flex; align-items:center; gap:8px; margin-top:6px}
+.btn{
+  display:inline-block; width:22px; height:22px; border:1px solid #78a7ff; background:#172657;
+  box-shadow:0 0 0 2px #000 inset; text-align:center; line-height:20px; font-weight:700; cursor:pointer; user-select:none;
+}
+.btn:hover{outline:1px solid #9ed7ff}
+.scrubber{flex:1; height:6px; background:#08102e; border:1px solid #79a0ff; box-shadow:0 0 0 2px #000 inset; position:relative}
+.scrubber::after{content:""; position:absolute; top:-3px; left:30%; width:10px; height:10px; background:#b9e4ff; border:1px solid #3a5aa8}
+
+/* 88x31 area */
+.badges{display:flex; flex-wrap:wrap; gap:6px}
+.badges a{display:inline-block; width:88px; height:31px; border:1px solid #79a0ff; box-shadow:0 0 0 2px #000 inset; background:#0b112b; color:#a6d9ff; font:700 10px/31px Verdana; text-align:center; text-decoration:none}
+
+/* Footer */
+footer{
+  margin:18px 0 32px; text-align:center; color:#cfe6ff; font:11px Verdana,Tahoma,Arial,sans-serif;
+}
+footer a{color:var(--link)}
+small.counter{
+  display:inline-block; margin-top:6px; padding:3px 6px; border:1px solid var(--border);
+  background:#0c1435; box-shadow:0 0 0 2px #000 inset; letter-spacing:.2em;
+}
+
+/* Links & utility */
+a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
+hr{border:none; height:1px; background:linear-gradient(90deg,transparent,#7fb8ff,transparent); margin:12px 0}
+code{background:#101744; padding:2px 4px; border:1px solid #5a80d8}
 </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <!-- HEADER -->
+    <header class="site-header">
+      <div class="logo-wrap">
+        <div class="logo" aria-label="BJ Case">BJ Case</div>
+        <div class="sparkles" aria-hidden="true"></div>
+      </div>
+
+      <nav class="nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="music.html">Music</a>
+        <a href="visuals.html">Visuals</a>
+        <a href="journal.html">Journal</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="ticker"><span>Welcome to the official BJ Case webzone • New music brewing • Site best viewed on a glittery flip phone • Bookmark me like it’s 2003 ✧</span></div>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="grid">
+
+      <!-- LEFT: Feature / Intro -->
+      <section class="panel">
+        <h2>Feature</h2>
+        <p>Hi, I’m <strong>BJ Case</strong> — moody, textured, late-2000s-coded pop. This is my little corner of the web: hand-built, proudly shiny, and a bit theatrical.</p>
+        <p><em>Latest drop:</em> <strong>“Performance”</strong> (demo). Cinematic, glossy, and a little dangerous.</p>
+        <hr />
+        <h2>Now Playing (Winamp skin)</h2>
+        <div class="winamp" role="group" aria-label="Now Playing">
+          <div>01. BJ Case — Performance (demo)</div>
+          <div class="row">
+            <div class="btn" title="Prev">⏮</div>
+            <div class="btn" title="Play">▶</div>
+            <div class="btn" title="Pause">⏸</div>
+            <div class="btn" title="Next">⏭</div>
+            <div class="scrubber" title="Scrub (decorative)"></div>
+            <div>02:47</div>
+          </div>
+          <!-- Tip: You can replace this decorative player with an actual <audio> tag later if you want -->
+        </div>
+      </section>
+
+      <!-- RIGHT: Updates + Badges -->
+      <aside class="panel">
+        <h2>Site Updates</h2>
+        <ul style="margin:0 0 10px 18px; padding:0;">
+          <li><strong>Nov 1, 2025:</strong> New site skin — chrome logo, sparkles, &amp; old-web vibes.</li>
+          <li><strong>Oct 31, 2025:</strong> Mobile layout tightened. Navigation cleaned.</li>
+          <li><strong>Oct 29, 2025:</strong> “Performance” arrangement progress.</li>
+        </ul>
+        <hr />
+        <h2>Buttons / 88×31</h2>
+        <div class="badges" aria-label="88x31 Badge Wall">
+          <a href="#" title="Best viewed in Netscape">Netscape</a>
+          <a href="#" title="Under Construction">U-Build</a>
+          <a href="#" title="CSS Wizardry">CSS</a>
+          <a href="#" title="HTML 4.01">HTML</a>
+          <a href="#" title="Guestbook">GBook</a>
+          <a href="#" title="Webring">Ring</a>
+        </div>
+      </aside>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>© <span id="y">2025</span> BJ Case. All rights reserved. <a href="mailto:hello@bjcase.com">Email</a> • <a href="journal.html">Guestbook</a></div>
+      <small class="counter">000173</small>
+    </footer>
+  </div>
+
+<script>
+/* Update year automatically */
+document.getElementById('y').textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
