@@ -5,19 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>BJ Case — Home</title>
 
-<!-- Display font (digital & unconventional). Keep Arial for body text -->
-<link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+<!-- Display logo font (non-spacey, bold, unconventional) -->
+<link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
 
 <style>
 /* ===========================================================
-   BJ CASE — Pink Glitter + Hash Router (single-file)
-   - Digital rubber 3D logo (Audiowide styled like shiny rubber)
-   - Body = Arial (light look)
-   - Early-2000s skin, Status, Winamp, badges
-   - Inline hash router: #home, #music, #visuals, #journal, #about, #contact
+   BJ CASE — Skinny Layout + Glitter Restore + Opaque Header
    =========================================================== */
 
-/* === Colors (your restored theme) === */
+/* === Colors (your pink/purple theme) === */
 :root{
   --bg1:#1a0018;
   --bg2:#2b0030;
@@ -34,49 +30,51 @@
 html,body{height:100%}
 body{
   margin:0; color:var(--ink);
-  font-family: Arial, Helvetica, sans-serif; /* Light skin Arial vibe */
-  font-weight: 400;
+  font-family: Arial, Helvetica, sans-serif; /* light, readable */
+  font-weight:400;
+
+  /* PINK GLITTER: try your original local tile first, then fallback */
   background-color:var(--bg1);
-  /* Pink glitter texture + soft radial warms + vertical blend */
   background-image:
+    url("/img/pink-glitter.gif"),
+    url("/images/pink-glitter.gif"),
     url("https://i.imgur.com/hYkXYUk.gif"),
     radial-gradient(circle at 20% 20%, #ff99dd22 0%, transparent 40%),
     radial-gradient(circle at 80% 80%, #ff66cc22 0%, transparent 40%),
-    linear-gradient(180deg,var(--bg2) 0%,var(--bg3) 100%);
-  background-blend-mode:screen,normal;
-  background-size:auto, 400px 400px, 400px 400px, auto;
-  background-attachment:fixed;
+    linear-gradient(180deg,var(--bg2) 0%, var(--bg3) 100%);
+  background-repeat: repeat, repeat, repeat, no-repeat, no-repeat, no-repeat;
+  background-size: auto, auto, auto, 420px 420px, 420px 420px, auto;
+  background-attachment: fixed, fixed, fixed, scroll, scroll, scroll;
 }
 
-/* Bigger/Maximised spacing */
-.wrapper{max-width:1100px;margin:0 auto;padding:18px}
+/* SKINNY wrapper (back to narrow column) */
+.wrapper{max-width:880px; margin:0 auto; padding:14px}
 
-/* === Header === */
+/* === Header (opaque — no transparency) === */
 .site-header{
-  border:3px solid var(--border);
-  background:linear-gradient(180deg,#40004f,#2a0030 60%,#1c001f);
-  box-shadow:0 0 0 3px #000 inset, 0 14px 30px #000c;
-  margin:18px 0 22px; padding:20px; position:relative;
+  border:2px solid var(--border);
+  background: linear-gradient(180deg,#4c0058 0%, #32003a 60%, #230024 100%); /* solid, no alpha */
+  box-shadow: 0 0 0 2px #000 inset, 0 10px 22px #000c;
+  margin:16px 0 18px; padding:16px; position:relative;
 }
 
-/* === Logo: digital, 3D, shiny rubber === */
+/* === Logo: Bungee, rubbery 3D, shiny (not “space”) === */
 .logo-wrap{
   position:relative; display:flex; align-items:center; justify-content:center;
-  padding:14px 10px 8px; overflow:hidden;
+  padding:10px 8px 6px; overflow:hidden;
 }
 .logo{
-  --gloss:#fff0ff;
-  font-family: "Audiowide","Impact","Arial Black",sans-serif;
-  font-size:clamp(68px, 13vw, 168px);
-  line-height:.84; letter-spacing:.01em; text-transform:uppercase;
-  /* rubbery texture: multi-layer gradient stack */
+  font-family: "Bungee","Impact","Arial Black",sans-serif;
+  font-size: clamp(52px, 11vw, 140px);
+  line-height:.86; letter-spacing:.01em; text-transform:uppercase;
+
+  /* rubbery candy gradient + faint micro-texture */
   background:
-    radial-gradient(120% 150% at 50% 20%, #ffffff 0%, #ffdffb 25%, #ffafea 48%, #ff77dc 62%, #ff40cf 76%, #c400ad 100%),
-    radial-gradient(60% 40% at 30% 30%, rgba(255,255,255,.65), transparent 60%),
-    repeating-linear-gradient( 135deg, rgba(255,255,255,.08) 0 6px, rgba(0,0,0,.04) 6px 12px);
+    radial-gradient(120% 150% at 50% 22%, #ffffff 0%, #ffdffb 25%, #ffafea 50%, #ff6ed8 70%, #e400bd 88%, #b30097 100%),
+    repeating-linear-gradient( 135deg, rgba(255,255,255,.06) 0 6px, rgba(0,0,0,.05) 6px 12px);
   -webkit-background-clip:text; background-clip:text; color:transparent;
 
-  /* 3D depth stack + inner rubber edge */
+  /* stacked shadows = rounded, rubber 3D edge */
   text-shadow:
      0 1px 0 #fff,
      0 2px 0 #ffd5fa,
@@ -84,18 +82,18 @@ body{
      0 4px 0 #ff99ee,
      0 6px 0 #ff74e0,
      0 8px 0 #ff40cf,
-     0 16px 20px rgba(0,0,0,.55),
-     0 0 0 rgba(0,0,0,0); /* keeps syntax happy */
+     0 12px 0 #d400b8,
+     0 18px 24px rgba(0,0,0,.55);
 
-  filter: saturate(1.28) contrast(1.06) drop-shadow(0 6px 18px rgba(255,64,207,.25));
+  filter: saturate(1.25) contrast(1.06) drop-shadow(0 8px 18px rgba(255,64,207,.25));
   position:relative;
 }
 
-/* glossy swipe */
+/* glossy swipe (kept subtle) */
 .logo::before{
   content:""; position:absolute; inset:-14% -22%;
   background:
-    linear-gradient(75deg, transparent 36%, rgba(255,255,255,.8) 46%, rgba(255,255,255,0) 56%),
+    linear-gradient(75deg, transparent 36%, rgba(255,255,255,.82) 46%, rgba(255,255,255,0) 56%),
     radial-gradient(120px 50px at 28% 30%, rgba(255,255,255,.75), transparent 60%);
   mix-blend-mode:screen;
   transform: translateX(-120%);
@@ -103,11 +101,11 @@ body{
 }
 @keyframes glint{
   0%{ transform: translateX(-120%) }
-  55%{ transform: translateX(22%) }
+  55%{ transform: translateX(20%) }
   100%{ transform: translateX(120%) }
 }
 
-/* tiny sparkles */
+/* sparkles */
 .sparkles{
   pointer-events:none; position:absolute; inset:0;
   filter:drop-shadow(0 0 3px #fff); animation:twinkle-master 6s ease-in-out infinite;
@@ -128,84 +126,83 @@ body{
 
 /* === Nav === */
 .nav{
-  display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:16px 0 8px;
+  display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:12px 0 6px;
 }
 .nav a{
   text-decoration:none; color:#fff; font-weight:700; letter-spacing:.02em;
-  background:linear-gradient(#6c006c,#420042);
-  padding:10px 16px; border:2px solid var(--border); box-shadow:0 0 0 3px #000 inset;
-  border-radius:3px; text-shadow:0 1px 0 #001; font-size:15px;
+  background:linear-gradient(#5a005a,#3b003b);
+  padding:8px 12px; border:1px solid var(--border); box-shadow:0 0 0 2px #000 inset;
+  border-radius:2px; text-shadow:0 1px 0 #001; font-size:14px;
 }
-.nav a:hover{box-shadow:0 0 14px 3px #ff9ef6cc,0 0 0 3px #000 inset; color:#fff}
+.nav a:hover{box-shadow:0 0 12px 2px #ff9ef6cc,0 0 0 2px #000 inset; color:#fff}
 
 /* === Marquee / Ticker (KEEPING YOUR TEXT) === */
 .ticker{
-  overflow:hidden; white-space:nowrap; border:2px solid var(--border);
+  overflow:hidden; white-space:nowrap; border:1px solid var(--border);
   background:linear-gradient(180deg,#330033,#240024);
-  font:700 13px/2.1 Verdana,Tahoma,Arial,sans-serif;
+  font:700 12px/2.0 Verdana,Tahoma,Arial,sans-serif;
   color:#ffdfff; text-transform:uppercase; letter-spacing:.08em; position:relative;
 }
 .ticker span{display:inline-block; padding-left:100%; animation:slide 18s linear infinite}
 @keyframes slide{to{transform:translateX(-100%)}}
 
-/* === Grid === */
-.grid{display:grid; gap:14px; grid-template-columns:1fr}
-@media(min-width:920px){ .grid{grid-template-columns:2fr 1fr} }
+/* === Grid (skinny) === */
+.grid{display:grid; gap:12px; grid-template-columns:1fr}
+@media(min-width:860px){ .grid{grid-template-columns: 2fr 1fr} }
 
 /* === Panels === */
 .panel{
-  border:3px solid var(--border);
+  border:2px solid var(--border);
   background:linear-gradient(180deg,#43004e 0%,#2d0032 60%,#1f001f 100%);
-  box-shadow:0 0 0 3px #000 inset, 0 12px 26px #0007;
-  padding:18px; border-radius:2px;
+  box-shadow:0 0 0 2px #000 inset, 0 10px 20px #0007;
+  padding:14px; border-radius:2px;
 }
 .panel h2{
-  margin:0 0 12px; font:700 17px/1.2 "Verdana",Tahoma,Arial,sans-serif;
+  margin:0 0 10px; font:700 15px/1.2 "Verdana",Tahoma,Arial,sans-serif;
   text-transform:uppercase; letter-spacing:.08em; color:#ffbdfb;
 }
 
 /* === Winamp Player (Decorative) === */
 .winamp{
-  border:2px solid #ff7ef6; background:#1b001d;
-  box-shadow:0 0 0 3px #000 inset; padding:12px;
-  font:13px "Tahoma",Verdana,Arial,sans-serif; color:#ffe5ff;
+  border:1px solid #ff7ef6; background:#1b001d;
+  box-shadow:0 0 0 2px #000 inset; padding:10px;
+  font:12px "Tahoma",Verdana,Arial,sans-serif; color:#ffe5ff;
 }
-.winamp .row{display:flex; align-items:center; gap:10px; margin-top:8px}
+.winamp .row{display:flex; align-items:center; gap:8px; margin-top:6px}
 .btn{
-  display:inline-block; width:26px; height:26px; border:2px solid #ff7ef6; background:#350036;
-  box-shadow:0 0 0 3px #000 inset; text-align:center; line-height:22px; font-weight:700; cursor:pointer; user-select:none;
+  display:inline-block; width:22px; height:22px; border:1px solid #ff7ef6; background:#350036;
+  box-shadow:0 0 0 2px #000 inset; text-align:center; line-height:20px; font-weight:700; cursor:pointer; user-select:none;
 }
 .btn:hover{outline:1px solid #ffbffb}
-.scrubber{flex:1; height:8px; background:#180019; border:2px solid #ff9ef6; box-shadow:0 0 0 3px #000 inset; position:relative}
-.scrubber::after{content:""; position:absolute; top:-4px; left:30%; width:12px; height:12px; background:#ffd0ff; border:2px solid #ff9ef6}
+.scrubber{flex:1; height:6px; background:#180019; border:1px solid #ff9ef6; box-shadow:0 0 0 2px #000 inset; position:relative}
+.scrubber::after{content:""; position:absolute; top:-3px; left:30%; width:10px; height:10px; background:#ffd0ff; border:1px solid #ff9ef6}
 
 /* === Badges === */
-.badges{display:flex; flex-wrap:wrap; gap:8px}
+.badges{display:flex; flex-wrap:wrap; gap:6px}
 .badges a{
-  display:inline-block; width:88px; height:31px; border:2px solid #ff9ef6; box-shadow:0 0 0 3px #000 inset;
+  display:inline-block; width:88px; height:31px; border:1px solid #ff9ef6; box-shadow:0 0 0 2px #000 inset;
   background:#300033; color:#ffbdfb; font:700 10px/31px Verdana; text-align:center; text-decoration:none
 }
 
 /* === Footer === */
 footer{
-  margin:22px 0 40px; text-align:center; color:#ffdfff; font:12px Verdana,Tahoma,Arial,sans-serif;
+  margin:18px 0 32px; text-align:center; color:#ffdfff; font:11px Verdana,Tahoma,Arial,sans-serif;
 }
 footer a{color:var(--link)}
 small.counter{
-  display:inline-block; margin-top:8px; padding:4px 8px; border:2px solid var(--border);
-  background:#1f0022; box-shadow:0 0 0 3px #000 inset; letter-spacing:.2em;
+  display:inline-block; margin-top:6px; padding:3px 6px; border:1px solid var(--border);
+  background:#1f0022; box-shadow:0 0 0 2px #000 inset; letter-spacing:.2em;
 }
 
 /* Utilities */
-hr{border:none; height:2px; background:linear-gradient(90deg,transparent,#ff8ae6,transparent); margin:14px 0}
+hr{border:none; height:1px; background:linear-gradient(90deg,transparent,#ff8ae6,transparent); margin:12px 0}
 a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
-
 </style>
 </head>
 <body>
 <div class="wrapper">
 
-  <!-- HEADER -->
+  <!-- HEADER (opaque) -->
   <header class="site-header">
     <div class="logo-wrap">
       <div class="logo" id="siteLogo">BJ Case</div>
@@ -221,11 +218,11 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
       <a href="#contact">Contact</a>
     </nav>
 
-    <!-- Marquee: KEEPING YOUR EXACT TEXT -->
+    <!-- YOUR EXACT MARQUEE TEXT -->
     <div class="ticker"><span>✧ Welcome to the official BJ Case webzone • New music coming soon • Clicking things since 2003 ✧</span></div>
   </header>
 
-  <!-- CONTENT (hash-routed) -->
+  <!-- CONTENT (hash-routed; keeps your sections) -->
   <main class="grid" id="pageRoot">
 
     <!-- LEFT COLUMN -->
@@ -395,14 +392,12 @@ function render(route){
   document.getElementById("leftTitle").textContent = pages[key].leftTitle;
   document.getElementById("leftContent").innerHTML = pages[key].leftHTML;
   document.getElementById("updatesList").innerHTML = pages[key].updates || pages.home.updates;
-  // Update ticker slightly per page (optional)
-  // document.querySelector(".ticker span").textContent = ...
 }
 function onHash(){ render(location.hash.replace("#","").toLowerCase()); }
 window.addEventListener("hashchange", onHash);
 onHash(); // initial
 
-// Ensure clicking logo returns Home
+// Clicking logo returns Home
 document.getElementById("siteLogo").addEventListener("click", ()=>{location.hash="#home";});
 </script>
 </body>
