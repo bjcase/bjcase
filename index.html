@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>bj case — home</title>
 
-<!-- Orbitron for the logo -->
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+<!-- Fonts: Orbitron (logo) + Atma (section headings) -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Atma:wght@400&display=swap" rel="stylesheet" />
 
 <style>
 /* ===========================================================
@@ -32,7 +32,6 @@ body{
   margin:0; color:var(--ink);
   font-family:Arial,Helvetica,sans-serif;
   background:#000 url('https://sadhost.neocities.org/images/tiles/pinkstars.gif') repeat fixed;
-  /* fun pixel cursor */
   cursor:url('https://cur.cursors-4u.net/cursors/cur-2/cur116.cur'), auto;
 }
 .wrapper{max-width:860px;margin:0 auto;padding:16px}
@@ -42,61 +41,75 @@ body{
   border:2px solid var(--pink);
   background:linear-gradient(180deg,#520061 0%,#36003e 60%,#240024 100%);
   box-shadow:0 0 0 2px #000 inset,0 12px 26px #000c;
-  margin:16px 0 18px; padding:18px; position:relative; overflow:hidden;
+  margin:16px 0 18px; padding:22px 18px 18px; position:relative; overflow:hidden;
 }
 
-/* Logo with shine overlay sweep and side hearts */
+/* Logo with strong text-only shine sweep and side hearts (wider) */
 .logo{
   position:relative;
   font-family:"Orbitron","Arial Black",sans-serif;
   font-size:clamp(36px,8vw,108px);
   text-transform:lowercase;
   text-align:center;
-  /* Layer 1: moving shine sweep; Layer 2: static multicolor gradient */
+  /* Layer 1: shine sweep (on text only) ; Layer 2: static multi gradient */
   background-image:
-    linear-gradient(120deg, transparent 45%, rgba(255,255,255,.85) 50%, transparent 55%),
+    linear-gradient(120deg, transparent 45%, rgba(255,255,255,.98) 50%, transparent 55%),
     linear-gradient(90deg, var(--neon-blue), var(--orange), var(--red), var(--pink), var(--neon-blue));
-  background-size: 200% 100%, 400% 400%;
-  background-position: -150% 0, 0 50%; /* start shine off-left; base fixed */
-  -webkit-background-clip:text; background-clip:text; color:transparent;
-  animation: shineSweep 3.2s linear infinite;
+  background-size: 220% 100%, 400% 400%;
+  background-position: -180% 0, 0 50%;
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
+  animation: logoShine 3s linear infinite;
   text-shadow:0 0 8px var(--neon-blue),0 0 14px var(--pink);
   margin: 0 auto;
-  width: max-content;
+  width:max-content;
 }
-@keyframes shineSweep{
-  0%   { background-position: -150% 0, 0 50%; }
-  100% { background-position:  150% 0, 0 50%; }
+@keyframes logoShine{
+  0%   { background-position: -180% 0, 0 50%; }
+  100% { background-position:  180% 0, 0 50%; }
 }
 
-/* Big hearts flanking the logo */
+/* Big hearts flanking the logo (wider via scaleX). They’re secret links. */
 .logo::before, .logo::after{
   content:"♥";
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  font-size: 0.8em;            /* scales with logo size */
-  line-height:1;
-  color:#fff;
-  text-shadow:
-    0 0 10px var(--pink),
-    0 0 16px var(--neon-blue),
-    0 0 22px var(--pink);
-  filter: saturate(1.2);
+  position:absolute; top:50%; transform:translateY(-50%) scaleX(1.8); /* wider */
+  font-size: 0.9em; line-height:1; color:#fff;
+  text-shadow: 0 0 10px var(--pink), 0 0 16px var(--neon-blue), 0 0 22px var(--pink);
+  filter:saturate(1.2);
+  cursor:pointer;
 }
-.logo::before{ left:-1.2em; }
-.logo::after { right:-1.2em; }
+.logo::before{ left:-1.6em; }
+.logo::after { right:-1.6em; }
+
+/* Click targets for hearts (overlay spans) */
+.header-hotspot{
+  position:absolute; top:50%; width:1.6em; height:1.2em; transform:translateY(-50%);
+  cursor:pointer; background:transparent;
+}
+#hot-left{ left: calc(50% - 7.4ch - 1.6em); }   /* approx left side of text */
+#hot-right{ right: calc(50% - 7.4ch - 1.6em); } /* approx right side */
+
+/* Floating music notes (also secret links) */
+.note{
+  position:absolute; top:10px; font-size:20px; opacity:.9; user-select:none; cursor:pointer;
+  filter: drop-shadow(0 0 6px var(--pink));
+  animation: floatY 4.5s ease-in-out infinite;
+}
+.note:nth-child(1){ left:14px; animation-delay:.2s }
+.note:nth-child(2){ left:44px; animation-delay:1.1s }
+.note:nth-child(3){ right:16px; animation-delay:.6s }
+.note:nth-child(4){ right:46px; animation-delay:1.4s }
+@keyframes floatY{
+  0%,100%{ transform:translateY(0) }
+  50%{ transform:translateY(6px) }
+}
 
 /* ---------- NAV (lighter weight) ---------- */
 .nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:14px 0 8px}
 .nav a{
-  text-decoration:none; color:#fff;
-  font-weight:600; /* lighter */
-  letter-spacing:.02em;
+  text-decoration:none; color:#fff; font-weight:600; letter-spacing:.02em;
   background:linear-gradient(180deg,#3b0050,#220032);
   padding:9px 14px; border:2px solid var(--pink); border-radius:4px;
-  text-shadow:0 1px 0 #001; font-size:15px; position:relative; overflow:hidden;
-  transition:all .25s ease;
+  text-shadow:0 1px 0 #001; font-size:15px; position:relative; overflow:hidden; transition:all .25s ease;
 }
 .nav a:hover{
   border-color:var(--neon-blue); color:var(--neon-blue);
@@ -125,7 +138,9 @@ body{
   padding:16px; border-radius:3px; position:relative; overflow:hidden;
 }
 .panel h2{
-  margin:0 0 12px; font:800 16px/1.2 "Verdana",Tahoma,Arial,sans-serif;
+  margin:0 0 12px;
+  font-family:"Atma", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight:400; font-size:20px; line-height:1.2;
   text-transform:uppercase; letter-spacing:.08em; color:var(--neon-blue);
 }
 hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--neon-blue),transparent); margin:12px 0}
@@ -149,58 +164,18 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 .btn:hover::after{ animation: shine .9s ease; opacity:1 }
 @keyframes shine{ from{ left:-70px } to{ left:120% } }
 
-/* ---------- BADGES (simple links) ---------- */
+/* ---------- BADGES (Quick Links) ---------- */
 .badges{display:flex; flex-wrap:wrap; gap:6px}
 .badges a{
   display:inline-block; padding:6px 10px; border:1px solid var(--pink); box-shadow:0 0 0 2px #000 inset;
   background:#300033; color:#ffbdfb; font:800 10px/1 Verdana; text-align:center; text-decoration:none;
 }
 
-/* ---------- HOLOGRAPHIC STICKERS ---------- */
-.stickers{display:flex;flex-wrap:wrap;gap:10px}
-.sticker{
-  width:120px;height:120px;position:relative;cursor:pointer;
-  border:2px solid var(--pink); box-shadow:0 0 0 2px #000 inset; border-radius:6px;
-  display:flex;align-items:center;justify-content:center; text-align:center;
-  font:700 12px/1 Verdana,Tahoma,Arial,sans-serif; color:#300033;
-  background:linear-gradient(135deg,#fff 0%,#e0b0ff 25%,#a2f0ff 50%,#ffb0d6 75%,#fff 100%);
-  background-size:200% 200%; animation:stickerIridescent 4s ease infinite;
-}
-@keyframes stickerIridescent{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-.sticker .peel{
-  position:absolute; width:42px; height:42px; right:-1px; bottom:-1px;
-  background:linear-gradient(135deg,#fff,#a2f0ff,#ffb0d6);
-  border-left:2px solid var(--pink); border-top:2px solid var(--pink);
-  clip-path:polygon(0 0,100% 0,100% 100%);
-  transform-origin:100% 100%; transition:transform .25s ease;
-}
-.sticker:hover .peel{transform:rotate(-15deg)}
-.sticker.revealed .peel{transform:rotate(-45deg)}
-.sticker .secret{
-  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-  background:#300033; color:#ffbdfb; text-decoration:underline; opacity:0; transition:opacity .3s ease;
-}
-.sticker.revealed .secret{opacity:1}
-
-/* ---------- SIDEBAR WIDGETS ---------- */
-.affiliates a, .blogroll a{display:inline-block; margin:3px 6px 3px 0}
-.sotw{display:flex; gap:10px; align-items:center}
-.sotw .thumb{width:64px; height:64px; background:#ffd1fa; border:2px solid var(--pink); box-shadow:0 0 0 2px #000 inset}
-.webcam{
-  width:100%; height:140px; background:linear-gradient(180deg,#2a0033,#1e0024);
-  border:2px solid var(--pink); box-shadow:0 0 0 2px #000 inset;
-  display:flex; align-items:center; justify-content:center; font:12px Verdana,Tahoma,Arial,sans-serif; color:#ffbdfb;
-}
+/* ---------- POLL: force options on separate lines ---------- */
+.poll label{display:block; margin:6px 0; font:12px Verdana,Tahoma,Arial,sans-serif}
 
 /* ---------- FOOTER ---------- */
 footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,Tahoma,Arial,sans-serif}
-
-/* ---------- POLL: force options on separate lines ---------- */
-.poll label{display:block; margin:6px 0; font:12px Verdana,Tahoma,Arial,sans-serif}
 
 /* ---------- CURSOR GLITTER STARS (multicolor, fast fade) ---------- */
 .cursor-star{
@@ -224,7 +199,18 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 
   <!-- HEADER -->
   <header class="site-header">
-    <div class="logo">bj case</div>
+    <!-- floating notes (secret links) -->
+    <span class="note" data-route="journal">♪</span>
+    <span class="note" data-route="about">♫</span>
+    <span class="note" data-route="music">♪</span>
+    <span class="note" data-route="visuals">♫</span>
+
+    <!-- hearts click areas (left/right) -->
+    <span id="hot-left" class="header-hotspot" data-route="music" title="secret: music"></span>
+    <span id="hot-right" class="header-hotspot" data-route="visuals" title="secret: visuals"></span>
+
+    <div class="logo" id="logo">bj case</div>
+
     <nav class="nav" aria-label="Main">
       <a href="#home">Home</a>
       <a href="#music">Music</a>
@@ -244,11 +230,13 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
       <div id="leftContent">
         <p><strong>bj case</strong> — moody, textured, late-2000s-coded pop. This site is my digital dressing room: handmade, glittery, and unapologetically extra.</p>
         <p><em>Latest drop:</em> <strong>“Performance”</strong> (demo). Cinematic, glossy, and a little dangerous.</p>
+
         <hr />
         <h2>Status</h2>
         <p><strong>Currently:</strong> polishing “Flip Phone” synth stack<br>
         <strong>Listening:</strong> Britney — “Phonography”<br>
         <strong>Mood:</strong> planning + caffeinated</p>
+
         <hr />
         <h2>Now Playing</h2>
         <div class="winamp" role="group" aria-label="Now Playing">
@@ -262,32 +250,28 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
             <div id="nowPlayingTime">02:47</div>
           </div>
         </div>
+
         <hr />
-        <h2>Peel-A-Sticker</h2>
-        <div class="stickers">
-          <div class="sticker">
-            <div>STICKER #1</div><div class="peel"></div>
-            <a class="secret" href="#music">Go to MUSIC →</a>
-          </div>
-          <div class="sticker">
-            <div>STICKER #2</div><div class="peel"></div>
-            <a class="secret" href="#journal">Open JOURNAL →</a>
-          </div>
-          <div class="sticker">
-            <div>STICKER #3</div><div class="peel"></div>
-            <a class="secret" href="#visuals">See VISUALS →</a>
-          </div>
-        </div>
+        <h2>Featured Links</h2>
+        <p>Try clicking the <em>hearts</em> and <em>music notes</em> in the header for hidden jumps. More secrets coming soon.</p>
       </div>
     </section>
 
-    <!-- RIGHT -->
+    <!-- RIGHT (replaced sections) -->
     <aside class="panel" id="rightPane">
-      <h2>Site Updates</h2>
+      <h2>Release Timeline</h2>
+      <ul id="timeline" style="margin:0 0 10px 18px; padding:0;">
+        <li><strong>Winter 2025:</strong> “Performance” demo polish</li>
+        <li><strong>Spring 2026:</strong> “Flip Phone” single</li>
+        <li><strong>Summer 2026:</strong> *Unconventional* drops</li>
+      </ul>
+
+      <hr />
+      <h2>Studio Log</h2>
       <ul id="updatesList" style="margin:0 0 10px 18px; padding:0;">
-        <li><strong>Nov 1, 2025:</strong> Pink glitter background restored</li>
+        <li><strong>Nov 1, 2025:</strong> Header hearts & notes become secret links</li>
+        <li><strong>Nov 1, 2025:</strong> Logo shine sweep added (text-only)</li>
         <li><strong>Oct 31, 2025:</strong> Mobile layout fixed</li>
-        <li><strong>Oct 29, 2025:</strong> “Performance” mix tweaks</li>
       </ul>
 
       <hr />
@@ -313,33 +297,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
       </div>
 
       <hr />
-      <h2>Affiliates</h2>
-      <p class="affiliates">
-        <a href="#">~ the pop lab ~</a>
-        <a href="#">velvet-synth.net</a>
-        <a href="#">gloss-room</a>
-      </p>
-
-      <h2>Blogroll</h2>
-      <p class="blogroll">
-        <a href="#">retro diary</a>
-        <a href="#">studio notes</a>
-        <a href="#">web glitter</a>
-      </p>
-
-      <hr />
-      <h2>Site of the Week</h2>
-      <div class="sotw">
-        <div class="thumb"></div>
-        <div><strong>GLITTER ARCHIVE</strong><br><small>sparkle gifs, button walls</small></div>
-      </div>
-
-      <hr />
-      <h2>Webcam</h2>
-      <div class="webcam">[ faux webcam — coming soon ]</div>
-
-      <hr />
-      <h2>Buttons</h2>
+      <h2>Quick Links</h2>
       <div class="badges" aria-label="Buttons">
         <a href="#journal">Journal</a>
         <a href="#about">About</a>
@@ -364,18 +322,20 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 /* ===== YEAR ===== */
 document.getElementById('y').textContent = new Date().getFullYear();
 
-/* ===== HASH ROUTER (buttons work!) ===== */
+/* ===== HASH ROUTER ===== */
 const pages = {
   home: {
     leftTitle: "Feature",
     leftHTML: `
       <p><strong>bj case</strong> — moody, textured, late-2000s-coded pop. This site is my digital dressing room: handmade, glittery, and unapologetically extra.</p>
       <p><em>Latest drop:</em> <strong>“Performance”</strong> (demo). Cinematic, glossy, and a little dangerous.</p>
+
       <hr />
       <h2>Status</h2>
       <p><strong>Currently:</strong> polishing “Flip Phone” synth stack<br>
       <strong>Listening:</strong> Britney — “Phonography”<br>
       <strong>Mood:</strong> planning + caffeinated</p>
+
       <hr />
       <h2>Now Playing</h2>
       <div class="winamp">
@@ -385,18 +345,15 @@ const pages = {
           <div class="scrubber"></div><div>02:47</div>
         </div>
       </div>
+
       <hr />
-      <h2>Peel-A-Sticker</h2>
-      <div class="stickers">
-        <div class="sticker"><div>STICKER #1</div><div class="peel"></div><a class="secret" href="#music">Go to MUSIC →</a></div>
-        <div class="sticker"><div>STICKER #2</div><div class="peel"></div><a class="secret" href="#journal">Open JOURNAL →</a></div>
-        <div class="sticker"><div>STICKER #3</div><div class="peel"></div><a class="secret" href="#visuals">See VISUALS →</a></div>
-      </div>
+      <h2>Featured Links</h2>
+      <p>Try clicking the <em>hearts</em> and <em>music notes</em> in the header for hidden jumps. More secrets coming soon.</p>
     `,
     updates: `
-      <li><strong>Nov 1, 2025:</strong> Pink glitter background restored</li>
+      <li><strong>Nov 1, 2025:</strong> Hearts & notes become secret links</li>
+      <li><strong>Nov 1, 2025:</strong> Logo shine sweep added</li>
       <li><strong>Oct 31, 2025:</strong> Mobile layout fixed</li>
-      <li><strong>Oct 29, 2025:</strong> “Performance” mix tweaks</li>
     `
   },
   music: {
@@ -421,10 +378,7 @@ const pages = {
         </div>
       </div>
     `,
-    updates: `
-      <li><strong>Nov 1:</strong> Flip Phone synth stack layered</li>
-      <li><strong>Oct 30:</strong> Performance tempo locked @ 106</li>
-    `
+    updates: `<li><strong>Nov 1:</strong> Flip Phone synth stack layered</li>`
   },
   visuals: {
     leftTitle: "Visuals",
@@ -435,7 +389,7 @@ const pages = {
         <li>“Flip Phone” — voicemail intro screens</li>
         <li>Sticker sheet — glitter hearts & secret links</li>
       </ul>
-      <hr /><p>Gallery coming soon — stickers will hide Easter-egg links.</p>
+      <hr /><p>Gallery coming soon — header elements hide Easter-egg links.</p>
     `,
     updates: `<li><strong>Oct 31:</strong> Visual moodboard expanded</li>`
   },
@@ -445,7 +399,7 @@ const pages = {
       <p>Welcome to the web diary. Raw notes, studio days, and sparkly chaos.</p>
       <article>
         <h3>Nov 1, 2025 — New skin, who dis?</h3>
-        <p>Pink glitter returns. Logo glows like candy chrome. I’m obsessed.</p>
+        <p>Pink glitter returns. Logo shines with a clean text-only sweep. Hearts got… wider.</p>
       </article>
     `,
     updates: `<li><strong>Nov 1:</strong> Journal launched</li>`
@@ -474,27 +428,20 @@ function render(route){
   document.getElementById("leftTitle").textContent = pages[key].leftTitle;
   document.getElementById("leftContent").innerHTML = pages[key].leftHTML;
   document.getElementById("updatesList").innerHTML = pages[key].updates || pages.home.updates;
-  // re-wire sticker listeners after content swap
-  wireStickers();
 }
 function onHash(){ render(location.hash.replace("#","").toLowerCase()); }
 window.addEventListener("hashchange", onHash);
 onHash();
 
-/* ===== STICKER TOGGLE ===== */
-function wireStickers(){
-  document.querySelectorAll('.sticker').forEach(s=>{
-    s.addEventListener('click',()=>s.classList.toggle('reavealed')); // typo? no, fix:
-  });
-  // fix accidental typo by rebinding correctly:
-  document.querySelectorAll('.sticker').forEach(s=>{
-    s.addEventListener('click',()=>s.classList.toggle('revealed'));
-  });
-}
-wireStickers();
+/* ===== SECRET LINKS ON HEADER ELEMENTS ===== */
+function routeTo(r){ if(!r) return; location.hash = "#"+r; }
+document.querySelectorAll('[data-route]').forEach(el=>{
+  el.addEventListener('click', ()=> routeTo(el.getAttribute('data-route')));
+});
+document.getElementById('logo').addEventListener('click', ()=> routeTo('home'));
 
 /* ===== POLL (localStorage) ===== */
-const POLL_KEY="bj_poll_v2";
+const POLL_KEY="bj_poll_v3";
 const els = {
   btn: document.getElementById('voteBtn'),
   results: document.getElementById('pollResults'),
