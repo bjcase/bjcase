@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>bj case — home</title>
 
-<!-- Favicons -->
+<!-- Favicons (always included) -->
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -18,11 +18,10 @@
 
 <style>
 /* ===========================================================
-   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.15)
-   - Sidebar align fix
-   - Longer Welcome/Status (page length)
-   - Shoutbox larger + private posts
-   - Single-column pages: longer & aligned
+   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.16)
+   - Fake webcam added to sidebar (Home/Music/Visuals)
+   - Sidebar height synced to main pane on those routes
+   - Single-column pages longer & aligned when sidebar hidden
    - Favicon block embedded
    =========================================================== */
 
@@ -74,7 +73,7 @@ body{
 }
 @keyframes logoShine{0%{background-position:-180% 0,0 50%}100%{background-position:180% 0,0 50%}}
 
-/* Hearts — crisp static, larger hitbox */
+/* Hearts (secret links) */
 .logo::before,.logo::after{
   content:"♥";
   position:absolute; top:50%; transform:translateY(-50%) scaleX(1.3);
@@ -91,7 +90,7 @@ body{
 #hot-left{ left: calc(50% - 7.8ch - 2.2em) }
 #hot-right{ right: calc(50% - 7.8ch - 2.2em) }
 
-/* Decorative music notes (non-clickable, stay in header, away from logo) */
+/* Decorative music notes (strictly in header, away from logo) */
 .note{
   position:absolute; user-select:none; pointer-events:none;
   color:#ffd1fa; text-shadow:0 0 6px var(--pink), 0 0 10px #fff8;
@@ -140,10 +139,10 @@ body{
 @keyframes slide{to{transform:translateX(-100%)}}
 
 /* ---------- GRID ---------- */
-.grid{display:grid; gap:14px; grid-template-columns:2fr 1fr; align-items:start;} /* align sidebar to top */
-.grid.single{ grid-template-columns:1fr; } /* single-column pages */
-#leftPane{ min-height: 620px; }        /* longer default to add page length */
-.grid.single #leftPane{ min-height: 740px; } /* even longer when no sidebar */
+.grid{display:grid; gap:14px; grid-template-columns:2fr 1fr; align-items:start;}
+.grid.single{ grid-template-columns:1fr; }
+#leftPane{ min-height: 640px; }              /* generous length */
+.grid.single #leftPane{ min-height: 780px; } /* longer when no sidebar */
 
 /* ---------- PANELS ---------- */
 .panel{
@@ -162,20 +161,36 @@ body{
 hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--neon-blue),transparent); margin:12px 0}
 a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 
-/* ---------- WINAMP (decorative) ---------- */
-.winamp{
-  border:1px solid #ff7ef6; background:#1b001d;
-  box-shadow:0 0 0 2px #000 inset; padding:10px;
-  font:12px "Tahoma",Verdana,Arial,sans-serif; color:#ffe5ff;
+/* ---------- FAKE WEBCAM ---------- */
+.webcam{
+  border:2px solid #ff7ef6; background:#0d0010;
+  box-shadow:0 0 0 2px #000 inset, 0 0 0 3px #2a0030 inset;
+  padding:10px; border-radius:4px; position:relative; margin-bottom:12px;
 }
-.winamp .row{display:flex; align-items:center; gap:8px; margin-top:6px}
-.btn{
-  display:inline-block; width:22px; height:22px; border:1px solid #ff7ef6; background:#350036;
-  box-shadow:0 0 0 2px #000 inset; text-align:center; line-height:20px; font-weight:800; user-select:none; position:relative; overflow:hidden; cursor:pointer;
+.webcam .bar{
+  display:flex; justify-content:space-between; align-items:center;
+  font:10px Tahoma,Verdana,Arial,sans-serif; color:#ffdfff; opacity:.9; margin-bottom:8px;
 }
-.btn::after{content:""; position:absolute; inset:0; background:linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent); transform:translateX(-120%); opacity:0}
-.btn:hover::after{ animation: shine .9s ease; opacity:1 }
-@keyframes shine{ from{ left:-70px } to{ left:120% } }
+.webcam .rec{
+  display:inline-flex; gap:6px; align-items:center; letter-spacing:.08em; text-transform:uppercase;
+}
+.webcam .dot{
+  width:8px; height:8px; background:#ff4d4d; border-radius:50%;
+  box-shadow:0 0 6px #ff4d4d; animation:blink 1s steps(2,end) infinite;
+}
+@keyframes blink{50%{opacity:.2}}
+.webcam .ts{
+  opacity:.75;
+}
+.webcam .screen{
+  width:100%; aspect-ratio:4/3; background:#120016;
+  border:1px solid #ff7ef6; box-shadow:0 0 0 2px #000 inset;
+  overflow:hidden; position:relative;
+}
+.webcam .screen img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  filter:contrast(1.05) saturate(1.1) brightness(.95);
+}
 
 /* ---------- BADGES ---------- */
 .badges{display:flex; flex-wrap:wrap; gap:6px}
@@ -188,7 +203,7 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 .shoutbox{ margin-top:14px }
 .chat{
   display:flex; flex-direction:column; gap:8px;
-  max-height: 420px; min-height: 240px; /* bigger so earlier seed stays visible */
+  max-height: 460px; min-height: 260px;
   overflow:auto;
   background:#1a001e; border:1px solid #ff7ef6; box-shadow:0 0 0 2px #000 inset; padding:10px; border-radius:4px;
 }
@@ -236,7 +251,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 
   <!-- ========== HEADER ========== -->
   <header class="site-header" id="header">
-    <!-- Decorative music notes (strictly within header, not near logo) -->
+    <!-- Decorative music notes -->
     <!-- left cluster -->
     <span class="note" style="left:10px; top:6px;  font-size:16px; --dur:4.8s; --amp:8px;">♪</span>
     <span class="note" style="left:36px; top:28px; font-size:22px; --dur:4.2s; --amp:6px;">♫</span>
@@ -299,7 +314,6 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
         <h2>Featured Links</h2>
         <p>Try clicking the <em>hearts</em> in the header for hidden jumps. More secrets coming soon.</p>
 
-        <!-- add length content -->
         <hr />
         <h2>Roadmap</h2>
         <ul>
@@ -312,6 +326,18 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 
     <!-- RIGHT (dynamic) -->
     <aside class="panel" id="rightPane">
+      <!-- Fake Webcam -->
+      <div class="webcam">
+        <div class="bar">
+          <div class="rec"><span class="dot"></span> REC</div>
+          <div class="ts" id="ts">00:00:00</div>
+        </div>
+        <div class="screen">
+          <!-- Replace the src below with your looping GIF path -->
+          <img id="webcamFeed" src="/assets/webcam.gif" alt="webcam feed placeholder">
+        </div>
+      </div>
+
       <h2>Release Timeline</h2>
       <ul id="rightBlock1" style="margin:0 0 10px 18px; padding:0;">
         <li><strong>Winter 2025:</strong> “Performance” demo polish</li>
@@ -322,7 +348,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
       <hr />
       <h2>Studio Log</h2>
       <ul id="rightBlock2" style="margin:0 0 10px 18px; padding:0;">
-        <li><strong>Nov 1, 2025:</strong> Header notes + hearts sharpened</li>
+        <li><strong>Nov 2, 2025:</strong> Webcam module added; sidebar height sync</li>
         <li><strong>Nov 1, 2025:</strong> Logo shine sweep (text-only)</li>
         <li><strong>Oct 31, 2025:</strong> Mobile layout fixed</li>
       </ul>
@@ -368,10 +394,8 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
       <button id="clearLocal" style="margin-left:auto; background:#2a0030; color:#ffdfff; border:1px solid var(--pink); padding:6px 10px; border-radius:4px; cursor:pointer;">Clear my local posts</button>
     </div>
     <div class="chat" id="chat">
-      <!-- Seed messages always visible -->
       <div class="bubble"><strong>anon123:</strong> love the sparkle bg! ^_^ <div class="meta">today</div></div>
       <div class="bubble me"><strong>bjcase:</strong> thank you!! new music soon :3 <div class="meta">today</div></div>
-      <!-- Your local posts will render here ONLY if Private view is toggled on -->
     </div>
     <div class="emotes" id="emotes">
       <button type="button">^_^</button><button type="button">>_<</button><button type="button">;_;</button><button type="button">:3</button><button type="button">x_x</button>
@@ -431,6 +455,16 @@ const pages = {
     `,
     rightEnabled: true,
     rightHTML: `
+      <div class="webcam">
+        <div class="bar">
+          <div class="rec"><span class="dot"></span> REC</div>
+          <div class="ts" id="ts2">00:00:00</div>
+        </div>
+        <div class="screen">
+          <img src="/assets/webcam.gif" alt="webcam feed placeholder">
+        </div>
+      </div>
+
       <h2>Release Timeline</h2>
       <ul style="margin:0 0 10px 18px; padding:0;">
         <li><strong>Winter 2025:</strong> “Performance” demo polish</li>
@@ -440,7 +474,7 @@ const pages = {
       <hr />
       <h2>Studio Log</h2>
       <ul style="margin:0 0 10px 18px; padding:0;">
-        <li><strong>Nov 1, 2025:</strong> Header notes + hearts sharpened</li>
+        <li><strong>Nov 2, 2025:</strong> Webcam module added; sidebar height sync</li>
         <li><strong>Nov 1, 2025:</strong> Logo shine sweep (text-only)</li>
         <li><strong>Oct 31, 2025:</strong> Mobile layout fixed</li>
       </ul>
@@ -474,6 +508,11 @@ const pages = {
     `,
     rightEnabled: true,
     rightHTML: `
+      <div class="webcam">
+        <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts3">00:00:00</div></div>
+        <div class="screen"><img src="/assets/webcam.gif" alt="webcam feed placeholder"></div>
+      </div>
+
       <h2>Mix Notes</h2>
       <ul style="margin:0 0 10px 18px; padding:0;">
         <li>Sidechain longer 4/4 bass vs syncopated stabs</li>
@@ -502,6 +541,11 @@ const pages = {
     `,
     rightEnabled: true,
     rightHTML: `
+      <div class="webcam">
+        <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts4">00:00:00</div></div>
+        <div class="screen"><img src="/assets/webcam.gif" alt="webcam feed placeholder"></div>
+      </div>
+
       <h2>Moodboard</h2>
       <ul style="margin:0 0 10px 18px; padding:0;">
         <li>Velvet theatre + chrome gloss</li>
@@ -520,8 +564,8 @@ const pages = {
     leftHTML: `
       <p>Web diary: raw notes, studio days, sparkly chaos.</p>
       <article>
-        <h3>Nov 1, 2025 — New skin, who dis?</h3>
-        <p>Pink glitter returns. Logo shines with a clean text-only sweep. Hearts are crisp and mobile-friendly.</p>
+        <h3>Nov 2, 2025 — Webcam!</h3>
+        <p>Sidebar fake webcam added. Sidebar now snaps to match main-pane height on multi-panel pages.</p>
       </article>
     `,
     rightEnabled: false
@@ -546,18 +590,37 @@ const pages = {
 };
 
 const root = document.getElementById("pageRoot");
+const leftPane = document.getElementById("leftPane");
+const rightPane = document.getElementById("rightPane");
 
+/* ===== Layout helpers ===== */
 function setLayout(single){
   if(single){ root.classList.add("single"); }
   else{ root.classList.remove("single"); }
 }
 
+/* Match sidebar height to left pane (Home/Music/Visuals) */
+function syncSidebarHeight(){
+  const isVisible = rightPane.style.display !== "none";
+  if(!isVisible){ rightPane.style.minHeight = ""; return; }
+  // Match to left pane height
+  rightPane.style.minHeight = leftPane.offsetHeight + "px";
+}
+
+/* Re-sync after fonts/images/layout settle */
+let syncRAF;
+function scheduleSync(){
+  cancelAnimationFrame(syncRAF);
+  syncRAF = requestAnimationFrame(()=> syncSidebarHeight());
+}
+
+/* Mount right column and rewire poll if needed */
 function mountRight(html){
-  const rp = document.getElementById("rightPane");
-  if(!html){ rp.style.display="none"; setLayout(true); return; }
-  rp.style.display=""; setLayout(false);
-  rp.innerHTML = html;
-  // If home: mount poll
+  if(!html){ rightPane.style.display="none"; setLayout(true); scheduleSync(); return; }
+  rightPane.style.display=""; setLayout(false);
+  rightPane.innerHTML = html;
+
+  // If home: mount poll widget
   if(document.getElementById('pollMount')){
     document.getElementById('pollMount').innerHTML = `
       <div class="poll">
@@ -581,17 +644,29 @@ function mountRight(html){
       </div>`;
     wirePoll();
   }
+
+  // After images (e.g., webcam GIF) load, resync heights
+  rightPane.querySelectorAll('img').forEach(img=>{
+    if(img.complete) scheduleSync();
+    else img.addEventListener('load', scheduleSync, {once:true});
+  });
+
+  scheduleSync();
 }
 
+/* Render route */
 function render(route){
   const key = route && pages[route] ? route : "home";
   document.getElementById("leftTitle").textContent = pages[key].leftTitle;
   document.getElementById("leftContent").innerHTML = pages[key].leftHTML;
-  pages[key].rightEnabled ? mountRight(pages[key].rightHTML) : mountRight(null);
+  mountRight(pages[key].rightEnabled ? pages[key].rightHTML : null);
 }
 function onHash(){ render(location.hash.replace("#","").toLowerCase()); }
 window.addEventListener("hashchange", onHash);
 onHash();
+
+/* Resync on window resize */
+window.addEventListener('resize', scheduleSync);
 
 /* ===== SECRET LINKS ON HEARTS ONLY ===== */
 function routeTo(r){ if(!r) return; location.hash = "#"+r; }
@@ -602,7 +677,7 @@ document.getElementById('logo').addEventListener('click', ()=> routeTo('home'));
 
 /* ===== POLL (localStorage) ===== */
 function wirePoll(){
-  const POLL_KEY="bj_poll_v6";
+  const POLL_KEY="bj_poll_v7";
   const els = {
     btn: document.getElementById('voteBtn'),
     results: document.getElementById('pollResults'),
@@ -643,7 +718,6 @@ function wirePoll(){
 
 /* ====== SHOUTBOX (private posts; default hidden) ====== */
 (() => {
-  // One-time cleanup: try to remove any earlier visible storage keys
   try{
     localStorage.removeItem('bj_shout_v1');
     localStorage.removeItem('bj_shout_v2');
@@ -662,9 +736,8 @@ function wirePoll(){
   function save(arr){ localStorage.setItem(SB_KEY, JSON.stringify(arr)) }
 
   function renderPrivate(){
-    // remove any previously rendered private bubbles
     chat.querySelectorAll('.bubble.private').forEach(n=>n.remove());
-    if(!privTgl.checked) return; // hidden by default
+    if(!privTgl.checked) return;
     const arr = load();
     arr.forEach(s=>{
       const div = document.createElement('div');
@@ -691,7 +764,6 @@ function wirePoll(){
   privTgl.addEventListener('change', renderPrivate);
   clearBtn.addEventListener('click', ()=>{ localStorage.removeItem(SB_KEY); renderPrivate(); });
 
-  // Initial: do not show local posts until toggled on
   renderPrivate();
 })();
 
@@ -727,6 +799,22 @@ function wirePoll(){
       setTimeout(()=>star.remove(), 500+Math.random()*200);
     }
   }, {passive:true});
+})();
+
+/* ===== Tiny REC timestamp updater for webcam bars ===== */
+(function recTimers(){
+  const update = (id)=> {
+    const el = document.getElementById(id);
+    if(!el) return;
+    const t = new Date();
+    const h = String(t.getHours()).padStart(2,'0');
+    const m = String(t.getMinutes()).padStart(2,'0');
+    const s = String(t.getSeconds()).padStart(2,'0');
+    el.textContent = `${h}:${m}:${s}`;
+  };
+  setInterval(()=>{
+    ['ts','ts2','ts3','ts4'].forEach(update);
+  }, 1000);
 })();
 </script>
 </body>
