@@ -12,9 +12,16 @@
 <link rel="shortcut icon" href="/favicon.ico">
 <meta name="theme-color" content="#ff9ef6">
 
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Atma:wght@400&display=swap" rel="stylesheet" />
 
 <style>
+/* ===========================================================
+   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX
+   v1.14 — sidebar routes, shoutbox+, chrome buttons, ticker text
+   =========================================================== */
+
+/* ---------- PALETTE ---------- */
 :root{
   --pink:#ff9ef6;
   --neon-blue:#49c9ff;
@@ -23,16 +30,19 @@
   --ink:#ffeaff;
   --link:#ffbffb;
 }
+
+/* ---------- BASE ---------- */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
-  margin:0;color:var(--ink);
+  margin:0; color:var(--ink);
   font-family:Arial,Helvetica,sans-serif;
   background:#000 url('https://sadhost.neocities.org/images/tiles/pinkstars.gif') repeat fixed;
-  cursor:url('https://cur.cursors-4u.net/cursors/cur-2/cur116.cur'),auto;
+  cursor:url('https://cur.cursors-4u.net/cursors/cur-2/cur116.cur'), auto;
 }
 .wrapper{max-width:860px;margin:0 auto;padding:16px}
 
+/* ---------- HEADER ---------- */
 .site-header{
   border:2px solid var(--pink);
   background:linear-gradient(180deg,#520061 0%,#36003e 60%,#240024 100%);
@@ -40,7 +50,7 @@ body{
   margin:16px 0 18px; padding:22px 18px 18px; position:relative; overflow:hidden;
 }
 
-/* --- logo & hearts --- */
+/* Logo with text-only shine and static hearts */
 .logo{
   position:relative;
   font-family:"Orbitron","Arial Black",sans-serif;
@@ -48,113 +58,166 @@ body{
   text-transform:lowercase;
   text-align:center;
   background-image:
-    linear-gradient(120deg,transparent 45%,rgba(255,255,255,.98) 50%,transparent 55%),
-    linear-gradient(90deg,var(--neon-blue),var(--orange),var(--red),var(--pink),var(--neon-blue));
-  background-size:220% 100%,400% 400%;
-  background-position:-180% 0,0 50%;
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  animation:logoShine 3s linear infinite;
+    linear-gradient(120deg, transparent 45%, rgba(255,255,255,.98) 50%, transparent 55%),
+    linear-gradient(90deg, var(--neon-blue), var(--orange), var(--red), var(--pink), var(--neon-blue));
+  background-size: 220% 100%, 400% 400%;
+  background-position: -180% 0, 0 50%;
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
+  animation: logoShine 3s linear infinite;
   text-shadow:0 0 6px var(--neon-blue),0 0 10px var(--pink);
-  margin:0 auto;width:max-content;
+  margin: 0 auto; width:max-content;
 }
 @keyframes logoShine{0%{background-position:-180% 0,0 50%}100%{background-position:180% 0,0 50%}}
 
+/* Hearts — slightly wide, crisp (no blur), larger hitbox */
 .logo::before,.logo::after{
   content:"♥";
-  position:absolute;top:50%;transform:translateY(-50%) scaleX(1.3);
-  font-size:.9em;line-height:1;color:#fff;
-  text-shadow:0 0 4px var(--pink),0 0 8px var(--neon-blue);
+  position:absolute; top:50%; transform:translateY(-50%) scaleX(1.3);
+  font-size:.9em; line-height:1; color:#fff;
+  text-shadow:0 0 4px var(--pink), 0 0 8px var(--neon-blue);
   cursor:pointer;
 }
-.logo::before{left:-1.3em}
-.logo::after{right:-1.3em}
+.logo::before{ left:-1.3em }
+.logo::after { right:-1.3em }
 .header-hotspot{
-  position:absolute;top:50%;width:2.1em;height:1.6em;transform:translateY(-50%);
-  cursor:pointer;background:transparent;
+  position:absolute; top:50%; width:2.1em; height:1.6em; transform:translateY(-50%);
+  cursor:pointer; background:transparent;
 }
-#hot-left{left:calc(50% - 7.8ch - 2.2em)}
-#hot-right{right:calc(50% - 7.8ch - 2.2em)}
+#hot-left{ left: calc(50% - 7.8ch - 2.2em) }
+#hot-right{ right: calc(50% - 7.8ch - 2.2em) }
 
-/* --- decorative notes --- */
+/* Decorative music notes (non-clickable, stay in header, away from logo) */
 .note{
-  position:absolute;user-select:none;pointer-events:none;
-  color:#ffd1fa;text-shadow:0 0 6px var(--pink),0 0 10px #fff8;
-  opacity:.95;animation:floatY var(--dur,4.6s) ease-in-out infinite;
+  position:absolute; user-select:none; pointer-events:none;
+  color:#ffd1fa; text-shadow:0 0 6px var(--pink), 0 0 10px #fff8;
+  opacity:.95; animation: floatY var(--dur,4.6s) ease-in-out infinite;
 }
 @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(var(--amp,7px))}}
 
+/* ---------- NAV — chrome buttons ---------- */
 .nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:14px 0 8px}
 .nav a{
-  text-decoration:none;color:#fff;font-weight:600;letter-spacing:.02em;
-  background:linear-gradient(180deg,#3b0050,#220032);
-  padding:9px 14px;border:2px solid var(--pink);border-radius:4px;
-  text-shadow:0 1px 0 #001;font-size:15px;transition:.25s;
+  --glow: rgba(73,201,255,.65);
+  text-decoration:none; color:#fff; font-weight:700; letter-spacing:.02em;
+  padding:10px 16px; border-radius:6px; position:relative; overflow:hidden;
+  border:2px solid var(--pink);
+  background:
+    linear-gradient(180deg, #4a005f 0%, #2a003d 55%, #1a0026 100%),
+    radial-gradient(120% 100% at 50% 0%, rgba(255,255,255,.25), transparent 60%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.25),
+    inset 0 -6px 12px rgba(0,0,0,.45),
+    0 0 0 2px #000 inset;
+  transition:transform .15s ease, box-shadow .2s ease, border-color .2s ease, color .2s ease;
 }
-.nav a:hover{border-color:var(--neon-blue);color:var(--neon-blue);box-shadow:0 0 10px var(--neon-blue)}
+.nav a::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(120deg, transparent 45%, rgba(255,255,255,.5) 50%, transparent 55%);
+  transform:translateX(-130%); transition:transform .5s ease;
+}
+.nav a:hover{
+  border-color:var(--neon-blue); color:var(--neon-blue);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    inset 0 -6px 14px rgba(0,0,0,.5),
+    0 0 12px var(--glow);
+  transform:translateY(-1px);
+}
+.nav a:hover::after{ transform:translateX(130%) }
 
-.ticker{overflow:hidden;white-space:nowrap;border:2px solid var(--pink);
+/* ---------- TICKER ---------- */
+.ticker{
+  overflow:hidden; white-space:nowrap; border:2px solid var(--pink);
   background:linear-gradient(180deg,#330033,#240024);
-  font:800 13px/2.1 Verdana,Tahoma,Arial,sans-serif;color:#ffdfff;text-transform:uppercase;letter-spacing:.08em}
-.ticker span{display:inline-block;padding-left:100%;animation:slide 18s linear infinite}
+  font:800 13px/2.1 Verdana,Tahoma,Arial,sans-serif; color:#ffdfff; text-transform:uppercase; letter-spacing:.08em;
+}
+.ticker span{display:inline-block; padding-left:100%; animation:slide 18s linear infinite}
 @keyframes slide{to{transform:translateX(-100%)}}
-/* ====== PANELS / CONTENT ====== */
-.grid{display:grid;gap:14px;grid-template-columns:1fr}
-@media(min-width:880px){.grid{grid-template-columns:2fr 1fr}}
+
+/* ---------- GRID ---------- */
+.grid{display:grid; gap:14px; grid-template-columns:1fr}
+@media(min-width:880px){ .grid{grid-template-columns:2fr 1fr} }
+
+/* ---------- PANELS ---------- */
 .panel{
   border:2px solid var(--pink);
   background:linear-gradient(180deg,#3d0055 0%,#21002a 60%,#1a001a 100%);
-  box-shadow:0 0 0 2px #000 inset,0 12px 22px #0007;
-  padding:16px;border-radius:3px;position:relative;overflow:hidden;
+  box-shadow:0 0 0 2px #000 inset, 0 12px 22px #0007;
+  padding:16px; border-radius:3px; position:relative; overflow:hidden;
 }
 .panel h2{
   margin:0 0 12px;
-  font-family:"Atma",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  font-weight:400;font-size:20px;line-height:1.2;
-  text-transform:uppercase;letter-spacing:.08em;color:var(--neon-blue);
+  font-family:"Atma", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight:400; font-size:20px; line-height:1.2;
+  text-transform:uppercase; letter-spacing:.08em; color:var(--neon-blue);
 }
-hr{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--neon-blue),transparent);margin:12px 0}
-a{color:var(--link)}a:hover{color:#fff;text-decoration:underline}
+.panel + .panel{ margin-top:14px } /* stack spacing when single column */
+hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--neon-blue),transparent); margin:12px 0}
+a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 
-/* ====== WINAMP (decorative) ====== */
+/* ---------- WINAMP (decorative) ---------- */
 .winamp{
-  border:1px solid #ff7ef6;background:#1b001d;
-  box-shadow:0 0 0 2px #000 inset;padding:10px;
-  font:12px "Tahoma",Verdana,Arial,sans-serif;color:#ffe5ff;
+  border:1px solid #ff7ef6; background:#1b001d;
+  box-shadow:0 0 0 2px #000 inset; padding:10px;
+  font:12px "Tahoma",Verdana,Arial,sans-serif; color:#ffe5ff;
 }
-.winamp .row{display:flex;align-items:center;gap:8px;margin-top:6px}
+.winamp .row{display:flex; align-items:center; gap:8px; margin-top:6px}
 .btn{
-  display:inline-block;width:22px;height:22px;border:1px solid #ff7ef6;background:#350036;
-  box-shadow:0 0 0 2px #000 inset;text-align:center;line-height:20px;font-weight:800;user-select:none;position:relative;overflow:hidden;cursor:pointer;
+  display:inline-block; width:22px; height:22px; border:1px solid #ff7ef6; background:#350036;
+  box-shadow:0 0 0 2px #000 inset; text-align:center; line-height:20px; font-weight:800; user-select:none; position:relative; overflow:hidden; cursor:pointer;
 }
-.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);transform:translateX(-120%);opacity:0}
-.btn:hover::after{animation:shine .9s ease;opacity:1}
-@keyframes shine{from{left:-70px}to{left:120%}}
+.btn::after{content:""; position:absolute; inset:0; background:linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent); transform:translateX(-120%); opacity:0}
+.btn:hover::after{ animation: shine .9s ease; opacity:1 }
+@keyframes shine{ from{ left:-70px } to{ left:120% } }
 
-/* ====== QUICK LINKS ====== */
-.badges{display:flex;flex-wrap:wrap;gap:6px}
-.badges a{
-  display:inline-block;padding:6px 10px;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset;
-  background:#300033;color:#ffbdfb;font:800 10px/1 Verdana;text-align:center;text-decoration:none;
+/* ---------- BADGES ---------- */
+.badges{display:flex; flex-wrap:wrap; gap:6px}
+.badges a{display:inline-block; padding:6px 10px; border:1px solid var(--pink); box-shadow:0 0 0 2px #000 inset; background:#300033; color:#ffbdfb; font:800 10px/1 Verdana; text-align:center; text-decoration:none}
+
+/* ---------- POLL ---------- */
+.poll label{display:block; margin:6px 0; font:12px Verdana,Tahoma,Arial,sans-serif}
+
+/* ---------- SHOUTBOX (chat-style) ---------- */
+.shoutbox{ margin-top:14px } /* ensure not glued to anything */
+.chat{
+  display:flex; flex-direction:column; gap:8px; max-height:260px; overflow:auto;
+  background:#1a001e; border:1px solid #ff7ef6; box-shadow:0 0 0 2px #000 inset; padding:10px; border-radius:4px;
+}
+.bubble{
+  max-width:92%; padding:8px 10px; border-radius:10px; font:12px Verdana,Tahoma,Arial,sans-serif; line-height:1.3;
+  background:linear-gradient(180deg,#420046,#2a0030); border:1px solid #ff7ef6; box-shadow:0 0 0 2px #000 inset;
+}
+.bubble.me{ align-self:flex-end; background:linear-gradient(180deg,#004a66,#002436); border-color:#49c9ff }
+.meta{ font-size:10px; opacity:.7; margin-top:3px }
+.inputRow{ display:flex; gap:6px; margin-top:10px }
+.inputRow input,.inputRow textarea{
+  flex:1; background:#26002c; color:#ffeaff; border:1px solid #ff7ef6; border-radius:4px; padding:8px; font:12px Verdana,Tahoma,Arial,sans-serif;
+  box-shadow:0 0 0 2px #000 inset;
+}
+.inputRow button{
+  background:linear-gradient(180deg,#6c006c,#420042); color:#fff; border:2px solid var(--pink); border-radius:4px; padding:8px 12px; font-weight:700; cursor:pointer;
+  box-shadow:0 0 0 3px #000 inset;
+}
+.emotes{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px }
+.emotes button{
+  font:12px Verdana,Tahoma,Arial,sans-serif; padding:4px 8px; border:1px solid var(--pink); background:#300033; color:#ffdfff; border-radius:3px; cursor:pointer;
 }
 
-/* ====== POLL (stacked options) ====== */
-.poll label{display:block;margin:6px 0;font:12px Verdana,Tahoma,Arial,sans-serif}
+/* ---------- FOOTER ---------- */
+footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,Tahoma,Arial,sans-serif}
 
-/* ====== FOOTER ====== */
-footer{margin:18px 0 32px;text-align:center;color:#ffdfff;font:12px Verdana,Tahoma,Arial,sans-serif}
-
-/* ====== CURSOR GLITTER ====== */
+/* ---------- CURSOR GLITTER ---------- */
 .cursor-star{
-  position:absolute;width:7px;height:7px;pointer-events:none;
+  position:absolute; width:7px; height:7px; pointer-events:none;
   background:radial-gradient(circle,#fff 0%,transparent 70%);
-  opacity:.95;filter:drop-shadow(0 0 4px currentColor);
+  opacity:.95; filter:drop-shadow(0 0 4px currentColor);
   animation:starFade .5s linear forwards;
 }
 @keyframes starFade{from{transform:scale(1);opacity:.95}to{transform:scale(0);opacity:0}}
 
-/* ====== RESPONSIVE ====== */
+/* ---------- RESPONSIVE ---------- */
 @media(max-width:520px){
-  .nav a{font-size:14px;padding:8px 12px}
+  .nav a{font-size:14px; padding:8px 12px}
   .logo{font-size:clamp(32px,9vw,88px)}
 }
 </style>
@@ -162,9 +225,9 @@ footer{margin:18px 0 32px;text-align:center;color:#ffdfff;font:12px Verdana,Taho
 <body>
 <div class="wrapper">
 
-  <!-- ===== HEADER ===== -->
+  <!-- ========== HEADER ========== -->
   <header class="site-header" id="header">
-    <!-- Decorative music notes (NON-clickable; strictly within header; not near logo) -->
+    <!-- Decorative music notes (strictly within header, not near logo) -->
     <!-- left cluster -->
     <span class="note" style="left:10px; top:6px;  font-size:16px; --dur:4.8s; --amp:8px;">♪</span>
     <span class="note" style="left:36px; top:28px; font-size:22px; --dur:4.2s; --amp:6px;">♫</span>
@@ -175,9 +238,8 @@ footer{margin:18px 0 32px;text-align:center;color:#ffdfff;font:12px Verdana,Taho
     <span class="note" style="right:42px; top:30px;  font-size:14px; --dur:4.0s; --amp:6px;">♪</span>
     <span class="note" style="right:22px; top:66px;  font-size:24px; --dur:5.0s; --amp:7px;">♫</span>
     <span class="note" style="right:78px; top:96px;  font-size:16px; --dur:4.3s; --amp:6px;">♪</span>
-    <!-- NOTE: bottom-corner notes removed per your request -->
 
-    <!-- hearts click areas (left/right) -->
+    <!-- hearts (secret links) -->
     <span id="hot-left"  class="header-hotspot" data-route="music"   title="secret: music"></span>
     <span id="hot-right" class="header-hotspot" data-route="visuals" title="secret: visuals"></span>
 
@@ -192,16 +254,14 @@ footer{margin:18px 0 32px;text-align:center;color:#ffdfff;font:12px Verdana,Taho
       <a href="#contact">Contact</a>
     </nav>
 
-    <div class="ticker">
-      <span>✧ Welcome to the official BJ Case webzone • New music coming soon • Clicking things since 2003 ✧</span>
-    </div>
+    <div class="ticker"><span>✧ Welcome to the official BJ Case webzone • New music coming soon • Chasing dreams since 2003 ✧</span></div>
   </header>
 
-  <!-- ===== MAIN GRID ===== -->
+  <!-- ========== MAIN GRID (left + right; right is dynamic/hideable) ========== -->
   <main class="grid" id="pageRoot">
     <!-- LEFT -->
     <section class="panel" id="leftPane">
-      <h2 id="leftTitle">Feature</h2>
+      <h2 id="leftTitle">Welcome</h2>
       <div id="leftContent">
         <p><strong>bj case</strong> — moody, textured, late-2000s-coded pop. This site is my digital dressing room: handmade, glittery, and unapologetically extra.</p>
         <p><em>Latest drop:</em> <strong>“Performance”</strong> (demo). Cinematic, glossy, and a little dangerous.</p>
@@ -232,10 +292,10 @@ footer{margin:18px 0 32px;text-align:center;color:#ffdfff;font:12px Verdana,Taho
       </div>
     </section>
 
-    <!-- RIGHT -->
+    <!-- RIGHT (dynamic) -->
     <aside class="panel" id="rightPane">
       <h2>Release Timeline</h2>
-      <ul id="timeline" style="margin:0 0 10px 18px; padding:0;">
+      <ul id="rightBlock1" style="margin:0 0 10px 18px; padding:0;">
         <li><strong>Winter 2025:</strong> “Performance” demo polish</li>
         <li><strong>Spring 2026:</strong> “Flip Phone” single</li>
         <li><strong>Summer 2026:</strong> *Unconventional* drops</li>
@@ -243,15 +303,15 @@ footer{margin:18px 0 32px;text-align:center;color:#ffdfff;font:12px Verdana,Taho
 
       <hr />
       <h2>Studio Log</h2>
-      <ul id="updatesList" style="margin:0 0 10px 18px; padding:0;">
-        <li><strong>Nov 1, 2025:</strong> More notes in header; hearts sharpened</li>
-        <li><strong>Nov 1, 2025:</strong> Logo shine sweep added (text-only)</li>
+      <ul id="rightBlock2" style="margin:0 0 10px 18px; padding:0;">
+        <li><strong>Nov 1, 2025:</strong> Header notes + hearts sharpened</li>
+        <li><strong>Nov 1, 2025:</strong> Logo shine sweep (text-only)</li>
         <li><strong>Oct 31, 2025:</strong> Mobile layout fixed</li>
       </ul>
 
       <hr />
       <h2>Poll</h2>
-      <div class="poll">
+      <div class="poll" id="pollArea">
         <label><input type="radio" name="poll" value="performance"> “Performance”</label>
         <label><input type="radio" name="poll" value="flip"> “Flip Phone”</label>
         <label><input type="radio" name="poll" value="look"> “Look But Don’t Touch”</label>
@@ -273,7 +333,7 @@ footer{margin:18px 0 32px;text-align:center;color:#ffdfff;font:12px Verdana,Taho
 
       <hr />
       <h2>Quick Links</h2>
-      <div class="badges" aria-label="Buttons">
+      <div class="badges" aria-label="Buttons" id="rightQuick">
         <a href="#journal">Journal</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
@@ -282,24 +342,45 @@ footer{margin:18px 0 32px;text-align:center;color:#ffdfff;font:12px Verdana,Taho
     </aside>
   </main>
 
-  <!-- SHOUTBOX -->
-  <section class="panel" aria-label="Shoutbox">
+  <!-- ========== SHOUTBOX (chat-style with emoticons) ========== -->
+  <section class="panel shoutbox" aria-label="Shoutbox">
     <h2>Shoutbox</h2>
-    <p><strong>anon123:</strong> love the sparkle bg!</p>
-    <p><strong>bjcase:</strong> thanks!! new music soon.</p>
+    <div class="chat" id="chat">
+      <div class="bubble"><strong>anon123:</strong> love the sparkle bg! ^_^ <div class="meta">today</div></div>
+      <div class="bubble me"><strong>bjcase:</strong> thank you!! new music soon :3 <div class="meta">today</div></div>
+    </div>
+    <div class="emotes" id="emotes">
+      <!-- 2000s emoticons -->
+      <button type="button">^_^</button>
+      <button type="button">>_<</button>
+      <button type="button">;_;</button>
+      <button type="button">:3</button>
+      <button type="button">x_x</button>
+      <button type="button">(>‿<)</button>
+      <button type="button">(ﾉ◕ヮ◕)ﾉ*</button>
+      <button type="button">(づ｡◕‿‿◕｡)づ</button>
+      <button type="button">(~_^)</button>
+      <button type="button">ಠ_ಠ</button>
+    </div>
+    <div class="inputRow">
+      <input id="nameInput" placeholder="name (optional)" />
+      <textarea id="msgInput" rows="2" placeholder="type a message..."></textarea>
+      <button id="sendBtn">Post</button>
+    </div>
   </section>
 
   <!-- FOOTER -->
   <footer>© <span id="y">2025</span> bj case — handmade glitter webzone</footer>
 </div>
+
 <script>
 /* ===== YEAR ===== */
 document.getElementById('y').textContent = new Date().getFullYear();
 
-/* ===== HASH ROUTER ===== */
+/* ===== SIMPLE ROUTER with dynamic RIGHT PANE ===== */
 const pages = {
   home: {
-    leftTitle: "Feature",
+    leftTitle: "Welcome",
     leftHTML: `
       <p><strong>bj case</strong> — moody, textured, late-2000s-coded pop. This site is my digital dressing room: handmade, glittery, and unapologetically extra.</p>
       <p><em>Latest drop:</em> <strong>“Performance”</strong> (demo). Cinematic, glossy, and a little dangerous.</p>
@@ -324,84 +405,163 @@ const pages = {
       <h2>Featured Links</h2>
       <p>Try clicking the <em>hearts</em> in the header for hidden jumps. More secrets coming soon.</p>
     `,
-    updates: `
-      <li><strong>Nov 1, 2025:</strong> More notes in header; hearts sharpened</li>
-      <li><strong>Nov 1, 2025:</strong> Logo shine sweep added</li>
-      <li><strong>Oct 31, 2025:</strong> Mobile layout fixed</li>
+    rightEnabled: true,
+    rightHTML: `
+      <h2>Release Timeline</h2>
+      <ul style="margin:0 0 10px 18px; padding:0;">
+        <li><strong>Winter 2025:</strong> “Performance” demo polish</li>
+        <li><strong>Spring 2026:</strong> “Flip Phone” single</li>
+        <li><strong>Summer 2026:</strong> *Unconventional* drops</li>
+      </ul>
+      <hr />
+      <h2>Studio Log</h2>
+      <ul style="margin:0 0 10px 18px; padding:0;">
+        <li><strong>Nov 1, 2025:</strong> Header notes + hearts sharpened</li>
+        <li><strong>Nov 1, 2025:</strong> Logo shine sweep (text-only)</li>
+        <li><strong>Oct 31, 2025:</strong> Mobile layout fixed</li>
+      </ul>
+      <hr />
+      <h2>Poll</h2>
+      <div id="pollMount"></div>
+      <hr />
+      <h2>Quick Links</h2>
+      <div class="badges">
+        <a href="#journal">Journal</a><a href="#about">About</a><a href="#contact">Contact</a><a href="#music">Music</a>
+      </div>
     `
   },
   music: {
     leftTitle: "Music",
     leftHTML: `
-      <p>Singles, demos, and deep cuts. Expect glossy synths, rubbery bass, and late-2000s tension.</p>
+      <p>Singles, demos, and deep cuts. Glossy synths, rubbery bass, and late-2000s tension.</p>
       <ul>
-        <li><strong>Performance</strong> — demo snippet, cinematic pop noir</li>
+        <li><strong>Performance</strong> — demo snippet</li>
         <li><strong>Flip Phone</strong> — bratty, digital, groovy</li>
         <li><strong>Look But Don’t Touch</strong> — raunchy, glossy attitude</li>
       </ul>
       <hr />
       <h2>Status</h2>
-      <p><strong>Mixing:</strong> lifting mid-bass warmth; tightening clap stacks.<br>
-      <strong>Next:</strong> vocal doubles + delay throws.</p>
+      <p><strong>Mixing:</strong> lift 100–200 Hz warmth; tighten clap stacks.<br><strong>Next:</strong> vocal doubles + delay throws.</p>
       <hr />
       <h2>Player</h2>
-      <div class="winamp"><div>02. bj case — Flip Phone (work in progress)</div>
-        <div class="row">
-          <div class="btn">⏮</div><div class="btn">▶</div><div class="btn">⏸</div><div class="btn">⏭</div>
-          <div class="scrubber"></div><div>03:11</div>
-        </div>
+      <div class="winamp"><div>02. bj case — Flip Phone (WIP)</div>
+        <div class="row"><div class="btn">⏮</div><div class="btn">▶</div><div class="btn">⏸</div><div class="btn">⏭</div><div class="scrubber"></div><div>03:11</div></div>
       </div>
     `,
-    updates: `<li><strong>Nov 1:</strong> Flip Phone synth stack layered</li>`
+    rightEnabled: true,
+    rightHTML: `
+      <h2>Mix Notes</h2>
+      <ul style="margin:0 0 10px 18px; padding:0;">
+        <li>Sidechain longer 4/4 bass vs syncopated stabs</li>
+        <li>Delay throw on “-ance” tail in “Performance”</li>
+        <li>Mono core; stereo for color only</li>
+      </ul>
+      <hr />
+      <h2>Quick Actions</h2>
+      <div class="badges">
+        <a href="#journal">Studio Diary</a>
+        <a href="#visuals">Cover Art</a>
+        <a href="#contact">Bookings</a>
+      </div>
+    `
   },
   visuals: {
     leftTitle: "Visuals",
     leftHTML: `
-      <p>Old-Hollywood theatre meets digital glitch. Lip-gloss chrome, velvet curtains, and neon edges.</p>
+      <p>Old-Hollywood theatre meets digital glitch. Lip-gloss chrome, velvet curtains, neon edges.</p>
       <ul>
-        <li>“Performance” cover — red-curtain single art</li>
+        <li>“Performance” — red-curtain cover</li>
         <li>“Flip Phone” — voicemail intro screens</li>
-        <li>Sticker sheet — glitter hearts & secret links</li>
+        <li>Sticker sheet — glitter hearts & secrets</li>
       </ul>
       <hr /><p>Gallery coming soon — header elements hide Easter-egg links.</p>
     `,
-    updates: `<li><strong>Oct 31:</strong> Visual moodboard expanded</li>`
+    rightEnabled: true,
+    rightHTML: `
+      <h2>Moodboard</h2>
+      <ul style="margin:0 0 10px 18px; padding:0;">
+        <li>Velvet theatre + chrome gloss</li>
+        <li>Pink glitter + neon blue edge</li>
+        <li>2007–2009 pop futurism</li>
+      </ul>
+      <hr />
+      <h2>Quick Links</h2>
+      <div class="badges">
+        <a href="#music">Music</a><a href="#journal">Journal</a><a href="#contact">Contact</a>
+      </div>
+    `
   },
   journal: {
     leftTitle: "Journal",
     leftHTML: `
-      <p>Welcome to the web diary. Raw notes, studio days, and sparkly chaos.</p>
+      <p>Web diary: raw notes, studio days, sparkly chaos.</p>
       <article>
         <h3>Nov 1, 2025 — New skin, who dis?</h3>
-        <p>Pink glitter returns. Logo shines with a clean text-only sweep. Hearts got sharper and click easier on mobile.</p>
+        <p>Pink glitter returns. Logo shines with a clean text-only sweep. Hearts are crisp and mobile-friendly.</p>
       </article>
     `,
-    updates: `<li><strong>Nov 1:</strong> Journal launched</li>`
+    rightEnabled: false
   },
   about: {
     leftTitle: "About",
     leftHTML: `
       <p>I’m <strong>bj case</strong> — a loud, glossy heart with a moody core. Music that feels like midnight chrome.</p>
-      <p>Influences: Britney <em>Blackout/Circus</em>, Bloodshy & Avant, Danja, 2007–2009 pop futurism.</p>
+      <p>Influences: Britney <em>Blackout/Circus</em>, Bloodshy & Avant, Danja, 2007–2009 futurism.</p>
     `,
-    updates: `<li><strong>Oct 29:</strong> Bio stub posted</li>`
+    rightEnabled: false
   },
   contact: {
     leftTitle: "Contact",
     leftHTML: `
-      <p>Say hi — bookings, collabs, or just glitter talk.</p>
+      <p>Say hi — bookings, collabs, or glitter talk.</p>
       <p><strong>Email:</strong> <a href="mailto:hello@bjcase.com">hello@bjcase.com</a></p>
       <p><strong>Guestbook:</strong> hop into the Journal and drop a note.</p>
     `,
-    updates: `<li><strong>Oct 31:</strong> Contact live</li>`
+    rightEnabled: false
   }
 };
+
+function mountRight(html){
+  const rp = document.getElementById("rightPane");
+  if(!html){ rp.style.display="none"; return; }
+  rp.style.display="";
+  rp.innerHTML = html;
+  // If home: re-mount poll UI (so it still works after route change)
+  if(document.getElementById('pollMount')){
+    document.getElementById('pollMount').innerHTML = `
+      <div class="poll">
+        <label><input type="radio" name="poll" value="performance"> “Performance”</label>
+        <label><input type="radio" name="poll" value="flip"> “Flip Phone”</label>
+        <label><input type="radio" name="poll" value="look"> “Look But Don’t Touch”</label>
+        <button id="voteBtn" style="margin-top:6px; padding:8px 12px; font-weight:700; border:2px solid var(--pink);
+          background:linear-gradient(#6c006c,#420042); color:#fff; box-shadow:0 0 0 3px #000 inset; border-radius:3px; cursor:pointer;">
+          Vote
+        </button>
+        <div class="poll-results" id="pollResults" style="display:none; margin-top:8px; font:12px Verdana, Tahoma, Arial, sans-serif">
+          <div>Performance: <span id="pPerf">0%</span></div>
+          <div class="bar" id="bPerf" style="width:0%;height:12px;background:#ff79e9;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset;"></div>
+          <div style="height:6px"></div>
+          <div>Flip Phone: <span id="pFlip">0%</span></div>
+          <div class="bar" id="bFlip" style="width:0%;height:12px;background:#49c9ff;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset;"></div>
+          <div style="height:6px"></div>
+          <div>Look BDT: <span id="pLook">0%</span></div>
+          <div class="bar" id="bLook" style="width:0%;height:12px;background:#ffb35e;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset;"></div>
+        </div>
+      </div>`;
+    wirePoll();
+  }
+}
 
 function render(route){
   const key = route && pages[route] ? route : "home";
   document.getElementById("leftTitle").textContent = pages[key].leftTitle;
   document.getElementById("leftContent").innerHTML = pages[key].leftHTML;
-  document.getElementById("updatesList").innerHTML = pages[key].updates || pages.home.updates;
+
+  if(pages[key].rightEnabled){
+    mountRight(pages[key].rightHTML);
+  } else {
+    mountRight(null);
+  }
 }
 function onHash(){ render(location.hash.replace("#","").toLowerCase()); }
 window.addEventListener("hashchange", onHash);
@@ -410,39 +570,42 @@ onHash();
 /* ===== SECRET LINKS ON HEARTS ONLY ===== */
 function routeTo(r){ if(!r) return; location.hash = "#"+r; }
 document.querySelectorAll('.header-hotspot').forEach(el=>{
-  el.addEventListener('click',()=>routeTo(el.getAttribute('data-route')));
+  el.addEventListener('click', ()=> routeTo(el.getAttribute('data-route')));
 });
-document.getElementById('logo').addEventListener('click',()=>routeTo('home'));
+document.getElementById('logo').addEventListener('click', ()=> routeTo('home'));
 
 /* ===== POLL (localStorage) ===== */
-const POLL_KEY="bj_poll_v4";
-const els = {
-  btn: document.getElementById('voteBtn'),
-  results: document.getElementById('pollResults'),
-  pPerf: document.getElementById('pPerf'),
-  pFlip: document.getElementById('pFlip'),
-  pLook: document.getElementById('pLook'),
-  bPerf: document.getElementById('bPerf'),
-  bFlip: document.getElementById('bFlip'),
-  bLook: document.getElementById('bLook')
-};
-function pollRead(){ try{ return JSON.parse(localStorage.getItem(POLL_KEY))||{performance:0,flip:0,look:0}; }catch(e){ return {performance:0,flip:0,look:0}; } }
-function pollSave(d){ localStorage.setItem(POLL_KEY, JSON.stringify(d)); }
-function pollDraw(d){
-  const t=(d.performance||0)+(d.flip||0)+(d.look||0)||1;
-  const per=v=>Math.round((v||0)/t*100);
-  els.pPerf.textContent=per(d.performance)+"%";
-  els.pFlip.textContent=per(d.flip)+"%";
-  els.pLook.textContent=per(d.look)+"%";
-  els.bPerf.style.width=per(d.performance)+"%";
-  els.bFlip.style.width=per(d.flip)+"%";
-  els.bLook.style.width=per(d.look)+"%";
-  els.results.style.display='block';
-}
-if(els.btn){
+function wirePoll(){
+  const POLL_KEY="bj_poll_v5";
+  const els = {
+    btn: document.getElementById('voteBtn'),
+    results: document.getElementById('pollResults'),
+    pPerf: document.getElementById('pPerf'),
+    pFlip: document.getElementById('pFlip'),
+    pLook: document.getElementById('pLook'),
+    bPerf: document.getElementById('bPerf'),
+    bFlip: document.getElementById('bFlip'),
+    bLook: document.getElementById('bLook')
+  };
+  if(!els.btn) return;
+
+  function pollRead(){ try{ return JSON.parse(localStorage.getItem(POLL_KEY))||{performance:0,flip:0,look:0}; }catch(e){ return {performance:0,flip:0,look:0}; } }
+  function pollSave(d){ localStorage.setItem(POLL_KEY, JSON.stringify(d)); }
+  function pollDraw(d){
+    const t=(d.performance||0)+(d.flip||0)+(d.look||0)||1;
+    const per=v=>Math.round((v||0)/t*100);
+    els.pPerf.textContent=per(d.performance)+"%";
+    els.pFlip.textContent=per(d.flip)+"%";
+    els.pLook.textContent=per(d.look)+"%";
+    els.bPerf.style.width=per(d.performance)+"%";
+    els.bFlip.style.width=per(d.flip)+"%";
+    els.bLook.style.width=per(d.look)+"%";
+    els.results.style.display='block';
+  }
+
   els.btn.addEventListener('click',()=>{
-    const chosen=document.querySelector('input[name="poll"]:checked'); if(!chosen) return;
-    const voted=localStorage.getItem(POLL_KEY+"_voted"); const data=pollRead();
+    const chosen = document.querySelector('input[name="poll"]:checked'); if(!chosen) return;
+    const voted = localStorage.getItem(POLL_KEY+"_voted"); const data=pollRead();
     if(voted){ pollDraw(data); return; }
     if(chosen.value==="performance") data.performance++;
     if(chosen.value==="flip") data.flip++;
@@ -451,37 +614,69 @@ if(els.btn){
   });
   if(localStorage.getItem(POLL_KEY+"_voted")) pollDraw(pollRead());
 }
+wirePoll();
+
+/* ===== SHOUTBOX (localStorage) ===== */
+const SB_KEY="bj_shout_v1";
+const chat = document.getElementById('chat');
+const nameInput = document.getElementById('nameInput');
+const msgInput = document.getElementById('msgInput');
+const sendBtn  = document.getElementById('sendBtn');
+document.querySelectorAll('#emotes button').forEach(b=>{
+  b.addEventListener('click',()=>{ msgInput.value += (msgInput.value ? ' ' : '') + b.textContent; msgInput.focus(); });
+});
+
+function loadShouts(){ try{ return JSON.parse(localStorage.getItem(SB_KEY))||[] }catch(e){ return [] } }
+function saveShouts(arr){ localStorage.setItem(SB_KEY, JSON.stringify(arr)) }
+function renderShouts(){
+  const arr = loadShouts();
+  chat.innerHTML = arr.map(s=>{
+    const me = s.name && s.name.toLowerCase().includes("bj");
+    return `<div class="bubble ${me?'me':''}"><strong>${s.name||'anon'}:</strong> ${s.text}<div class="meta">${s.time}</div></div>`;
+  }).join('') || chat.innerHTML;
+  chat.scrollTop = chat.scrollHeight;
+}
+sendBtn.addEventListener('click', ()=>{
+  const text = msgInput.value.trim(); if(!text) return;
+  const name = nameInput.value.trim() || 'anon';
+  const time = new Date().toLocaleString();
+  const arr = loadShouts(); arr.push({name, text, time}); saveShouts(arr);
+  msgInput.value=''; renderShouts();
+});
+renderShouts();
 
 /* ===== MULTICOLOR CURSOR GLITTER (natural scroll, fast fade) ===== */
 (()=> {
-  const colors=["#ff9ef6","#49c9ff","#ffb35e","#ff4d4d","#ffffff"];
-  let lastT=0;
-  document.addEventListener("mousemove",(e)=>{
-    const now=performance.now(); if(now-lastT<12) return; lastT=now;
-    const star=document.createElement("span");
-    star.className="cursor-star";
-    star.style.left=(window.scrollX+e.clientX-3)+"px";
-    star.style.top =(window.scrollY+e.clientY-3)+"px";
-    const c=colors[(Math.random()*colors.length)|0];
-    star.style.color=c;
-    star.style.background=`radial-gradient(circle, ${c} 0%, transparent 70%)`;
+  const colors = ["#ff9ef6","#49c9ff","#ffb35e","#ff4d4d","#ffffff"];
+  let lastT = 0;
+  document.addEventListener("mousemove", (e)=>{
+    const now = performance.now();
+    if (now - lastT < 12) return;
+    lastT = now;
+    const star = document.createElement("span");
+    star.className = "cursor-star";
+    star.style.left = (window.scrollX + e.clientX - 3) + "px";
+    star.style.top  = (window.scrollY + e.clientY - 3) + "px";
+    const c = colors[(Math.random()*colors.length)|0];
+    star.style.color = c;
+    star.style.background = `radial-gradient(circle, ${c} 0%, transparent 70%)`;
     document.body.appendChild(star);
     setTimeout(()=>{ star.remove(); }, 550);
-  },{passive:true});
+  }, {passive:true});
 
   document.addEventListener("click",(e)=>{
     for(let i=0;i<6;i++){
       const star=document.createElement("span");
       star.className="cursor-star";
-      star.style.left=(window.scrollX+e.clientX+(Math.random()*14-7))+"px";
-      star.style.top =(window.scrollY+e.clientY+(Math.random()*14-7))+"px";
+      star.style.left=(window.scrollX+e.clientX + (Math.random()*14-7))+"px";
+      star.style.top =(window.scrollY+e.clientY + (Math.random()*14-7))+"px";
       const c=colors[(Math.random()*colors.length)|0];
       star.style.color=c;
       star.style.background=`radial-gradient(circle, ${c} 0%, transparent 70%)`;
       document.body.appendChild(star);
       setTimeout(()=>star.remove(), 500+Math.random()*200);
     }
-  },{passive:true});
+  }, {passive:true});
 })();
 </script>
 </body>
