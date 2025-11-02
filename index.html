@@ -18,11 +18,10 @@
 
 <style>
 /* ===========================================================
-   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.16)
-   - Fake webcam added to sidebar (Home/Music/Visuals)
-   - Sidebar height synced to main pane on those routes
-   - Single-column pages longer & aligned when sidebar hidden
-   - Favicon block embedded
+   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.17)
+   - Webcam moved to bottom of sidebar (Home/Music/Visuals)
+   - Winamp "Now Playing" restored with full styling
+   - Left/Right columns height-sync both ways
    =========================================================== */
 
 /* ---------- PALETTE ---------- */
@@ -141,8 +140,8 @@ body{
 /* ---------- GRID ---------- */
 .grid{display:grid; gap:14px; grid-template-columns:2fr 1fr; align-items:start;}
 .grid.single{ grid-template-columns:1fr; }
-#leftPane{ min-height: 640px; }              /* generous length */
-.grid.single #leftPane{ min-height: 780px; } /* longer when no sidebar */
+#leftPane{ min-height: 640px; }
+.grid.single #leftPane{ min-height: 780px; }
 
 /* ---------- PANELS ---------- */
 .panel{
@@ -161,35 +160,30 @@ body{
 hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--neon-blue),transparent); margin:12px 0}
 a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 
-/* ---------- FAKE WEBCAM ---------- */
-.webcam{
-  border:2px solid #ff7ef6; background:#0d0010;
+/* ---------- WINAMP (Now Playing) ---------- */
+.winamp{
+  border:1px solid #ff7ef6; background:#1b001d;
   box-shadow:0 0 0 2px #000 inset, 0 0 0 3px #2a0030 inset;
-  padding:10px; border-radius:4px; position:relative; margin-bottom:12px;
+  padding:10px; border-radius:4px; color:#ffe5ff;
+  font:12px "Tahoma",Verdana,Arial,sans-serif;
 }
-.webcam .bar{
-  display:flex; justify-content:space-between; align-items:center;
-  font:10px Tahoma,Verdana,Arial,sans-serif; color:#ffdfff; opacity:.9; margin-bottom:8px;
-}
-.webcam .rec{
-  display:inline-flex; gap:6px; align-items:center; letter-spacing:.08em; text-transform:uppercase;
-}
-.webcam .dot{
-  width:8px; height:8px; background:#ff4d4d; border-radius:50%;
-  box-shadow:0 0 6px #ff4d4d; animation:blink 1s steps(2,end) infinite;
-}
-@keyframes blink{50%{opacity:.2}}
-.webcam .ts{
-  opacity:.75;
-}
-.webcam .screen{
-  width:100%; aspect-ratio:4/3; background:#120016;
+.winamp .display{
   border:1px solid #ff7ef6; box-shadow:0 0 0 2px #000 inset;
-  overflow:hidden; position:relative;
+  background:#120016; padding:6px 8px; margin-bottom:8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
-.webcam .screen img{
-  width:100%; height:100%; object-fit:cover; display:block;
-  filter:contrast(1.05) saturate(1.1) brightness(.95);
+.winamp .row{display:flex; align-items:center; gap:8px; margin-top:6px}
+.btn{
+  display:inline-block; width:22px; height:22px; border:1px solid #ff7ef6; background:#350036;
+  box-shadow:0 0 0 2px #000 inset; text-align:center; line-height:20px; font-weight:800; user-select:none; position:relative; overflow:hidden; cursor:pointer;
+}
+.btn::after{content:""; position:absolute; inset:0; background:linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent); transform:translateX(-120%); opacity:0}
+.btn:hover::after{ animation: shine .9s ease; opacity:1 }
+@keyframes shine{ from{ left:-70px } to{ left:120% } }
+
+.scrubber{
+  flex:1; height:8px; border:1px solid #ff7ef6; box-shadow:0 0 0 2px #000 inset;
+  background: linear-gradient(90deg,#ff9ef6 0%, #49c9ff 45%, #ffb35e 85%);
+  margin-left:8px; border-radius:2px;
 }
 
 /* ---------- BADGES ---------- */
@@ -198,6 +192,27 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 
 /* ---------- POLL ---------- */
 .poll label{display:block; margin:6px 0; font:12px Verdana,Tahoma,Arial,sans-serif}
+
+/* ---------- FAKE WEBCAM ---------- */
+.webcam{
+  border:2px solid #ff7ef6; background:#0d0010;
+  box-shadow:0 0 0 2px #000 inset, 0 0 0 3px #2a0030 inset;
+  padding:10px; border-radius:4px; position:relative; margin-top:12px;
+}
+.webcam .bar{
+  display:flex; justify-content:space-between; align-items:center;
+  font:10px Tahoma,Verdana,Arial,sans-serif; color:#ffdfff; opacity:.9; margin-bottom:8px;
+}
+.webcam .rec{ display:inline-flex; gap:6px; align-items:center; letter-spacing:.08em; text-transform:uppercase; }
+.webcam .dot{ width:8px; height:8px; background:#ff4d4d; border-radius:50%; box-shadow:0 0 6px #ff4d4d; animation:blink 1s steps(2,end) infinite; }
+@keyframes blink{50%{opacity:.2}}
+.webcam .ts{ opacity:.75; }
+.webcam .screen{
+  width:100%; aspect-ratio:4/3; background:#120016;
+  border:1px solid #ff7ef6; box-shadow:0 0 0 2px #000 inset;
+  overflow:hidden; position:relative;
+}
+.webcam .screen img{ width:100%; height:100%; object-fit:cover; display:block; filter:contrast(1.05) saturate(1.1) brightness(.95); }
 
 /* ---------- SHOUTBOX (chat-style) ---------- */
 .shoutbox{ margin-top:14px }
@@ -299,7 +314,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
         <hr />
         <h2>Now Playing</h2>
         <div class="winamp" role="group" aria-label="Now Playing">
-          <div id="nowPlayingTrack">01. bj case — Performance (demo)</div>
+          <div class="display" id="nowPlayingTrack">01. bj case — Performance (demo)</div>
           <div class="row">
             <div class="btn" title="Prev">⏮</div>
             <div class="btn" title="Play">▶</div>
@@ -326,18 +341,6 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 
     <!-- RIGHT (dynamic) -->
     <aside class="panel" id="rightPane">
-      <!-- Fake Webcam -->
-      <div class="webcam">
-        <div class="bar">
-          <div class="rec"><span class="dot"></span> REC</div>
-          <div class="ts" id="ts">00:00:00</div>
-        </div>
-        <div class="screen">
-          <!-- Replace the src below with your looping GIF path -->
-          <img id="webcamFeed" src="/assets/webcam.gif" alt="webcam feed placeholder">
-        </div>
-      </div>
-
       <h2>Release Timeline</h2>
       <ul id="rightBlock1" style="margin:0 0 10px 18px; padding:0;">
         <li><strong>Winter 2025:</strong> “Performance” demo polish</li>
@@ -348,7 +351,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
       <hr />
       <h2>Studio Log</h2>
       <ul id="rightBlock2" style="margin:0 0 10px 18px; padding:0;">
-        <li><strong>Nov 2, 2025:</strong> Webcam module added; sidebar height sync</li>
+        <li><strong>Nov 2, 2025:</strong> Webcam moved to bottom; Winamp fixed; column sync</li>
         <li><strong>Nov 1, 2025:</strong> Logo shine sweep (text-only)</li>
         <li><strong>Oct 31, 2025:</strong> Mobile layout fixed</li>
       </ul>
@@ -382,6 +385,18 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
         <a href="#music">Music</a>
+      </div>
+
+      <!-- Webcam moved to the very bottom of the sidebar -->
+      <div class="webcam">
+        <div class="bar">
+          <div class="rec"><span class="dot"></span> REC</div>
+          <div class="ts" id="ts">00:00:00</div>
+        </div>
+        <div class="screen">
+          <!-- Replace with your looping GIF -->
+          <img id="webcamFeed" src="/assets/webcam.gif" alt="webcam feed placeholder">
+        </div>
       </div>
     </aside>
   </main>
@@ -434,11 +449,8 @@ const pages = {
       <hr />
       <h2>Now Playing</h2>
       <div class="winamp">
-        <div>01. bj case — Performance (demo)</div>
-        <div class="row">
-          <div class="btn">⏮</div><div class="btn">▶</div><div class="btn">⏸</div><div class="btn">⏭</div>
-          <div class="scrubber"></div><div>02:47</div>
-        </div>
+        <div class="display">01. bj case — Performance (demo)</div>
+        <div class="row"><div class="btn">⏮</div><div class="btn">▶</div><div class="btn">⏸</div><div class="btn">⏭</div><div class="scrubber"></div><div>02:47</div></div>
       </div>
 
       <hr />
@@ -455,16 +467,6 @@ const pages = {
     `,
     rightEnabled: true,
     rightHTML: `
-      <div class="webcam">
-        <div class="bar">
-          <div class="rec"><span class="dot"></span> REC</div>
-          <div class="ts" id="ts2">00:00:00</div>
-        </div>
-        <div class="screen">
-          <img src="/assets/webcam.gif" alt="webcam feed placeholder">
-        </div>
-      </div>
-
       <h2>Release Timeline</h2>
       <ul style="margin:0 0 10px 18px; padding:0;">
         <li><strong>Winter 2025:</strong> “Performance” demo polish</li>
@@ -474,7 +476,7 @@ const pages = {
       <hr />
       <h2>Studio Log</h2>
       <ul style="margin:0 0 10px 18px; padding:0;">
-        <li><strong>Nov 2, 2025:</strong> Webcam module added; sidebar height sync</li>
+        <li><strong>Nov 2, 2025:</strong> Webcam moved to bottom; Winamp fixed; column sync</li>
         <li><strong>Nov 1, 2025:</strong> Logo shine sweep (text-only)</li>
         <li><strong>Oct 31, 2025:</strong> Mobile layout fixed</li>
       </ul>
@@ -485,6 +487,10 @@ const pages = {
       <h2>Quick Links</h2>
       <div class="badges">
         <a href="#journal">Journal</a><a href="#about">About</a><a href="#contact">Contact</a><a href="#music">Music</a>
+      </div>
+      <div class="webcam">
+        <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts2">00:00:00</div></div>
+        <div class="screen"><img src="/assets/webcam.gif" alt="webcam feed placeholder"></div>
       </div>
     `
   },
@@ -502,17 +508,12 @@ const pages = {
       <p><strong>Mixing:</strong> lift 100–200 Hz warmth; tighten clap stacks.<br><strong>Next:</strong> vocal doubles + delay throws.</p>
       <hr />
       <h2>Player</h2>
-      <div class="winamp"><div>02. bj case — Flip Phone (WIP)</div>
+      <div class="winamp"><div class="display">02. bj case — Flip Phone (WIP)</div>
         <div class="row"><div class="btn">⏮</div><div class="btn">▶</div><div class="btn">⏸</div><div class="btn">⏭</div><div class="scrubber"></div><div>03:11</div></div>
       </div>
     `,
     rightEnabled: true,
     rightHTML: `
-      <div class="webcam">
-        <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts3">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif" alt="webcam feed placeholder"></div>
-      </div>
-
       <h2>Mix Notes</h2>
       <ul style="margin:0 0 10px 18px; padding:0;">
         <li>Sidechain longer 4/4 bass vs syncopated stabs</li>
@@ -525,6 +526,10 @@ const pages = {
         <a href="#journal">Studio Diary</a>
         <a href="#visuals">Cover Art</a>
         <a href="#contact">Bookings</a>
+      </div>
+      <div class="webcam">
+        <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts3">00:00:00</div></div>
+        <div class="screen"><img src="/assets/webcam.gif" alt="webcam feed placeholder"></div>
       </div>
     `
   },
@@ -541,11 +546,6 @@ const pages = {
     `,
     rightEnabled: true,
     rightHTML: `
-      <div class="webcam">
-        <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts4">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif" alt="webcam feed placeholder"></div>
-      </div>
-
       <h2>Moodboard</h2>
       <ul style="margin:0 0 10px 18px; padding:0;">
         <li>Velvet theatre + chrome gloss</li>
@@ -557,6 +557,10 @@ const pages = {
       <div class="badges">
         <a href="#music">Music</a><a href="#journal">Journal</a><a href="#contact">Contact</a>
       </div>
+      <div class="webcam">
+        <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts4">00:00:00</div></div>
+        <div class="screen"><img src="/assets/webcam.gif" alt="webcam feed placeholder"></div>
+      </div>
     `
   },
   journal: {
@@ -565,7 +569,7 @@ const pages = {
       <p>Web diary: raw notes, studio days, sparkly chaos.</p>
       <article>
         <h3>Nov 2, 2025 — Webcam!</h3>
-        <p>Sidebar fake webcam added. Sidebar now snaps to match main-pane height on multi-panel pages.</p>
+        <p>Sidebar fake webcam now lives at the bottom. Winamp panel fixed, and columns sync heights.</p>
       </article>
     `,
     rightEnabled: false
@@ -599,19 +603,22 @@ function setLayout(single){
   else{ root.classList.remove("single"); }
 }
 
-/* Match sidebar height to left pane (Home/Music/Visuals) */
-function syncSidebarHeight(){
-  const isVisible = rightPane.style.display !== "none";
-  if(!isVisible){ rightPane.style.minHeight = ""; return; }
-  // Match to left pane height
-  rightPane.style.minHeight = leftPane.offsetHeight + "px";
+/* Match BOTH columns: whichever is taller sets the min-height for the other */
+function syncColumns(){
+  const rightVisible = rightPane.style.display !== "none";
+  if(!rightVisible){ leftPane.style.minHeight=""; return; }
+  const L = leftPane.offsetHeight;
+  const R = rightPane.offsetHeight;
+  const H = Math.max(L,R);
+  leftPane.style.minHeight = H + "px";
+  rightPane.style.minHeight = H + "px";
 }
 
-/* Re-sync after fonts/images/layout settle */
+/* Re-sync after layout settles */
 let syncRAF;
 function scheduleSync(){
   cancelAnimationFrame(syncRAF);
-  syncRAF = requestAnimationFrame(()=> syncSidebarHeight());
+  syncRAF = requestAnimationFrame(syncColumns);
 }
 
 /* Mount right column and rewire poll if needed */
@@ -645,7 +652,7 @@ function mountRight(html){
     wirePoll();
   }
 
-  // After images (e.g., webcam GIF) load, resync heights
+  // Re-sync after images (e.g., webcam GIF) load
   rightPane.querySelectorAll('img').forEach(img=>{
     if(img.complete) scheduleSync();
     else img.addEventListener('load', scheduleSync, {once:true});
@@ -677,7 +684,7 @@ document.getElementById('logo').addEventListener('click', ()=> routeTo('home'));
 
 /* ===== POLL (localStorage) ===== */
 function wirePoll(){
-  const POLL_KEY="bj_poll_v7";
+  const POLL_KEY="bj_poll_v8";
   const els = {
     btn: document.getElementById('voteBtn'),
     results: document.getElementById('pollResults'),
