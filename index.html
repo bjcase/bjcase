@@ -4,6 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>bj case — home</title>
+
 <!-- Favicons -->
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -17,8 +18,12 @@
 
 <style>
 /* ===========================================================
-   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX
-   v1.14 — sidebar routes, shoutbox+, chrome buttons, ticker text
+   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.15)
+   - Sidebar align fix
+   - Longer Welcome/Status (page length)
+   - Shoutbox larger + private posts
+   - Single-column pages: longer & aligned
+   - Favicon block embedded
    =========================================================== */
 
 /* ---------- PALETTE ---------- */
@@ -69,7 +74,7 @@ body{
 }
 @keyframes logoShine{0%{background-position:-180% 0,0 50%}100%{background-position:180% 0,0 50%}}
 
-/* Hearts — slightly wide, crisp (no blur), larger hitbox */
+/* Hearts — crisp static, larger hitbox */
 .logo::before,.logo::after{
   content:"♥";
   position:absolute; top:50%; transform:translateY(-50%) scaleX(1.3);
@@ -135,8 +140,10 @@ body{
 @keyframes slide{to{transform:translateX(-100%)}}
 
 /* ---------- GRID ---------- */
-.grid{display:grid; gap:14px; grid-template-columns:1fr}
-@media(min-width:880px){ .grid{grid-template-columns:2fr 1fr} }
+.grid{display:grid; gap:14px; grid-template-columns:2fr 1fr; align-items:start;} /* align sidebar to top */
+.grid.single{ grid-template-columns:1fr; } /* single-column pages */
+#leftPane{ min-height: 620px; }        /* longer default to add page length */
+.grid.single #leftPane{ min-height: 740px; } /* even longer when no sidebar */
 
 /* ---------- PANELS ---------- */
 .panel{
@@ -151,7 +158,7 @@ body{
   font-weight:400; font-size:20px; line-height:1.2;
   text-transform:uppercase; letter-spacing:.08em; color:var(--neon-blue);
 }
-.panel + .panel{ margin-top:14px } /* stack spacing when single column */
+.panel + .panel{ margin-top:14px }
 hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--neon-blue),transparent); margin:12px 0}
 a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 
@@ -178,9 +185,11 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 .poll label{display:block; margin:6px 0; font:12px Verdana,Tahoma,Arial,sans-serif}
 
 /* ---------- SHOUTBOX (chat-style) ---------- */
-.shoutbox{ margin-top:14px } /* ensure not glued to anything */
+.shoutbox{ margin-top:14px }
 .chat{
-  display:flex; flex-direction:column; gap:8px; max-height:260px; overflow:auto;
+  display:flex; flex-direction:column; gap:8px;
+  max-height: 420px; min-height: 240px; /* bigger so earlier seed stays visible */
+  overflow:auto;
   background:#1a001e; border:1px solid #ff7ef6; box-shadow:0 0 0 2px #000 inset; padding:10px; border-radius:4px;
 }
 .bubble{
@@ -257,14 +266,14 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
     <div class="ticker"><span>✧ Welcome to the official BJ Case webzone • New music coming soon • Chasing dreams since 2003 ✧</span></div>
   </header>
 
-  <!-- ========== MAIN GRID (left + right; right is dynamic/hideable) ========== -->
+  <!-- ========== MAIN GRID (left + right; right dynamic/hideable) ========== -->
   <main class="grid" id="pageRoot">
     <!-- LEFT -->
     <section class="panel" id="leftPane">
       <h2 id="leftTitle">Welcome</h2>
       <div id="leftContent">
         <p><strong>bj case</strong> — moody, textured, late-2000s-coded pop. This site is my digital dressing room: handmade, glittery, and unapologetically extra.</p>
-        <p><em>Latest drop:</em> <strong>“Performance”</strong> (demo). Cinematic, glossy, and a little dangerous.</p>
+        <p><em>Latest drop:</em> <strong>“Performance”</strong> (demo). Cinematic, glossy, and a little dangerous. Crafted in Logic, inspired by 2007–2009 futurism, built to shine in mono with stereo only for color.</p>
 
         <hr />
         <h2>Status</h2>
@@ -289,6 +298,15 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
         <hr />
         <h2>Featured Links</h2>
         <p>Try clicking the <em>hearts</em> in the header for hidden jumps. More secrets coming soon.</p>
+
+        <!-- add length content -->
+        <hr />
+        <h2>Roadmap</h2>
+        <ul>
+          <li>Automation swells, stop-downs, and vocal throws</li>
+          <li>Flip Phone — saw/square stack groove polish</li>
+          <li>Website — secret sticker links & gallery</li>
+        </ul>
       </div>
     </section>
 
@@ -342,31 +360,29 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
     </aside>
   </main>
 
-  <!-- ========== SHOUTBOX (chat-style with emoticons) ========== -->
+  <!-- ========== SHOUTBOX (chat-style with emoticons; private posts) ========== -->
   <section class="panel shoutbox" aria-label="Shoutbox">
     <h2>Shoutbox</h2>
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+      <label style="font:12px Verdana"><input type="checkbox" id="privateToggle"> Private view (show my local posts)</label>
+      <button id="clearLocal" style="margin-left:auto; background:#2a0030; color:#ffdfff; border:1px solid var(--pink); padding:6px 10px; border-radius:4px; cursor:pointer;">Clear my local posts</button>
+    </div>
     <div class="chat" id="chat">
+      <!-- Seed messages always visible -->
       <div class="bubble"><strong>anon123:</strong> love the sparkle bg! ^_^ <div class="meta">today</div></div>
       <div class="bubble me"><strong>bjcase:</strong> thank you!! new music soon :3 <div class="meta">today</div></div>
+      <!-- Your local posts will render here ONLY if Private view is toggled on -->
     </div>
     <div class="emotes" id="emotes">
-      <!-- 2000s emoticons -->
-      <button type="button">^_^</button>
-      <button type="button">>_<</button>
-      <button type="button">;_;</button>
-      <button type="button">:3</button>
-      <button type="button">x_x</button>
-      <button type="button">(>‿<)</button>
-      <button type="button">(ﾉ◕ヮ◕)ﾉ*</button>
-      <button type="button">(づ｡◕‿‿◕｡)づ</button>
-      <button type="button">(~_^)</button>
-      <button type="button">ಠ_ಠ</button>
+      <button type="button">^_^</button><button type="button">>_<</button><button type="button">;_;</button><button type="button">:3</button><button type="button">x_x</button>
+      <button type="button">(>‿<)</button><button type="button">(ﾉ◕ヮ◕)ﾉ*</button><button type="button">(づ｡◕‿‿◕｡)づ</button><button type="button">(~_^)</button><button type="button">ಠ_ಠ</button>
     </div>
     <div class="inputRow">
       <input id="nameInput" placeholder="name (optional)" />
-      <textarea id="msgInput" rows="2" placeholder="type a message..."></textarea>
-      <button id="sendBtn">Post</button>
+      <textarea id="msgInput" rows="2" placeholder="type a message... (saved locally only)"></textarea>
+      <button id="sendBtn">Save</button>
     </div>
+    <p style="font:11px Verdana; opacity:.75; margin-top:8px;">Posts you add are saved to <em>your device only</em> and are hidden by default. Toggle “Private view” to see them.</p>
   </section>
 
   <!-- FOOTER -->
@@ -377,13 +393,13 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 /* ===== YEAR ===== */
 document.getElementById('y').textContent = new Date().getFullYear();
 
-/* ===== SIMPLE ROUTER with dynamic RIGHT PANE ===== */
+/* ===== HASH ROUTER + dynamic layout ===== */
 const pages = {
   home: {
     leftTitle: "Welcome",
     leftHTML: `
       <p><strong>bj case</strong> — moody, textured, late-2000s-coded pop. This site is my digital dressing room: handmade, glittery, and unapologetically extra.</p>
-      <p><em>Latest drop:</em> <strong>“Performance”</strong> (demo). Cinematic, glossy, and a little dangerous.</p>
+      <p><em>Latest drop:</em> <strong>“Performance”</strong> (demo). Cinematic, glossy, and a little dangerous. Crafted in Logic, inspired by 2007–2009 futurism, built to shine in mono with stereo only for color.</p>
 
       <hr />
       <h2>Status</h2>
@@ -404,6 +420,14 @@ const pages = {
       <hr />
       <h2>Featured Links</h2>
       <p>Try clicking the <em>hearts</em> in the header for hidden jumps. More secrets coming soon.</p>
+
+      <hr />
+      <h2>Roadmap</h2>
+      <ul>
+        <li>Automation swells, stop-downs, and vocal throws</li>
+        <li>Flip Phone — saw/square stack groove polish</li>
+        <li>Website — secret sticker links & gallery</li>
+      </ul>
     `,
     rightEnabled: true,
     rightHTML: `
@@ -521,12 +545,19 @@ const pages = {
   }
 };
 
+const root = document.getElementById("pageRoot");
+
+function setLayout(single){
+  if(single){ root.classList.add("single"); }
+  else{ root.classList.remove("single"); }
+}
+
 function mountRight(html){
   const rp = document.getElementById("rightPane");
-  if(!html){ rp.style.display="none"; return; }
-  rp.style.display="";
+  if(!html){ rp.style.display="none"; setLayout(true); return; }
+  rp.style.display=""; setLayout(false);
   rp.innerHTML = html;
-  // If home: re-mount poll UI (so it still works after route change)
+  // If home: mount poll
   if(document.getElementById('pollMount')){
     document.getElementById('pollMount').innerHTML = `
       <div class="poll">
@@ -556,12 +587,7 @@ function render(route){
   const key = route && pages[route] ? route : "home";
   document.getElementById("leftTitle").textContent = pages[key].leftTitle;
   document.getElementById("leftContent").innerHTML = pages[key].leftHTML;
-
-  if(pages[key].rightEnabled){
-    mountRight(pages[key].rightHTML);
-  } else {
-    mountRight(null);
-  }
+  pages[key].rightEnabled ? mountRight(pages[key].rightHTML) : mountRight(null);
 }
 function onHash(){ render(location.hash.replace("#","").toLowerCase()); }
 window.addEventListener("hashchange", onHash);
@@ -576,7 +602,7 @@ document.getElementById('logo').addEventListener('click', ()=> routeTo('home'));
 
 /* ===== POLL (localStorage) ===== */
 function wirePoll(){
-  const POLL_KEY="bj_poll_v5";
+  const POLL_KEY="bj_poll_v6";
   const els = {
     btn: document.getElementById('voteBtn'),
     results: document.getElementById('pollResults'),
@@ -614,36 +640,60 @@ function wirePoll(){
   });
   if(localStorage.getItem(POLL_KEY+"_voted")) pollDraw(pollRead());
 }
-wirePoll();
 
-/* ===== SHOUTBOX (localStorage) ===== */
-const SB_KEY="bj_shout_v1";
-const chat = document.getElementById('chat');
-const nameInput = document.getElementById('nameInput');
-const msgInput = document.getElementById('msgInput');
-const sendBtn  = document.getElementById('sendBtn');
-document.querySelectorAll('#emotes button').forEach(b=>{
-  b.addEventListener('click',()=>{ msgInput.value += (msgInput.value ? ' ' : '') + b.textContent; msgInput.focus(); });
-});
+/* ====== SHOUTBOX (private posts; default hidden) ====== */
+(() => {
+  // One-time cleanup: try to remove any earlier visible storage keys
+  try{
+    localStorage.removeItem('bj_shout_v1');
+    localStorage.removeItem('bj_shout_v2');
+    localStorage.removeItem('bj_shout_v3');
+  }catch(e){}
 
-function loadShouts(){ try{ return JSON.parse(localStorage.getItem(SB_KEY))||[] }catch(e){ return [] } }
-function saveShouts(arr){ localStorage.setItem(SB_KEY, JSON.stringify(arr)) }
-function renderShouts(){
-  const arr = loadShouts();
-  chat.innerHTML = arr.map(s=>{
-    const me = s.name && s.name.toLowerCase().includes("bj");
-    return `<div class="bubble ${me?'me':''}"><strong>${s.name||'anon'}:</strong> ${s.text}<div class="meta">${s.time}</div></div>`;
-  }).join('') || chat.innerHTML;
-  chat.scrollTop = chat.scrollHeight;
-}
-sendBtn.addEventListener('click', ()=>{
-  const text = msgInput.value.trim(); if(!text) return;
-  const name = nameInput.value.trim() || 'anon';
-  const time = new Date().toLocaleString();
-  const arr = loadShouts(); arr.push({name, text, time}); saveShouts(arr);
-  msgInput.value=''; renderShouts();
-});
-renderShouts();
+  const SB_KEY="bj_shout_private";
+  const chat = document.getElementById('chat');
+  const nameInput = document.getElementById('nameInput');
+  const msgInput = document.getElementById('msgInput');
+  const sendBtn  = document.getElementById('sendBtn');
+  const privTgl  = document.getElementById('privateToggle');
+  const clearBtn = document.getElementById('clearLocal');
+
+  function load(){ try{ return JSON.parse(localStorage.getItem(SB_KEY))||[] }catch(e){ return [] } }
+  function save(arr){ localStorage.setItem(SB_KEY, JSON.stringify(arr)) }
+
+  function renderPrivate(){
+    // remove any previously rendered private bubbles
+    chat.querySelectorAll('.bubble.private').forEach(n=>n.remove());
+    if(!privTgl.checked) return; // hidden by default
+    const arr = load();
+    arr.forEach(s=>{
+      const div = document.createElement('div');
+      div.className = 'bubble private me';
+      div.innerHTML = `<strong>${s.name||'me'}:</strong> ${s.text}<div class="meta">${s.time}</div>`;
+      chat.appendChild(div);
+    });
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  document.querySelectorAll('#emotes button').forEach(b=>{
+    b.addEventListener('click',()=>{ msgInput.value += (msgInput.value ? ' ' : '') + b.textContent; msgInput.focus(); });
+  });
+
+  sendBtn.addEventListener('click', ()=>{
+    const text = msgInput.value.trim(); if(!text) return;
+    const name = (nameInput.value.trim() || 'me');
+    const time = new Date().toLocaleString();
+    const arr = load(); arr.push({name, text, time}); save(arr);
+    msgInput.value='';
+    renderPrivate();
+  });
+
+  privTgl.addEventListener('change', renderPrivate);
+  clearBtn.addEventListener('click', ()=>{ localStorage.removeItem(SB_KEY); renderPrivate(); });
+
+  // Initial: do not show local posts until toggled on
+  renderPrivate();
+})();
 
 /* ===== MULTICOLOR CURSOR GLITTER (natural scroll, fast fade) ===== */
 (()=> {
