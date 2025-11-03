@@ -1,65 +1,81 @@
-/* ===============================
-   bjcase.com — Mobile overrides
-   Works for ≤ 850px without
-   touching desktop styles
-   =============================== */
-@media (max-width: 850px){
+/* =======================
+   Mobile / Small screens
+   ======================= */
 
-  /* Base */
-  html,body{margin:0;padding:0;overflow-x:hidden;font-size:15px}
-  .wrapper{max-width:100%;padding:12px}
+/* Phones (<= 480px): stack cleanly */
+@media (max-width: 480px) {
+  .wrapper { padding: 12px; }
 
-  /* Header tighten */
-  .site-header{
-    margin:8px 0 14px;
-    padding:12px 10px;
-    border-width:2px;
-    overflow:hidden; /* keeps notes from overlapping outside */
+  /* Stack layout */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
-  .logo{font-size:clamp(34px,11vw,68px);line-height:1.05;margin:0 auto 8px}
-  .logo::before,.logo::after{
-    font-size:.9em;           /* keep hearts readable */
-    transform:translateY(-50%) scaleX(1.2);
+
+  /* Let each panel breathe and match visual rhythm */
+  #leftPane, #rightPane {
+    min-height: 520px;          /* gives both a similar presence when stacked */
   }
-  .header-hotspot{width:1.9em;height:1.4em}
 
-  /* Music notes: smaller + fewer so they don’t collide */
-  .site-header .note{font-size:14px !important; opacity:.9}
-  .site-header .note:nth-of-type(n+11){display:none} /* hide extras on phones */
+  /* Header tighten to avoid collisions */
+  .site-header { padding: 10px 12px 10px; }
+  .logo { font-size: clamp(28px, 9vw, 64px); }
 
-  /* Nav: neat 2-across grid */
-  .nav{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin:10px 0 6px;
-  }
-  .nav a{padding:12px 10px;font-size:15px;text-align:center}
+  /* Notes scale down slightly so they don't crash into content */
+  .note { opacity: .9; transform: scale(.92); }
 
-  /* Ticker */
-  .ticker{font:800 12px/2 Verdana,Tahoma,Arial,sans-serif;padding:4px 6px}
-  .ticker span{animation-duration:22s}
-
-  /* Main grid: stack columns so the sidebar isn’t skinny */
-  .grid{display:block}
-  #leftPane,#rightPane{width:100% !important;min-height:auto !important}
-  #rightPane{margin-top:12px}
-
-  /* Panels */
-  .panel{padding:14px}
-  .panel h2{font-size:18px}
-
-  /* Webcam aspect on phones */
-  .webcam .screen{aspect-ratio:4/3}
-
-  /* Shoutbox height */
-  .chat{max-height:320px;overflow:auto}
-
-  /* Images scale */
-  img{max-width:100%;height:auto}
+  /* Nav fits two per row nicely */
+  .nav { gap: 8px; }
+  .nav a { flex: 1 1 45%; text-align: center; padding: 8px 10px; font-weight: 700; }
 }
 
-/* Optional: slightly slower marquee when not reduced motion */
-@media (prefers-reduced-motion: no-preference){
-  .ticker span{animation-iteration-count:infinite}
+/* Small tablets / large phones (481px–800px):
+   Keep two columns AND force equal heights */
+@media (min-width: 481px) and (max-width: 800px) {
+  .wrapper { padding: 14px; }
+
+  /* Two-column grid with equal-height rows */
+  .grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;  /* keep your ratio */
+    gap: 14px;
+    grid-auto-rows: 1fr;             /* <<< makes the row height equal to the tallest item */
+    align-items: stretch;            /* stretch both items to full row height */
+  }
+
+  /* Panels stretch to full row height */
+  #leftPane, #rightPane {
+    height: 100%;                    /* <<< equal heights visually */
+    min-height: 560px;               /* gives breathing room on short content */
+  }
+
+  /* Keep the header tight so notes don't overlap nav */
+  .site-header { padding: 10px 14px 10px; }
+  .logo { font-size: clamp(30px, 7.5vw, 72px); }
+
+  /* Reduce note “bob” amplitude a touch to avoid collisions on small heights */
+  .note { --amp: 6px; }
+
+  /* Navigation rows wrap cleanly */
+  .nav { gap: 8px; justify-content: center; }
+  .nav a { padding: 9px 12px; }
+}
+
+/* General small-screen polish shared across mobile widths */
+@media (max-width: 800px) {
+  body { font-size: 16px; margin: 0; }
+
+  /* Ensure panels don’t look cramped */
+  .panel { padding: 14px; }
+
+  /* Webcam keeps aspect and won’t push layout oddly */
+  .webcam .screen { aspect-ratio: 4 / 3; }
+
+  /* Poll stays tidy on narrow widths */
+  .pollbox .poll label { margin: 8px 0; }
+  .voteBtn { width: 100%; }
+
+  /* Ticker text stays readable */
+  .ticker { font: 800 12px/2 Verdana, Tahoma, Arial, sans-serif; }
 }
