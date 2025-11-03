@@ -18,10 +18,12 @@
 
 <style>
 /* ===========================================================
-   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.17)
-   - Webcam moved to bottom of sidebar (Home/Music/Visuals)
-   - Winamp "Now Playing" restored with full styling
-   - Left/Right columns height-sync both ways
+   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.17 + patch)
+   - Header unchanged (original size/margins/padding)
+   - Logo size and heart spacing restored to original
+   - +8 new edge notes (4 per side), spaced like existing
+   - Winamp buttons -> SVG (no emojis)
+   - Text blocks updated per request
    =========================================================== */
 
 /* ---------- PALETTE ---------- */
@@ -72,7 +74,7 @@ body{
 }
 @keyframes logoShine{0%{background-position:-180% 0,0 50%}100%{background-position:180% 0,0 50%}}
 
-/* Hearts (secret links) */
+/* Hearts (secret links) — ORIGINAL spacing */
 .logo::before,.logo::after{
   content:"♥";
   position:absolute; top:50%; transform:translateY(-50%) scaleX(1.3);
@@ -96,6 +98,7 @@ body{
   opacity:.95; animation: floatY var(--dur,4.6s) ease-in-out infinite;
 }
 @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(var(--amp,7px))}}
+
 /* ---------- NAV — chrome buttons ---------- */
 .nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:14px 0 8px}
 .nav a{
@@ -258,7 +261,6 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
   .nav a{font-size:14px; padding:8px 12px}
   .logo{font-size:clamp(32px,9vw,88px)}
 }
-
 </style>
 </head>
 <body>
@@ -266,7 +268,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 
   <!-- ========== HEADER ========== -->
   <header class="site-header" id="header">
-    <!-- Decorative music notes -->
+    <!-- Decorative music notes (original 8) -->
     <!-- left cluster -->
     <span class="note" style="left:10px; top:6px;  font-size:16px; --dur:4.8s; --amp:8px;">♪</span>
     <span class="note" style="left:36px; top:28px; font-size:22px; --dur:4.2s; --amp:6px;">♫</span>
@@ -277,6 +279,18 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
     <span class="note" style="right:42px; top:30px;  font-size:14px; --dur:4.0s; --amp:6px;">♪</span>
     <span class="note" style="right:22px; top:66px;  font-size:24px; --dur:5.0s; --amp:7px;">♫</span>
     <span class="note" style="right:78px; top:96px;  font-size:16px; --dur:4.3s; --amp:6px;">♪</span>
+
+    <!-- NEW: +8 edge notes (4 per side), spaced similarly -->
+    <!-- extra left -->
+    <span class="note" style="left:16px; top:44px; font-size:15px; --dur:4.9s; --amp:6px;">♪</span>
+    <span class="note" style="left:54px; top:18px; font-size:17px; --dur:4.1s; --amp:6px;">♫</span>
+    <span class="note" style="left:12px; top:82px; font-size:16px; --dur:5.2s; --amp:7px;">♪</span>
+    <span class="note" style="left:62px; top:116px;font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
+    <!-- extra right -->
+    <span class="note" style="right:18px; top:44px; font-size:15px; --dur:4.9s; --amp:6px;">♪</span>
+    <span class="note" style="right:56px; top:18px; font-size:17px; --dur:4.1s; --amp:6px;">♫</span>
+    <span class="note" style="right:14px; top:82px; font-size:16px; --dur:5.2s; --amp:7px;">♪</span>
+    <span class="note" style="right:64px; top:116px;font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
 
     <!-- hearts (secret links) -->
     <span id="hot-left"  class="header-hotspot" data-route="music"   title="secret: music"></span>
@@ -302,24 +316,33 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
     <section class="panel" id="leftPane">
       <h2 id="leftTitle">Welcome</h2>
       <div id="leftContent">
-        <p><strong>bj case</strong> — moody, textured, late-2000s-coded pop. This site is my digital dressing room: handmade, glittery, and unapologetically extra.</p>
-        <p><em>Latest drop:</em> <strong>“Performance”</strong> (demo). Cinematic, glossy, and a little dangerous. Crafted in Logic, inspired by 2007–2009 futurism, built to shine in mono with stereo only for color.</p>
+        <p>Hi! My name is BJ. I hope you enjoy my page. This is my own little slice (or perhaps, strand?) of the web. This is my digital diary. My respite from the chaos. Feel free to look around, get lost even. Oh, and btw… I make music! That’s on here if you wanna check it out!! Safe travels :p</p>
 
         <hr />
         <h2>Status</h2>
-        <p><strong>Currently:</strong> polishing “Flip Phone” synth stack<br>
-        <strong>Listening:</strong> Britney — “Phonography”<br>
-        <strong>Mood:</strong> planning + caffeinated</p>
+        <p>
+          Currently: rewatching AHS and working on music<br>
+          Now listening to: Britney — “Phonography”<br>
+          Mood: excited and nervous :D
+        </p>
 
         <hr />
         <h2>Now Playing</h2>
         <div class="winamp" role="group" aria-label="Now Playing">
           <div class="display" id="nowPlayingTrack">01. bj case — Performance (demo)</div>
           <div class="row">
-            <div class="btn" title="Prev">⏮</div>
-            <div class="btn" title="Play">▶</div>
-            <div class="btn" title="Pause">⏸</div>
-            <div class="btn" title="Next">⏭</div>
+            <div class="btn" title="Prev" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M7 5v14H5V5h2zm2 7 10 7V5L9 12z"/></svg>
+            </div>
+            <div class="btn" title="Play" aria-label="Play">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="btn" title="Pause" aria-label="Pause">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+            </div>
+            <div class="btn" title="Next" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17 5v14h2V5h-2zM7 5l10 7-10 7V5z"/></svg>
+            </div>
             <div class="scrubber" title="Scrub (decorative)"></div>
             <div id="nowPlayingTime">02:47</div>
           </div>
@@ -327,14 +350,14 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 
         <hr />
         <h2>Featured Links</h2>
-        <p>Try clicking the <em>hearts</em> in the header for hidden jumps. More secrets coming soon.</p>
+        <p>A little something I’ve learned from my short time on Earth so far is the importance of placing an extreme emphasis on LOVE. ;)</p>
 
         <hr />
         <h2>Roadmap</h2>
         <ul>
           <li>Automation swells, stop-downs, and vocal throws</li>
           <li>Flip Phone — saw/square stack groove polish</li>
-          <li>Website — secret sticker links & gallery</li>
+          <li>Website — secret sticker links &amp; gallery</li>
         </ul>
       </div>
     </section>
@@ -342,11 +365,11 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
     <!-- RIGHT (dynamic) -->
     <aside class="panel" id="rightPane">
       <h2>Release Timeline</h2>
-      <ul id="rightBlock1" style="margin:0 0 10px 18px; padding:0;">
-        <li><strong>Winter 2025:</strong> “Performance” demo polish</li>
-        <li><strong>Spring 2026:</strong> “Flip Phone” single</li>
-        <li><strong>Summer 2026:</strong> *Unconventional* drops</li>
-      </ul>
+      <pre style="margin:0 0 10px 0; white-space:pre-wrap; font-family:inherit;">
+ •Spring 2026: ??
+ •Summer 2026: ???
+ • Autumn 202): ???? 
+      </pre>
 
       <hr />
       <h2>Studio Log</h2>
@@ -437,42 +460,58 @@ const pages = {
   home: {
     leftTitle: "Welcome",
     leftHTML: `
-      <p><strong>bj case</strong> — moody, textured, late-2000s-coded pop. This site is my digital dressing room: handmade, glittery, and unapologetically extra.</p>
-      <p><em>Latest drop:</em> <strong>“Performance”</strong> (demo). Cinematic, glossy, and a little dangerous. Crafted in Logic, inspired by 2007–2009 futurism, built to shine in mono with stereo only for color.</p>
+      <p>Hi! My name is BJ. I hope you enjoy my page. This is my own little slice (or perhaps, strand?) of the web. This is my digital diary. My respite from the chaos. Feel free to look around, get lost even. Oh, and btw… I make music! That’s on here if you wanna check it out!! Safe travels :p</p>
 
       <hr />
       <h2>Status</h2>
-      <p><strong>Currently:</strong> polishing “Flip Phone” synth stack<br>
-      <strong>Listening:</strong> Britney — “Phonography”<br>
-      <strong>Mood:</strong> planning + caffeinated</p>
+      <p>
+        Currently: rewatching AHS and working on music<br>
+        Now listening to: Britney — “Phonography”<br>
+        Mood: excited and nervous :D
+      </p>
 
       <hr />
       <h2>Now Playing</h2>
-      <div class="winamp">
+      <div class="winamp" role="group" aria-label="Now Playing">
         <div class="display">01. bj case — Performance (demo)</div>
-        <div class="row"><div class="btn">⏮</div><div class="btn">▶</div><div class="btn">⏸</div><div class="btn">⏭</div><div class="scrubber"></div><div>02:47</div></div>
+        <div class="row">
+          <div class="btn" title="Prev" aria-label="Previous">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M7 5v14H5V5h2zm2 7 10 7V5L9 12z"/></svg>
+          </div>
+          <div class="btn" title="Play" aria-label="Play">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="btn" title="Pause" aria-label="Pause">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </div>
+          <div class="btn" title="Next" aria-label="Next">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17 5v14h2V5h-2zM7 5l10 7-10 7V5z"/></svg>
+          </div>
+          <div class="scrubber" title="Scrub (decorative)"></div>
+          <div>02:47</div>
+        </div>
       </div>
 
       <hr />
       <h2>Featured Links</h2>
-      <p>Try clicking the <em>hearts</em> in the header for hidden jumps. More secrets coming soon.</p>
+      <p>A little something I’ve learned from my short time on Earth so far is the importance of placing an extreme emphasis on LOVE. ;)</p>
 
       <hr />
       <h2>Roadmap</h2>
       <ul>
         <li>Automation swells, stop-downs, and vocal throws</li>
         <li>Flip Phone — saw/square stack groove polish</li>
-        <li>Website — secret sticker links & gallery</li>
+        <li>Website — secret sticker links &amp; gallery</li>
       </ul>
     `,
     rightEnabled: true,
     rightHTML: `
       <h2>Release Timeline</h2>
-      <ul style="margin:0 0 10px 18px; padding:0;">
-        <li><strong>Winter 2025:</strong> “Performance” demo polish</li>
-        <li><strong>Spring 2026:</strong> “Flip Phone” single</li>
-        <li><strong>Summer 2026:</strong> *Unconventional* drops</li>
-      </ul>
+      <pre style="margin:0 0 10px 0; white-space:pre-wrap; font-family:inherit;">
+ •Spring 2026: ??
+ •Summer 2026: ???
+ • Autumn 202): ???? 
+      </pre>
       <hr />
       <h2>Studio Log</h2>
       <ul style="margin:0 0 10px 18px; padding:0;">
@@ -482,7 +521,25 @@ const pages = {
       </ul>
       <hr />
       <h2>Poll</h2>
-      <div id="pollMount"></div>
+      <div class="poll">
+        <label><input type="radio" name="poll" value="performance"> “Performance”</label>
+        <label><input type="radio" name="poll" value="flip"> “Flip Phone”</label>
+        <label><input type="radio" name="poll" value="look"> “Look But Don’t Touch”</label>
+        <button id="voteBtnHome" style="margin-top:6px; padding:8px 12px; font-weight:700; border:2px solid var(--pink);
+          background:linear-gradient(#6c006c,#420042); color:#fff; box-shadow:0 0 0 3px #000 inset; border-radius:3px; cursor:pointer;">
+          Vote
+        </button>
+        <div class="poll-results" id="pollResultsHome" style="display:none; margin-top:8px; font:12px Verdana, Tahoma, Arial, sans-serif">
+          <div>Performance: <span id="pPerfHome">0%</span></div>
+          <div class="bar" id="bPerfHome" style="width:0%;height:12px;background:#ff79e9;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset;"></div>
+          <div style="height:6px"></div>
+          <div>Flip Phone: <span id="pFlipHome">0%</span></div>
+          <div class="bar" id="bFlipHome" style="width:0%;height:12px;background:#49c9ff;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset;"></div>
+          <div style="height:6px"></div>
+          <div>Look BDT: <span id="pLookHome">0%</span></div>
+          <div class="bar" id="bLookHome" style="width:0%;height:12px;background:#ffb35e;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset;"></div>
+        </div>
+      </div>
       <hr />
       <h2>Quick Links</h2>
       <div class="badges">
@@ -508,8 +565,23 @@ const pages = {
       <p><strong>Mixing:</strong> lift 100–200 Hz warmth; tighten clap stacks.<br><strong>Next:</strong> vocal doubles + delay throws.</p>
       <hr />
       <h2>Player</h2>
-      <div class="winamp"><div class="display">02. bj case — Flip Phone (WIP)</div>
-        <div class="row"><div class="btn">⏮</div><div class="btn">▶</div><div class="btn">⏸</div><div class="btn">⏭</div><div class="scrubber"></div><div>03:11</div></div>
+      <div class="winamp" role="group" aria-label="Player">
+        <div class="display">02. bj case — Flip Phone (WIP)</div>
+        <div class="row">
+          <div class="btn" title="Prev" aria-label="Previous">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M7 5v14H5V5h2zm2 7 10 7V5L9 12z"/></svg>
+          </div>
+          <div class="btn" title="Play" aria-label="Play">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="btn" title="Pause" aria-label="Pause">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </div>
+          <div class="btn" title="Next" aria-label="Next">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17 5v14h2V5h-2zM7 5l10 7-10 7V5z"/></svg>
+          </div>
+          <div class="scrubber"></div><div>03:11</div>
+        </div>
       </div>
     `,
     rightEnabled: true,
@@ -627,29 +699,10 @@ function mountRight(html){
   rightPane.style.display=""; setLayout(false);
   rightPane.innerHTML = html;
 
-  // If home: mount poll widget
-  if(document.getElementById('pollMount')){
-    document.getElementById('pollMount').innerHTML = `
-      <div class="poll">
-        <label><input type="radio" name="poll" value="performance"> “Performance”</label>
-        <label><input type="radio" name="poll" value="flip"> “Flip Phone”</label>
-        <label><input type="radio" name="poll" value="look"> “Look But Don’t Touch”</label>
-        <button id="voteBtn" style="margin-top:6px; padding:8px 12px; font-weight:700; border:2px solid var(--pink);
-          background:linear-gradient(#6c006c,#420042); color:#fff; box-shadow:0 0 0 3px #000 inset; border-radius:3px; cursor:pointer;">
-          Vote
-        </button>
-        <div class="poll-results" id="pollResults" style="display:none; margin-top:8px; font:12px Verdana, Tahoma, Arial, sans-serif">
-          <div>Performance: <span id="pPerf">0%</span></div>
-          <div class="bar" id="bPerf" style="width:0%;height:12px;background:#ff79e9;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset;"></div>
-          <div style="height:6px"></div>
-          <div>Flip Phone: <span id="pFlip">0%</span></div>
-          <div class="bar" id="bFlip" style="width:0%;height:12px;background:#49c9ff;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset;"></div>
-          <div style="height:6px"></div>
-          <div>Look BDT: <span id="pLook">0%</span></div>
-          <div class="bar" id="bLook" style="width:0%;height:12px;background:#ffb35e;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset;"></div>
-        </div>
-      </div>`;
-    wirePoll();
+  // If home: wire home-poll
+  const btn = rightPane.querySelector('#voteBtnHome');
+  if(btn){
+    wirePoll('#voteBtnHome','#pollResultsHome','#pPerfHome','#pFlipHome','#pLookHome','#bPerfHome','#bFlipHome','#bLookHome','bj_poll_home');
   }
 
   // Re-sync after images (e.g., webcam GIF) load
@@ -683,23 +736,22 @@ document.querySelectorAll('.header-hotspot').forEach(el=>{
 document.getElementById('logo').addEventListener('click', ()=> routeTo('home'));
 
 /* ===== POLL (localStorage) ===== */
-function wirePoll(){
-  const POLL_KEY="bj_poll_v8";
+function wirePoll(btnSel,resSel,pPerfSel,pFlipSel,pLookSel,bPerfSel,bFlipSel,bLookSel,KEY){
   const els = {
-    btn: document.getElementById('voteBtn'),
-    results: document.getElementById('pollResults'),
-    pPerf: document.getElementById('pPerf'),
-    pFlip: document.getElementById('pFlip'),
-    pLook: document.getElementById('pLook'),
-    bPerf: document.getElementById('bPerf'),
-    bFlip: document.getElementById('bFlip'),
-    bLook: document.getElementById('bLook')
+    btn: document.querySelector(btnSel),
+    results: document.querySelector(resSel),
+    pPerf: document.querySelector(pPerfSel),
+    pFlip: document.querySelector(pFlipSel),
+    pLook: document.querySelector(pLookSel),
+    bPerf: document.querySelector(bPerfSel),
+    bFlip: document.querySelector(bFlipSel),
+    bLook: document.querySelector(bLookSel)
   };
   if(!els.btn) return;
 
-  function pollRead(){ try{ return JSON.parse(localStorage.getItem(POLL_KEY))||{performance:0,flip:0,look:0}; }catch(e){ return {performance:0,flip:0,look:0}; } }
-  function pollSave(d){ localStorage.setItem(POLL_KEY, JSON.stringify(d)); }
-  function pollDraw(d){
+  function read(){ try{ return JSON.parse(localStorage.getItem(KEY))||{performance:0,flip:0,look:0}; }catch(e){ return {performance:0,flip:0,look:0}; } }
+  function save(d){ localStorage.setItem(KEY, JSON.stringify(d)); }
+  function draw(d){
     const t=(d.performance||0)+(d.flip||0)+(d.look||0)||1;
     const per=v=>Math.round((v||0)/t*100);
     els.pPerf.textContent=per(d.performance)+"%";
@@ -713,15 +765,17 @@ function wirePoll(){
 
   els.btn.addEventListener('click',()=>{
     const chosen = document.querySelector('input[name="poll"]:checked'); if(!chosen) return;
-    const voted = localStorage.getItem(POLL_KEY+"_voted"); const data=pollRead();
-    if(voted){ pollDraw(data); return; }
+    const voted = localStorage.getItem(KEY+"_voted"); const data=read();
+    if(voted){ draw(data); return; }
     if(chosen.value==="performance") data.performance++;
     if(chosen.value==="flip") data.flip++;
     if(chosen.value==="look") data.look++;
-    pollSave(data); localStorage.setItem(POLL_KEY+"_voted","1"); pollDraw(data);
+    save(data); localStorage.setItem(KEY+"_voted","1"); draw(data);
   });
-  if(localStorage.getItem(POLL_KEY+"_voted")) pollDraw(pollRead());
+  if(localStorage.getItem(KEY+"_voted")) draw(read());
 }
+// Mount poll in the static right column too
+wirePoll('#voteBtn','#pollResults','#pPerf','#pFlip','#pLook','#bPerf','#bFlip','#bLook','bj_poll_right');
 
 /* ====== SHOUTBOX (private posts; default hidden) ====== */
 (() => {
