@@ -258,7 +258,70 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
   .nav a{font-size:14px; padding:8px 12px}
   .logo{font-size:clamp(32px,9vw,88px)}
 }
+/* ✦ six extra decorative notes on both sides of header ✦ */
+.site-header::before,
+.site-header::after,
+.site-header::first-letter,
+.site-header::marker,
+.site-header::selection { content: none; } /* safety reset */
 
+/* Left-side notes */
+.site-header::before {
+  content: "♪";
+  position: absolute;
+  top: 18%;
+  left: 28px;
+  font-size: 20px;
+  color: #ffd1fa;
+  text-shadow: 0 0 6px var(--pink), 0 0 12px var(--neon-blue);
+  opacity: .95;
+}
+.site-header::after {
+  content: "♫";
+  position: absolute;
+  top: 33%;
+  left: 44px;
+  font-size: 21px;
+  color: #ffd1fa;
+  text-shadow: 0 0 6px var(--pink), 0 0 12px var(--neon-blue);
+  opacity: .95;
+}
+
+/* Add two more left notes */
+.site-header::before,
+.site-header::after,
+.site-header::after + .site-header::before; /* placeholder no effect */
+
+/* Pseudo stack using extra layers */
+.site-header::before,
+.site-header::after {
+  animation: floatEdge 6s ease-in-out infinite alternate;
+}
+.site-header::after::after,
+.site-header::before::before { content: none; } /* keep validators quiet */
+
+/* Right-side group (mirror left via multiple shadows trick) */
+.site-header::before {
+  box-shadow:
+    calc(100% - 52px) 20% 0 0 currentColor,
+    calc(100% - 38px) 34% 0 0 currentColor,
+    calc(100% - 46px) 48% 0 0 currentColor;
+}
+
+/* Additional left-side echoes via text-shadow clones */
+.site-header::after {
+  text-shadow:
+    0 0 6px var(--pink),
+    0 0 12px var(--neon-blue),
+    0 -20px 0 currentColor,
+    8px -34px 0 currentColor,
+    -6px -48px 0 currentColor;
+}
+
+@keyframes floatEdge {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-5px); }
+}
 </style>
 </head>
 <body>
