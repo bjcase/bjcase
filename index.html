@@ -6,11 +6,11 @@
 <title>bj case — home</title>
 
 <!-- Favicons (always included, cache-busted) -->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.20.7">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1.20.7">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1.20.7">
-<link rel="manifest" href="/site.webmanifest?v=1.20.7">
-<link rel="shortcut icon" href="/favicon.ico?v=1.20.7">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.21.0">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1.21.0">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1.21.0">
+<link rel="manifest" href="/site.webmanifest?v=1.21.0">
+<link rel="shortcut icon" href="/favicon.ico?v=1.21.0">
 <meta name="theme-color" content="#ff9ef6">
 
 <!-- Cache hints -->
@@ -23,21 +23,22 @@
 
 <style>
 /* ===========================================================
-   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.20.7)
-   - Hearts secret routes (lowercase) working
-   - PONG: responsive canvas, arrow-keys no-scroll, all borders bounce
-   - Music page intro text replaced; Status removed on Music
+   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.21.0)
+   - Pong: score to 7, win/lose, arrow keys no-scroll
+   - Music: no player, text + “— BJ”
+   - Roadmap/Studio Log/Visuals/About/Contact replaced
+   - Webcam REC/time: bright red, no colored line
    =========================================================== */
 
 /* ---------- PALETTE ---------- */
 :root{
   --pink:#ff9ef6;
-  --pink-dark:#d24fbf;
   --neon-blue:#49c9ff;
   --orange:#ffb35e;
   --red:#ff4d4d;
   --ink:#ffeaff;
   --link:#ffbffb;
+  --bright-red:#ff3b3b;
 }
 
 /* ---------- BASE ---------- */
@@ -52,20 +53,19 @@ body{
 .wrapper{max-width:860px;margin:0 auto;padding:16px}
 a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 
-/* ---------- HEADER (tight vertical) ---------- */
+/* ---------- HEADER (tight) ---------- */
 .site-header{
   border:2px solid var(--pink);
   background:linear-gradient(180deg,#520061 0%,#36003e 60%,#240024 100%);
   box-shadow:0 0 0 2px #000 inset,0 12px 26px #000c;
-  margin:16px 0 18px;
-  padding:10px 18px 10px; /* tighter vertically */
+  margin:16px 0 18px; padding:10px 18px 10px;
   position:relative; overflow:hidden;
 }
 
-/* Logo + Hearts wrapper */
 .logo-wrap{
   position:relative; display:flex; align-items:center; justify-content:center;
-  gap:.9em; width:100%; margin:0 auto 6px; z-index:3;
+  gap:1.3em; /* wider spacing per your earlier preference */
+  width:100%; margin:0 auto 6px; z-index:3;
 }
 .heart{
   display:inline-block; text-decoration:none; line-height:1;
@@ -97,7 +97,6 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 }
 @keyframes logoShine{0%{background-position:-180% 0,0 50%}100%{background-position:180% 0,0 50%}}
 
-/* Notes stay behind hearts/logo, away from center text */
 .note{
   position:absolute; user-select:none; pointer-events:none; z-index:1;
   color:#ffd1fa; text-shadow:0 0 6px var(--pink), 0 0 10px #fff8;
@@ -174,18 +173,9 @@ hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--n
   border:2px solid var(--neon-blue);
   box-shadow:0 0 0 2px #000 inset, 0 0 18px rgba(73,201,255,.18);
 }
-.status-box::before{
-  content:""; position:absolute; inset:0; pointer-events:none; border-radius:8px;
-  background: radial-gradient(10px 6px at 10% 10%, rgba(255,255,255,.55), transparent 60%),
-              radial-gradient(12px 8px at 90% 25%, rgba(255,255,255,.35), transparent 60%),
-              radial-gradient(10px 6px at 15% 85%, rgba(255,255,255,.45), transparent 60%);
-  mix-blend-mode:screen; opacity:.45; filter:blur(.3px);
-  animation: statusShine 5.5s linear infinite;
-}
-@keyframes statusShine{ to{ transform:translateX(8px) } }
 .pink{color:var(--pink); font-weight:700}
 
-/* ---------- WINAMP ---------- */
+/* ---------- WINAMP (kept for Home “Now Playing”) ---------- */
 .winamp{
   border:1px solid #ff7ef6; background:#1b001d;
   box-shadow:0 0 0 2px #000 inset, 0 0 0 3px #2a0030 inset;
@@ -259,12 +249,13 @@ hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--n
 }
 .webcam .bar{
   display:flex; justify-content:space-between; align-items:center;
-  font:10px Tahoma,Verdana,Arial,sans-serif; color:#ffdfff; opacity:.95; margin-bottom:8px;
+  background:none; /* remove colored line */
+  font:10px Tahoma,Verdana,Arial,sans-serif; color:var(--bright-red); opacity:1; margin-bottom:8px;
 }
-.webcam .rec{ display:inline-flex; gap:6px; align-items:center; letter-spacing:.08em; text-transform:uppercase; color:var(--pink-dark) }
-.webcam .dot{ width:8px; height:8px; background:#ff4d4d; border-radius:50%; box-shadow:0 0 6px #ff4d4d; animation:blink 1s steps(2,end) infinite; }
+.webcam .rec{ display:inline-flex; gap:6px; align-items:center; letter-spacing:.08em; text-transform:uppercase; color:var(--bright-red) }
+.webcam .dot{ width:8px; height:8px; background:var(--bright-red); border-radius:50%; box-shadow:0 0 6px var(--bright-red); animation:blink 1s steps(2,end) infinite; }
 @keyframes blink{50%{opacity:.2}}
-.webcam .ts{ opacity:.95; color:var(--pink-dark) }
+.webcam .ts{ color:var(--bright-red) }
 .webcam .screen{
   width:100%; aspect-ratio:4/3; background:#120016;
   border:1px solid #ff7ef6; box-shadow:0 0 0 2px #000 inset;
@@ -324,29 +315,25 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 
   <!-- ========== HEADER ========== -->
   <header class="site-header" id="header">
-    <!-- Left cluster -->
+    <!-- left notes -->
     <span class="note" style="left:10px; top:4px;  font-size:16px; --dur:4.8s; --amp:8px;">♪</span>
     <span class="note" style="left:34px; top:22px; font-size:21px; --dur:4.2s; --amp:6px;">♫</span>
     <span class="note" style="left:18px; top:46px; font-size:14px; --dur:5.1s; --amp:7px;">♪</span>
     <span class="note" style="left:64px; top:70px; font-size:18px; --dur:4.5s; --amp:6px;">♫</span>
     <span class="note" style="left:22px; top:94px; font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
     <span class="note" style="left:74px; top:114px;font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
-    <!-- fill gap -->
     <span class="note" style="left:96px; top:10px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
     <span class="note" style="left:112px; top:36px;font-size:18px; --dur:4.6s; --amp:7px;">♫</span>
-
-    <!-- Right cluster -->
+    <!-- right notes -->
     <span class="note" style="right:12px; top:6px;  font-size:20px; --dur:4.6s; --amp:8px;">♫</span>
     <span class="note" style="right:42px; top:24px;  font-size:14px; --dur:4.0s; --amp:6px;">♪</span>
     <span class="note" style="right:20px; top:48px;  font-size:23px; --dur:5.0s; --amp:7px;">♫</span>
     <span class="note" style="right:76px; top:72px;  font-size:16px; --dur:4.3s; --amp:6px;">♪</span>
     <span class="note" style="right:26px; top:96px;  font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
     <span class="note" style="right:80px; top:116px; font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
-    <!-- fill gap -->
     <span class="note" style="right:104px; top:14px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
     <span class="note" style="right:124px; top:40px;font-size:18px; --dur:4.6s; --amp:7px;">♫</span>
 
-    <!-- Logo + Hearts -->
     <div class="logo-wrap">
       <a class="heart left"  href="#heartl" title="secret left">♥</a>
       <div class="logo" id="logo">bj case</div>
@@ -411,11 +398,11 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 
         <hr />
         <h2>Roadmap</h2>
-        <ul>
-          <li>Automation swells, stop-downs, and vocal throws</li>
-          <li>Flip Phone — saw/square stack groove polish</li>
-          <li>Website — secret sticker links &amp; gallery</li>
-        </ul>
+        <pre style="margin:0; white-space:pre-wrap; font-family:inherit;">
+• Keep working on the blog
+• Clean my room
+• Keep building “Flip Phone”
+        </pre>
 
         <div style="margin-top:12px; font:11px Verdana">
           <span style="padding:2px 6px;border:1px solid var(--pink);background:#300033;box-shadow:0 0 0 2px #000 inset">★ NEW ★</span>
@@ -435,10 +422,10 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 
       <hr />
       <h2>Studio Log</h2>
-      <ul id="rightBlock2" style="margin:0 0 10px 18px; padding:0;">
-        <li><strong>Nov 3, 2025:</strong> Pong responsive + no-scroll; music intro updated</li>
-        <li><strong>Nov 2, 2025:</strong> Webcam moved to bottom; Winamp fixed</li>
-      </ul>
+      <pre style="margin:0 0 10px 0; white-space:pre-wrap; font-family:inherit;">
+• November 3rd: Build synth stack for “Flip Phone” and figure out drum pattern
+• October 3rd, 2025: Figure out what the bridge of “Performance” should be like
+      </pre>
 
       <hr />
       <h2>Poll</h2>
@@ -478,7 +465,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
           <div class="ts" id="ts">00:00:00</div>
         </div>
         <div class="screen">
-          <img id="webcamFeed" src="/assets/webcam.gif?v=1.20.7" alt="webcam feed placeholder">
+          <img id="webcamFeed" src="/assets/webcam.gif?v=1.21.0" alt="webcam feed placeholder">
         </div>
       </div>
     </aside>
@@ -512,7 +499,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 
 <script>
 /* ===== VERSION & CACHE-BUST ===== */
-const SITE_VERSION = '1.20.7';
+const SITE_VERSION = '1.21.0';
 (function ensureVersionParam(){
   try{
     const u = new URL(location.href);
@@ -585,11 +572,11 @@ const pages = {
 
       <hr />
       <h2>Roadmap</h2>
-      <ul>
-        <li>Automation swells, stop-downs, and vocal throws</li>
-        <li>Flip Phone — saw/square stack groove polish</li>
-        <li>Website — secret sticker links &amp; gallery</li>
-      </ul>
+      <pre style="margin:0; white-space:pre-wrap; font-family:inherit;">
+• Keep working on the blog
+• Clean my room
+• Keep building “Flip Phone”
+      </pre>
     `,
     rightEnabled: true,
     rightHTML: `
@@ -601,10 +588,10 @@ const pages = {
       </pre>
       <hr />
       <h2>Studio Log</h2>
-      <ul style="margin:0 0 10px 18px; padding:0;">
-        <li><strong>Nov 3, 2025:</strong> Pong responsive + no-scroll; music intro updated</li>
-        <li><strong>Nov 2, 2025:</strong> Webcam moved to bottom; Winamp fixed</li>
-      </ul>
+      <pre style="margin:0 0 10px 0; white-space:pre-wrap; font-family:inherit;">
+• November 3rd: Build synth stack for “Flip Phone” and figure out drum pattern
+• October 3rd, 2025: Figure out what the bridge of “Performance” should be like
+      </pre>
       <hr />
       <h2>Poll</h2>
       <div class="pollbox">
@@ -633,20 +620,20 @@ const pages = {
       </div>
       <div class="webcam">
         <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts2">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif?v=1.20.7" alt="webcam feed placeholder"></div>
+        <div class="screen"><img src="/assets/webcam.gif?v=1.21.0" alt="webcam feed placeholder"></div>
       </div>
     `
   },
 
-  /* ===== Secrets (lowercase keys) ===== */
+  /* ===== Secrets ===== */
   heartl: {
     leftTitle: "♥ secret — pong",
     leftHTML: `
-      <p>Welcome to the secret arcade. Use <strong>↑/↓</strong> to move. First to… endless rallies, since walls bounce!</p>
+      <p>Welcome to the secret arcade. Use <strong>↑/↓</strong> to move. First to <strong>7</strong> wins. <strong>R</strong> = reset, <strong>P</strong> = pause.</p>
       <div id="pongWrap" style="width:100%;">
         <canvas id="pong" style="display:block;width:100%;max-width:100%;border:2px solid var(--pink);background:linear-gradient(180deg,#140018,#0b0010)"></canvas>
       </div>
-      <div style="margin-top:8px;font:12px Verdana">Press <strong>R</strong> to reset • Press <strong>P</strong> to pause</div>
+      <div style="margin-top:8px;font:12px Verdana">Score: <span id="scoreL">0</span> — <span id="scoreR">0</span></div>
     `,
     rightEnabled: false
   },
@@ -667,28 +654,7 @@ const pages = {
     leftTitle: "Music",
     leftHTML: `
       <p>Hey — you’ve found the music section. Let me provide an update on that front.</p>
-      <p>Right now, I’m still in the early stages of learning production. However, my demo for my first song, “Performance” is pretty well developed and is close to being ready for vocals which I’m excited for!! Also, I’ve started to build my song “Flip Phone” too. I’m so excited!!!</p>
-
-      <hr />
-      <h2>Player</h2>
-      <div class="winamp" role="group" aria-label="Player">
-        <div class="display">02. bj case — Flip Phone (WIP)</div>
-        <div class="row">
-          <div class="btn" title="Prev" aria-label="Previous">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M7 5v14H5V5h2zm2 7 10 7V5L9 12z"/></svg>
-          </div>
-          <div class="btn" title="Play" aria-label="Play">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-          <div class="btn" title="Pause" aria-label="Pause">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-          </div>
-          <div class="btn" title="Next" aria-label="Next">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17 5v14h2V5h-2zM7 5l10 7-10 7V5z"/></svg>
-          </div>
-          <div class="scrubber"></div><div>03:11</div>
-        </div>
-      </div>
+      <p>Right now, I’m still in the early stages of learning production. However, my demo for my first song, “Performance” is pretty well developed and is close to being ready for vocals which I’m excited for!! Also, I’ve started to build my song “Flip Phone” too. I’m so excited!!! — BJ</p>
     `,
     rightEnabled: true,
     rightHTML: `
@@ -707,20 +673,14 @@ const pages = {
       </div>
       <div class="webcam">
         <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts3">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif?v=1.20.7" alt="webcam feed placeholder"></div>
+        <div class="screen"><img src="/assets/webcam.gif?v=1.21.0" alt="webcam feed placeholder"></div>
       </div>
     `
   },
   visuals: {
     leftTitle: "Visuals",
     leftHTML: `
-      <p>Old-Hollywood theatre meets digital glitch. Lip-gloss chrome, velvet curtains, neon edges.</p>
-      <ul>
-        <li>“Performance” — red-curtain cover</li>
-        <li>“Flip Phone” — voicemail intro screens</li>
-        <li>Sticker sheet — glitter hearts & secrets</li>
-      </ul>
-      <hr /><p>Gallery coming soon — header elements hide Easter-egg links.</p>
+      <p>Here’s where I’ll post concepts for the visual aspects of my music, as well as some other stuff too. My little pixel picture piece of the blog, if you will.</p>
     `,
     rightEnabled: true,
     rightHTML: `
@@ -737,7 +697,7 @@ const pages = {
       </div>
       <div class="webcam">
         <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts4">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif?v=1.20.7" alt="webcam feed placeholder"></div>
+        <div class="screen"><img src="/assets/webcam.gif?v=1.21.0" alt="webcam feed placeholder"></div>
       </div>
     `
   },
@@ -747,7 +707,7 @@ const pages = {
       <p>Web diary: raw notes, studio days, sparkly chaos.</p>
       <article>
         <h3>Nov 3, 2025 — Secrets!</h3>
-        <p>Left heart now opens a Pong mini-game. Right heart reserved for future teasers.</p>
+        <p>Left heart opens a Pong mini-game. Right heart reserved for future teasers.</p>
       </article>
     `,
     rightEnabled: false
@@ -755,17 +715,19 @@ const pages = {
   about: {
     leftTitle: "About",
     leftHTML: `
-      <p>I’m <strong>bj case</strong> — a loud, glossy heart with a moody core. Music that feels like midnight chrome.</p>
-      <p>Influences: Britney <em>Blackout/Circus</em>, Bloodshy & Avant, Danja, 2007–2009 futurism.</p>
+      <p>Okay here’s like the serious section I guess. So I’m BJ. I make music, my favorite food is sushi, and I’m a cat person. You can find me here, IRL if I materialize, and to find me on other corners of the digital world, refer to the “Contact” section.</p>
     `,
     rightEnabled: false
   },
   contact: {
     leftTitle: "Contact",
     leftHTML: `
-      <p>Say hi — bookings, collabs, or glitter talk.</p>
-      <p><strong>Email:</strong> <a href="mailto:hello@bjcase.com">hello@bjcase.com</a></p>
-      <p><strong>Guestbook:</strong> hop into the Journal and drop a note.</p>
+      <p>These are my other pages:</p>
+      <p>• Instagram: @itsbjcase<br>
+      • Tiktok: @wannabj<br>
+      • I’m not on Twitter rn cuz it’s called ‘X’ now, among other reasons :(</p>
+      <p>Also, I’ll be on streaming platforms soon! I’ll put them here when the time comes.</p>
+      <p>Ohhh and my email is <br><strong>itsbjcase@gmail.com</strong><br>for any inquiries (business only please!)</p>
     `,
     rightEnabled: false
   }
@@ -775,10 +737,7 @@ const rootEl = document.getElementById("pageRoot");
 const leftPane = document.getElementById("leftPane");
 const rightPane = document.getElementById("rightPane");
 
-function setLayout(single){
-  if(single){ rootEl.classList.add("single"); }
-  else{ rootEl.classList.remove("single"); }
-}
+function setLayout(single){ single ? rootEl.classList.add("single") : rootEl.classList.remove("single"); }
 function syncColumns(){
   const rightVisible = rightPane.style.display !== "none";
   if(!rightVisible){ leftPane.style.minHeight=""; return; }
@@ -788,8 +747,7 @@ function syncColumns(){
   leftPane.style.minHeight = H + "px";
   rightPane.style.minHeight = H + "px";
 }
-let syncRAF;
-function scheduleSync(){ cancelAnimationFrame(syncRAF); syncRAF = requestAnimationFrame(syncColumns); }
+let syncRAF; function scheduleSync(){ cancelAnimationFrame(syncRAF); syncRAF = requestAnimationFrame(syncColumns); }
 
 function mountRight(html){
   if(!html){ rightPane.style.display="none"; setLayout(true); scheduleSync(); return; }
@@ -801,10 +759,8 @@ function mountRight(html){
     wirePoll('#voteBtnHome','#pollResultsHome','#pPerfHome','#pFlipHome','#pLookHome',
              '#bPerfHome','#bFlipHome','#bLookHome','bj_poll_home');
   }
-
   rightPane.querySelectorAll('img').forEach(img=>{
-    if(img.complete) scheduleSync();
-    else img.addEventListener('load', scheduleSync, {once:true});
+    if(img.complete) scheduleSync(); else img.addEventListener('load', scheduleSync, {once:true});
   });
   scheduleSync();
 }
@@ -814,14 +770,11 @@ function render(route){
   document.getElementById("leftTitle").textContent = pages[key].leftTitle;
   document.getElementById("leftContent").innerHTML = pages[key].leftHTML;
   mountRight(pages[key].rightEnabled ? pages[key].rightHTML : null);
-
-  /* Boot the Pong game on the left-heart page */
   if(key === 'heartl'){ bootPong(); }
 }
 function onHash(){ render(location.hash.replace("#","").toLowerCase()); }
 window.addEventListener("hashchange", onHash);
 onHash();
-
 window.addEventListener('resize', scheduleSync);
 
 /* Clicking logo returns Home */
@@ -948,13 +901,12 @@ wirePoll('#voteBtn','#pollResults','#pPerf','#pFlip','#pLook','#bPerf','#bFlip',
   setInterval(()=>{ ['ts','ts2','ts3','ts4'].forEach(update); }, 1000);
 })();
 
-/* ===== PONG (heartl): responsive, no-scroll arrows, all borders bounce ===== */
+/* ===== PONG (heartl): score-to-7, win/lose, arrows no-scroll ===== */
 function bootPong(){
   const canvas = document.getElementById('pong');
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  /* Fill the box responsively (14:9 aspect) */
   function sizeCanvas(){
     const parent = canvas.parentElement || canvas;
     const w = Math.min(parent.clientWidth || 560, 820);
@@ -965,24 +917,26 @@ function bootPong(){
   sizeCanvas();
   window.addEventListener('resize', sizeCanvas, {passive:true});
 
-  let up=false, down=false, paused=false;
+  let up=false, down=false, paused=false, gameOver=false;
   let W = canvas.width, H = canvas.height;
+
+  const maxScore = 7;
+  let scoreL = 0, scoreR = 0;
 
   const state = {
     player: { x: 16, y: H/2-35, w: 10, h: 70, s: 5.0 },
     cpu:    { x: W-26, y: H/2-35, w: 10, h: 70, s: 4.2 },
-    ball:   { x: W/2, y: H/2, r: 6, vx: rnd(3.6,4.2)*(Math.random()<.5?1:-1), vy: rnd(2.2,3.0)*(Math.random()<.5?1:-1) }
+    ball:   { x: W/2, y: H/2, r: 6, vx: 4.0*(Math.random()<.5?1:-1), vy: 2.6*(Math.random()<.5?1:-1) }
   };
 
-  function rnd(a,b){ return a + Math.random()*(b-a); }
   function clamp(v,min,max){ return v<min?min:(v>max?max:v); }
 
-  /* Prevent page scroll while playing with arrows */
+  /* Prevent page scroll with arrows while on game */
   const keydown = (e)=>{
     if(e.key==='ArrowUp'){ up=true; e.preventDefault(); }
     if(e.key==='ArrowDown'){ down=true; e.preventDefault(); }
-    if(e.key.toLowerCase()==='r'){ resetBall(); }
-    if(e.key.toLowerCase()==='p'){ paused=!paused; }
+    if(e.key.toLowerCase()==='r'){ resetGame(); }
+    if(e.key.toLowerCase()==='p'){ if(!gameOver) paused=!paused; }
   };
   const keyup = (e)=>{
     if(e.key==='ArrowUp'){ up=false; e.preventDefault(); }
@@ -991,13 +945,19 @@ function bootPong(){
   window.addEventListener('keydown', keydown, {passive:false});
   window.addEventListener('keyup', keyup, {passive:false});
 
-  function resetBall(){
-    W = canvas.width; H = canvas.height;
+  function resetBall(dir){
+    state.ball.x = W/2; state.ball.y = H/2;
+    const sX = 4.0 + Math.random()*0.6;
+    const sY = 2.2 + Math.random()*0.8;
+    state.ball.vx = (dir|| (Math.random()<.5?1:-1)) * sX;
+    state.ball.vy = (Math.random()<.5?1:-1) * sY;
+  }
+  function resetGame(){
+    scoreL = 0; scoreR = 0; gameOver=false; paused=false;
     state.player.y = H/2 - state.player.h/2;
     state.cpu.y = H/2 - state.cpu.h/2;
-    state.ball.x = W/2; state.ball.y = H/2;
-    state.ball.vx = rnd(3.6,4.2)*(Math.random()<.5?1:-1);
-    state.ball.vy = rnd(2.2,3.0)*(Math.random()<.5?1:-1);
+    resetBall( (Math.random()<.5?1:-1) );
+    draw(); // immediate paint
   }
 
   function draw(){
@@ -1005,29 +965,46 @@ function bootPong(){
     const g=ctx.createLinearGradient(0,0,0,H);
     g.addColorStop(0,'#140018'); g.addColorStop(1,'#0b0010');
     ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+
     // center dash
     ctx.setLineDash([8,8]); ctx.strokeStyle='rgba(255,255,255,.2)';
     ctx.beginPath(); ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.stroke();
     ctx.setLineDash([]);
+
+    // score
+    ctx.fillStyle='#ffdfff'; ctx.font='bold 20px Verdana';
+    ctx.fillText(`${scoreL}`, W/2-36, 26);
+    ctx.fillText(`${scoreR}`, W/2+24, 26);
+
     // paddles
     ctx.fillStyle='#ff9ef6'; ctx.fillRect(state.player.x, state.player.y, state.player.w, state.player.h);
     ctx.fillStyle='#49c9ff'; ctx.fillRect(state.cpu.x, state.cpu.y, state.cpu.w, state.cpu.h);
+
     // ball
     ctx.beginPath(); ctx.fillStyle='#fff';
     ctx.arc(state.ball.x, state.ball.y, state.ball.r, 0, Math.PI*2); ctx.fill();
 
-    if(paused){
+    if(paused || gameOver){
       ctx.fillStyle='rgba(0,0,0,.45)'; ctx.fillRect(0,0,W,H);
-      ctx.fillStyle='#ffdfff'; ctx.font='bold 20px Verdana'; ctx.fillText('PAUSED', W/2-38, H/2);
+      ctx.fillStyle='#ffdfff'; ctx.font='bold 22px Verdana';
+      ctx.textAlign='center';
+      if(gameOver){
+        ctx.fillText(scoreL>=maxScore ? 'YOU WIN' : 'YOU LOSE', W/2, H/2 - 6);
+        ctx.font='bold 14px Verdana';
+        ctx.fillText('Press R to restart', W/2, H/2 + 16);
+      }else{
+        ctx.fillText('PAUSED', W/2, H/2);
+      }
+      ctx.textAlign='start';
     }
   }
 
   function step(){
-    if(paused){ draw(); requestAnimationFrame(step); return; }
+    if(paused || gameOver){ draw(); requestAnimationFrame(step); return; }
 
-    // update dims if resized
     if(W !== canvas.width || H !== canvas.height){
       W = canvas.width; H = canvas.height;
+      state.cpu.x = W-26;
     }
 
     // player input
@@ -1035,7 +1012,7 @@ function bootPong(){
     if(down) state.player.y += state.player.s;
     state.player.y = clamp(state.player.y, 0, H-state.player.h);
 
-    // simple cpu follow
+    // simple cpu AI
     const target = state.ball.y - state.cpu.h/2;
     state.cpu.y += (target - state.cpu.y) * 0.085;
     state.cpu.y = clamp(state.cpu.y, 0, H-state.cpu.h);
@@ -1048,18 +1025,20 @@ function bootPong(){
     if(state.ball.y-state.ball.r<0){ state.ball.y=state.ball.r; state.ball.vy*=-1; }
     if(state.ball.y+state.ball.r>H){ state.ball.y=H-state.ball.r; state.ball.vy*=-1; }
 
-    // left/right bounce (no scoring)
-    if(state.ball.x-state.ball.r<0){ state.ball.x=state.ball.r; state.ball.vx*=-1; jitterBall(); }
-    if(state.ball.x+state.ball.r>W){ state.ball.x=W-state.ball.r; state.ball.vx*=-1; jitterBall(); }
+    // left/right scoring (no wall bounce)
+    if(state.ball.x + state.ball.r < 0){
+      scoreR++; updateScore(); checkGameOver(); resetBall(1);
+    }else if(state.ball.x - state.ball.r > W){
+      scoreL++; updateScore(); checkGameOver(); resetBall(-1);
+    }
 
     // paddle collisions with spin
     function collide(p){
       if(state.ball.x+state.ball.r>p.x && state.ball.x-state.ball.r<p.x+p.w &&
          state.ball.y>p.y && state.ball.y<p.y+p.h){
         state.ball.vx *= -1.06;
-        const rel = (state.ball.y - (p.y+p.h/2)) / (p.h/2); // -1..1
+        const rel = (state.ball.y - (p.y+p.h/2)) / (p.h/2);
         state.ball.vy = clamp(state.ball.vy + rel*2.4, -5.2, 5.2);
-        jitterBall();
       }
     }
     collide(state.player);
@@ -1069,13 +1048,20 @@ function bootPong(){
     requestAnimationFrame(step);
   }
 
-  function jitterBall(){
-    // tiny randomness to avoid endless straight lines
-    state.ball.vx += (Math.random()*0.4 - 0.2);
-    state.ball.vy += (Math.random()*0.4 - 0.2);
+  function updateScore(){
+    const L=document.getElementById('scoreL'); const R=document.getElementById('scoreR');
+    if(L) L.textContent = scoreL;
+    if(R) R.textContent = scoreR;
+  }
+  function checkGameOver(){
+    if(scoreL>=maxScore || scoreR>=maxScore){
+      gameOver=true;
+    }
   }
 
-  draw(); requestAnimationFrame(step);
+  updateScore();
+  draw();
+  requestAnimationFrame(step);
 }
 
 /* Mount static right poll too */
