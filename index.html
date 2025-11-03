@@ -258,6 +258,23 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
   .nav a{font-size:14px; padding:8px 12px}
   .logo{font-size:clamp(32px,9vw,88px)}
 }
+/* Two extra music notes on the far edges of the header */
+.site-header::before,
+.site-header::after {
+  content: "♫";
+  position: absolute;
+  font-size: 22px;
+  color: #fff;
+  text-shadow: 0 0 6px var(--pink), 0 0 12px var(--neon-blue);
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+/* left edge note — nudge these values to taste */
+.site-header::before { top: 32%; left: 52px; }
+
+/* right edge note — mirrors the left */
+.site-header::after  { top: 32%; right: 52px; }
 </style>
 </head>
 <body>
