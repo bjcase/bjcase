@@ -259,10 +259,12 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
   .nav a{font-size:14px; padding:8px 12px}
   .logo{font-size:clamp(32px,9vw,88px)}
 }
-/* Move hearts closer to BJ Case logo */
+/* HOTFIX: pull hearts tight to the logo */
 .logo .hearts {
-  margin-left: 6px; /* smaller number = closer */
-  position: relative;
+  margin-left: 4px !important;   /* smaller = closer */
+  position: relative !important;
+  top: -2px !important;           /* tweak as needed */
+  display: inline-block !important;
 }
 </style>
 </head>
