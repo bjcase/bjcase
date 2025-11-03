@@ -1,81 +1,72 @@
-/* =======================
-   Mobile / Small screens
-   ======================= */
+/* =========================
+   MOBILE LAYOUT POLISH
+   - Equal-width columns (Welcome + Sidebar)
+   - Tame/Hide header music notes on small screens
+   - Keep a 1-column stack on very narrow phones
+   ========================= */
 
-/* Phones (<= 480px): stack cleanly */
-@media (max-width: 480px) {
+/* Phones: ultra narrow (≤420px) — stack vertically */
+@media (max-width: 420px) {
   .wrapper { padding: 12px; }
 
-  /* Stack layout */
+  /* stack panels */
   .grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 14px;
   }
 
-  /* Let each panel breathe and match visual rhythm */
-  #leftPane, #rightPane {
-    min-height: 520px;          /* gives both a similar presence when stacked */
-  }
+  /* make them feel balanced when stacked */
+  #leftPane, #rightPane { min-height: 520px; }
 
-  /* Header tighten to avoid collisions */
-  .site-header { padding: 10px 12px 10px; }
+  /* tighten the header and hide notes to avoid collisions */
+  .site-header { padding: 10px 12px; }
   .logo { font-size: clamp(28px, 9vw, 64px); }
-
-  /* Notes scale down slightly so they don't crash into content */
-  .note { opacity: .9; transform: scale(.92); }
-
-  /* Nav fits two per row nicely */
-  .nav { gap: 8px; }
-  .nav a { flex: 1 1 45%; text-align: center; padding: 8px 10px; font-weight: 700; }
+  .site-header .note { display: none; }   /* hide notes on tiny screens */
 }
 
-/* Small tablets / large phones (481px–800px):
-   Keep two columns AND force equal heights */
-@media (min-width: 481px) and (max-width: 800px) {
+/* Small phones & small tablets (421–800px):
+   two EVEN columns with equal height */
+@media (min-width: 421px) and (max-width: 800px) {
   .wrapper { padding: 14px; }
 
-  /* Two-column grid with equal-height rows */
+  /* Use flex so items in the same row share the tallest height */
   .grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;  /* keep your ratio */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;           /* equal heights in the row */
     gap: 14px;
-    grid-auto-rows: 1fr;             /* <<< makes the row height equal to the tallest item */
-    align-items: stretch;            /* stretch both items to full row height */
   }
 
-  /* Panels stretch to full row height */
+  /* Exactly half width each (with the gap accounted for) */
   #leftPane, #rightPane {
-    height: 100%;                    /* <<< equal heights visually */
-    min-height: 560px;               /* gives breathing room on short content */
+    flex: 0 0 calc(50% - 7px);
+    height: 100%;
+    min-height: 560px;              /* gives presence when one is short */
   }
 
-  /* Keep the header tight so notes don't overlap nav */
-  .site-header { padding: 10px 14px 10px; }
+  /* Keep header compact & stop note collisions */
+  .site-header { padding: 10px 14px; }
   .logo { font-size: clamp(30px, 7.5vw, 72px); }
-
-  /* Reduce note “bob” amplitude a touch to avoid collisions on small heights */
-  .note { --amp: 6px; }
-
-  /* Navigation rows wrap cleanly */
-  .nav { gap: 8px; justify-content: center; }
-  .nav a { padding: 9px 12px; }
+  .site-header .note { opacity: .85; transform: scale(.9); }
 }
 
-/* General small-screen polish shared across mobile widths */
+/* Shared small-screen polish */
 @media (max-width: 800px) {
   body { font-size: 16px; margin: 0; }
-
-  /* Ensure panels don’t look cramped */
   .panel { padding: 14px; }
 
-  /* Webcam keeps aspect and won’t push layout oddly */
+  /* nav fits nicely */
+  .nav { gap: 8px; justify-content: center; }
+  .nav a { padding: 8px 10px; text-align: center; }
+
+  /* webcam keeps aspect and doesn’t stretch layout */
   .webcam .screen { aspect-ratio: 4 / 3; }
 
-  /* Poll stays tidy on narrow widths */
+  /* poll tidy on narrow widths */
   .pollbox .poll label { margin: 8px 0; }
   .voteBtn { width: 100%; }
 
-  /* Ticker text stays readable */
+  /* ticker readable */
   .ticker { font: 800 12px/2 Verdana, Tahoma, Arial, sans-serif; }
 }
