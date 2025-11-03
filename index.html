@@ -6,14 +6,14 @@
 <title>bj case — home</title>
 
 <!-- Favicons (always included, cache-busted) -->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.21.0">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1.21.0">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1.21.0">
-<link rel="manifest" href="/site.webmanifest?v=1.21.0">
-<link rel="shortcut icon" href="/favicon.ico?v=1.21.0">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.30.0">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1.30.0">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1.30.0">
+<link rel="manifest" href="/site.webmanifest?v=1.30.0">
+<link rel="shortcut icon" href="/favicon.ico?v=1.30.0">
 <meta name="theme-color" content="#ff9ef6">
 
-<!-- Cache hints -->
+<!-- Cache-busting hint for the HTML URL itself -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
@@ -23,11 +23,12 @@
 
 <style>
 /* ===========================================================
-   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.21.0)
-   - Pong: score to 7, win/lose, arrow keys no-scroll
-   - Music: no player, text + “— BJ”
-   - Roadmap/Studio Log/Visuals/About/Contact replaced
-   - Webcam REC/time: bright red, no colored line
+   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.30.0)
+   - Journal: 2000s blog overhaul + Owner Mode (local only)
+   - Arcade: left-heart -> menu + 3 games (desktop & mobile)
+   - Mobile: big pass (sidebar balance, fewer header notes, webcam scaling)
+   - Per-section light overlays (home/music/visuals/journal/contact/about/arcade)
+   - Everything else preserved unless noted
    =========================================================== */
 
 /* ---------- PALETTE ---------- */
@@ -39,6 +40,7 @@
   --ink:#ffeaff;
   --link:#ffbffb;
   --bright-red:#ff3b3b;
+  --panel-top:#3d0055; --panel-mid:#21002a; --panel-bot:#1a001a;
 }
 
 /* ---------- BASE ---------- */
@@ -53,7 +55,35 @@ body{
 .wrapper{max-width:860px;margin:0 auto;padding:16px}
 a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 
-/* ---------- HEADER (tight) ---------- */
+/* ---------- PER-SECTION OVERLAYS (keep body stars) ---------- */
+.section-overlay{
+  position:relative; isolation:isolate;
+}
+.section-overlay::before{
+  content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:.18;
+  background: radial-gradient(120% 90% at 50% -10%, #ff7ef630 0%, transparent 55%) no-repeat;
+}
+/* Subtle variances by route */
+[data-route="music"] .section-overlay::before{
+  background: radial-gradient(140% 100% at 50% -10%, #49c9ff33 0%, transparent 60%);
+  opacity:.22;
+}
+[data-route="visuals"] .section-overlay::before{
+  background: radial-gradient(140% 100% at 50% -10%, #ffb35e33 0%, transparent 60%);
+  opacity:.22;
+}
+[data-route="journal"] .section-overlay::before{
+  background: radial-gradient(150% 120% at 50% -20%, #ff9ef645 0%, transparent 65%);
+  opacity:.28;
+}
+[data-route="contact"] .section-overlay::before{
+  background: radial-gradient(160% 120% at 50% -20%, #ff4d4d33 0%, transparent 65%);
+}
+[data-route="arcade"] .section-overlay::before{
+  background: radial-gradient(160% 120% at 50% -20%, #49c9ff40 0%, transparent 65%);
+}
+
+/* ---------- HEADER (tighter) ---------- */
 .site-header{
   border:2px solid var(--pink);
   background:linear-gradient(180deg,#520061 0%,#36003e 60%,#240024 100%);
@@ -61,16 +91,14 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
   margin:16px 0 18px; padding:10px 18px 10px;
   position:relative; overflow:hidden;
 }
-
 .logo-wrap{
   position:relative; display:flex; align-items:center; justify-content:center;
-  gap:1.3em; /* wider spacing per your earlier preference */
+  gap:1.3em; /* desired spacing */
   width:100%; margin:0 auto 6px; z-index:3;
 }
 .heart{
   display:inline-block; text-decoration:none; line-height:1;
-  color:var(--pink);
-  font-size:clamp(26px,4.6vw,44px);
+  color:var(--pink); font-size:clamp(26px,4.6vw,44px);
   transform:scaleX(1.3);
   text-shadow:0 0 6px var(--pink), 0 0 10px var(--neon-blue), 0 0 14px rgba(255,255,255,.35);
   filter:drop-shadow(0 0 2px #fff6);
@@ -114,10 +142,7 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
   background:
     linear-gradient(180deg, #4a005f 0%, #2a003d 55%, #1a0026 100%),
     radial-gradient(120% 100% at 50% 0%, rgba(255,255,255,.25), transparent 60%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.25),
-    inset 0 -6px 12px rgba(0,0,0,.45),
-    0 0 0 2px #000 inset;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25), inset 0 -6px 12px rgba(0,0,0,.45), 0 0 0 2px #000 inset;
   transition:transform .15s ease, box-shadow .2s ease, border-color .2s ease, color .2s ease;
 }
 .nav a::after{
@@ -127,10 +152,7 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 }
 .nav a:hover{
   border-color:var(--neon-blue); color:var(--neon-blue);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.35),
-    inset 0 -6px 14px rgba(0,0,0,.5),
-    0 0 12px var(--glow);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35), inset 0 -6px 12px rgba(0,0,0,.5), 0 0 12px var(--glow);
   transform:translateY(-1px);
 }
 .nav a:hover::after{ transform:translateX(130%) }
@@ -153,7 +175,7 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 /* ---------- PANELS ---------- */
 .panel{
   border:2px solid var(--pink);
-  background:linear-gradient(180deg,#3d0055 0%,#21002a 60%,#1a001a 100%);
+  background:linear-gradient(180deg,var(--panel-top) 0%,var(--panel-mid) 60%,var(--panel-bot) 100%);
   box-shadow:0 0 0 2px #000 inset, 0 12px 22px #0007;
   padding:16px; border-radius:3px; position:relative; overflow:hidden;
 }
@@ -213,6 +235,7 @@ hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--n
   padding:12px; border-radius:8px; overflow:hidden;
 }
 .pollbox::after{
+  /* gentle sparkle sweep around border */
   content:""; position:absolute; inset:-2px; border-radius:10px; pointer-events:none;
   background:
     linear-gradient(90deg, transparent 0%, rgba(255,255,255,.6) 10%, transparent 20%) 0 0 / 120px 2px no-repeat,
@@ -249,7 +272,7 @@ hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--n
 }
 .webcam .bar{
   display:flex; justify-content:space-between; align-items:center;
-  background:none; /* remove colored line */
+  background:none;
   font:10px Tahoma,Verdana,Arial,sans-serif; color:var(--bright-red); opacity:1; margin-bottom:8px;
 }
 .webcam .rec{ display:inline-flex; gap:6px; align-items:center; letter-spacing:.08em; text-transform:uppercase; color:var(--bright-red) }
@@ -294,7 +317,7 @@ hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--n
 /* ---------- FOOTER ---------- */
 footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,Tahoma,Arial,sans-serif}
 
-/* ---------- CURSOR GLITTER ---------- */
+/* ---------- CURSOR GLITTER (kept) ---------- */
 .cursor-star{
   position:absolute; width:7px; height:7px; pointer-events:none;
   background:radial-gradient(circle,#fff 0%,transparent 70%);
@@ -303,41 +326,145 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 }
 @keyframes starFade{from{transform:scale(1);opacity:.95}to{transform:scale(0);opacity:0}}
 
-/* ---------- RESPONSIVE ---------- */
-@media(max-width:520px){
-  .nav a{font-size:14px; padding:8px 12px}
-  .logo{font-size:clamp(28px,9vw,72px)}
+/* ---------- JOURNAL (maximalist, animated only here) ---------- */
+.journal-wrap{
+  display:grid; grid-template-columns: 270px 1fr; gap:14px; align-items:start;
+}
+.j-sticky{
+  position:sticky; top:8px;
+  border:2px solid var(--pink);
+  background:linear-gradient(180deg,#430050,#220028);
+  padding:12px; border-radius:8px; box-shadow:0 0 0 2px #000 inset;
+}
+.j-sticky h3{
+  margin:0 0 8px; font-family:"Atma",sans-serif; font-weight:400; color:var(--pink);
+  text-transform:uppercase; letter-spacing:.08em;
+}
+.j-owner{ display:flex; gap:6px; margin:8px 0 10px }
+.j-owner input{
+  flex:1; padding:8px; border:1px solid var(--pink); background:#2a0030; color:#ffeaff; border-radius:6px; box-shadow:0 0 0 2px #000 inset;
+}
+.j-owner button{
+  padding:8px 10px; border:2px solid var(--pink); background:#4a005f; color:#fff; font-weight:800; border-radius:6px; cursor:pointer;
+  box-shadow:0 0 0 2px #000 inset;
+}
+.j-editor{
+  display:none; /* toggled in owner mode */
+  border:2px dashed var(--pink); background:#1a001f; padding:10px; border-radius:8px;
+}
+.j-editor input,.j-editor textarea{
+  width:100%; margin:6px 0; padding:8px; border:1px solid var(--pink); background:#2a0030; color:#ffeaff; border-radius:6px; box-shadow:0 0 0 2px #000 inset;
+}
+.j-editor .row{display:flex; gap:8px}
+.j-editor .row input{flex:1}
+.j-editor .actions{display:flex; gap:8px; margin-top:8px}
+.j-editor .actions button{
+  padding:8px 10px; border:2px solid var(--neon-blue); background:#00354a; color:#fff; font-weight:800; border-radius:6px; cursor:pointer;
+  box-shadow:0 0 0 2px #000 inset;
+}
+.j-feed{
+  border:2px solid var(--pink);
+  background:
+    radial-gradient(80% 50% at 10% -10%, rgba(255,255,255,.06), transparent 60%),
+    linear-gradient(180deg,#3b004f 0%, #1f0028 100%);
+  padding:12px; border-radius:8px; box-shadow:0 0 0 2px #000 inset;
+  position:relative; overflow:hidden;
+}
+.j-feed::after{
+  content:""; position:absolute; inset:0; pointer-events:none; mix-blend-mode:screen; opacity:.25;
+  background-image:
+    radial-gradient(circle at 18% 20%, #fff 0 2px, transparent 3px),
+    radial-gradient(circle at 80% 65%, #fff 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 30% 85%, #fff 0 1.5px, transparent 2.5px);
+  animation: jTwinkle 4.2s linear infinite;
+}
+@keyframes jTwinkle{
+  0%{opacity:.15; transform:translateY(0)}
+  50%{opacity:.35; transform:translateY(1px)}
+  100%{opacity:.15; transform:translateY(0)}
+}
+.j-entry{
+  margin:0 0 14px; padding:12px; border-radius:10px;
+  background:linear-gradient(180deg,#420046 0%, #2a0030 100%);
+  border:1px solid #ff7ef6; box-shadow:0 0 0 2px #000 inset;
+}
+.j-entry h4{
+  margin:0 0 6px; font:700 16px/1.2 Verdana, Tahoma, Arial, sans-serif; color:#ffdfff;
+}
+.j-entry .date{ font:11px Verdana; opacity:.75; margin-bottom:8px }
+
+/* ---------- ARCADE (animated only here) ---------- */
+.arcade-menu{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:12px;
+}
+.arc-card{
+  border:2px solid var(--pink);
+  border-radius:10px; padding:12px; text-align:center; cursor:pointer;
+  background:
+    radial-gradient(120% 120% at 50% -20%, rgba(73,201,255,.25), transparent 60%),
+    linear-gradient(180deg,#2a0034 0%, #120018 100%);
+  box-shadow:0 0 0 2px #000 inset, 0 0 18px rgba(73,201,255,.2);
+  transition:transform .12s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.arc-card:hover{ transform:translateY(-2px); border-color:var(--neon-blue); box-shadow:0 0 0 2px #000 inset, 0 0 22px rgba(73,201,255,.45) }
+.arc-card h3{ margin:6px 0 4px; font-family:"Atma"; color:var(--neon-blue); font-weight:400; text-transform:uppercase; letter-spacing:.06em }
+.arc-card p{ margin:0; font:12px Verdana }
+
+/* Game canvases */
+.game-wrap{ width:100%; }
+.game-wrap canvas{
+  display:block; width:100%; max-width:100%;
+  border:2px solid var(--pink);
+  background:linear-gradient(180deg,#140018,#0b0010);
+}
+
+/* ---------- RESPONSIVE (mobile overhaul) ---------- */
+@media (max-width: 900px){
+  /* grid becomes single column, but we force balanced widths */
+  .grid{ grid-template-columns:1fr; }
+  .panel{ padding:14px; }
+  /* header: reduce note clutter */
+  .site-header .note{ display:none } /* hide all by default */
+  /* re-add a tasteful few */
+  .site-header .note.keep{ display:block }
+  /* logo sizing */
+  .logo{ font-size:clamp(28px,10vw,70px) }
+  .nav a{ font-size:14px; padding:8px 12px }
+
+  /* sidebar + main stack, same full width */
+  #leftPane, #rightPane{ min-height:unset !important; }
+  .webcam .screen{ aspect-ratio: 16/10; } /* less tall on small screens */
+
+  /* journal layout stacks */
+  .journal-wrap{ grid-template-columns:1fr; }
+  .j-sticky{ position:relative; top:auto }
+}
+
+/* ultra narrow tweaks */
+@media (max-width: 420px){
+  .voteBtn{ width:100% }
+  .badges{ justify-content:center }
+  .arcade-menu{ grid-template-columns:1fr; }
 }
 </style>
 </head>
 <body>
-<div class="wrapper">
+<div class="wrapper section-overlay" id="app">
 
   <!-- ========== HEADER ========== -->
   <header class="site-header" id="header">
-    <!-- left notes -->
-    <span class="note" style="left:10px; top:4px;  font-size:16px; --dur:4.8s; --amp:8px;">♪</span>
-    <span class="note" style="left:34px; top:22px; font-size:21px; --dur:4.2s; --amp:6px;">♫</span>
-    <span class="note" style="left:18px; top:46px; font-size:14px; --dur:5.1s; --amp:7px;">♪</span>
-    <span class="note" style="left:64px; top:70px; font-size:18px; --dur:4.5s; --amp:6px;">♫</span>
-    <span class="note" style="left:22px; top:94px; font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
-    <span class="note" style="left:74px; top:114px;font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
-    <span class="note" style="left:96px; top:10px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
-    <span class="note" style="left:112px; top:36px;font-size:18px; --dur:4.6s; --amp:7px;">♫</span>
-    <!-- right notes -->
-    <span class="note" style="right:12px; top:6px;  font-size:20px; --dur:4.6s; --amp:8px;">♫</span>
-    <span class="note" style="right:42px; top:24px;  font-size:14px; --dur:4.0s; --amp:6px;">♪</span>
-    <span class="note" style="right:20px; top:48px;  font-size:23px; --dur:5.0s; --amp:7px;">♫</span>
-    <span class="note" style="right:76px; top:72px;  font-size:16px; --dur:4.3s; --amp:6px;">♪</span>
-    <span class="note" style="right:26px; top:96px;  font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
-    <span class="note" style="right:80px; top:116px; font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
-    <span class="note" style="right:104px; top:14px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
-    <span class="note" style="right:124px; top:40px;font-size:18px; --dur:4.6s; --amp:7px;">♫</span>
+    <!-- Minimal notes for desktop; on mobile most hidden -->
+    <span class="note keep" style="left:10px; top:6px;  font-size:16px; --dur:4.8s; --amp:8px;">♪</span>
+    <span class="note keep" style="left:36px; top:28px; font-size:22px; --dur:4.2s; --amp:6px;">♫</span>
+    <span class="note keep" style="right:18px; top:10px; font-size:16px; --dur:4.6s; --amp:7px;">♪</span>
+    <span class="note keep" style="right:46px; top:30px; font-size:20px; --dur:4.4s; --amp:6px;">♫</span>
 
     <div class="logo-wrap">
-      <a class="heart left"  href="#heartl" title="secret left">♥</a>
+      <!-- Left heart -> ARCADE -->
+      <a class="heart left"  href="#arcade" title="secret arcade">♥</a>
       <div class="logo" id="logo">bj case</div>
-      <a class="heart right" href="#heartr" title="secret right">♥</a>
+      <!-- Right heart keeps a small secret page -->
+      <a class="heart right" href="#secret" title="secret note">♥</a>
     </div>
 
     <nav class="nav" aria-label="Main">
@@ -465,7 +592,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
           <div class="ts" id="ts">00:00:00</div>
         </div>
         <div class="screen">
-          <img id="webcamFeed" src="/assets/webcam.gif?v=1.21.0" alt="webcam feed placeholder">
+          <img id="webcamFeed" src="/assets/webcam.gif?v=1.30.0" alt="webcam feed placeholder">
         </div>
       </div>
     </aside>
@@ -499,7 +626,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 
 <script>
 /* ===== VERSION & CACHE-BUST ===== */
-const SITE_VERSION = '1.21.0';
+const SITE_VERSION = '1.30.0';
 (function ensureVersionParam(){
   try{
     const u = new URL(location.href);
@@ -527,129 +654,15 @@ document.getElementById('y').textContent = new Date().getFullYear();
   setInterval(bump, 3500);
 })();
 
-/* ===== ROUTER ===== */
+/* ===== ROUTER PAGES ===== */
 const pages = {
   home: {
     leftTitle: "Welcome",
-    leftHTML: `
-      <p>Hi! My name is BJ. I hope you enjoy my page. This is my own little slice (or perhaps, strand?) of the web. This is my digital diary. My respite from the chaos. Feel free to look around, get lost even. Oh, and btw… I make music! That’s on here if you wanna check it out!! Safe travels :p</p>
-
-      <hr />
-      <h2>Status</h2>
-      <div class="status-box">
-        <p style="white-space:pre-line; margin:0">
-<span class="pink">Currently:</span> rewatching Charmed and working on music : )
-<span class="pink">Now listening to:</span> Britney — “Phonography” (on repeat)
-<span class="pink">Mood:</span> excited and nervous :D
-        </p>
-      </div>
-
-      <hr />
-      <h2>Now Playing</h2>
-      <div class="winamp" role="group" aria-label="Now Playing">
-        <div class="display">01. bj case — Performance (demo)</div>
-        <div class="row">
-          <div class="btn" title="Prev" aria-label="Previous">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M7 5v14H5V5h2zm2 7 10 7V5L9 12z"/></svg>
-          </div>
-          <div class="btn" title="Play" aria-label="Play">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-          <div class="btn" title="Pause" aria-label="Pause">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-          </div>
-          <div class="btn" title="Next" aria-label="Next">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17 5v14h2V5h-2zM7 5l10 7-10 7V5z"/></svg>
-          </div>
-          <div class="scrubber"></div>
-          <div>02:47</div>
-        </div>
-      </div>
-
-      <hr />
-      <h2>Featured Links</h2>
-      <p>A little something I’ve learned from my short time on Earth so far is the importance of placing an extreme emphasis on LOVE. ;)</p>
-
-      <hr />
-      <h2>Roadmap</h2>
-      <pre style="margin:0; white-space:pre-wrap; font-family:inherit;">
-• Keep working on the blog
-• Clean my room
-• Keep building “Flip Phone”
-      </pre>
-    `,
+    leftHTML: document.querySelector('#leftContent').innerHTML, /* use initial DOM as template */
     rightEnabled: true,
-    rightHTML: `
-      <h2>Release Timeline</h2>
-      <pre style="margin:0 0 10px 0; white-space:pre-wrap; font-family:inherit;">
- •Spring 2026: ??
- •Summer 2026: ???
- • Autumn 2026: ???? 
-      </pre>
-      <hr />
-      <h2>Studio Log</h2>
-      <pre style="margin:0 0 10px 0; white-space:pre-wrap; font-family:inherit;">
-• November 3rd: Build synth stack for “Flip Phone” and figure out drum pattern
-• October 3rd, 2025: Figure out what the bridge of “Performance” should be like
-      </pre>
-      <hr />
-      <h2>Poll</h2>
-      <div class="pollbox">
-        <p class="desc">Pick the song that most interests you…</p>
-        <div class="poll">
-          <label><input type="radio" name="poll" value="performance"> “Performance”</label>
-          <label><input type="radio" name="poll" value="flip"> “Flip Phone”</label>
-          <label><input type="radio" name="poll" value="look"> “Look But Don’t Touch”</label>
-          <button id="voteBtnHome" class="voteBtn">Cast Vote</button>
-        </div>
-        <div class="poll-results" id="pollResultsHome" style="display:none;">
-          <div>Performance: <span id="pPerfHome">0%</span></div>
-          <div class="bar" id="bPerfHome" style="width:0%"></div>
-          <div style="height:6px"></div>
-          <div>Flip Phone: <span id="pFlipHome">0%</span></div>
-          <div class="bar" id="bFlipHome" style="width:0%; background:#49c9ff"></div>
-          <div style="height:6px"></div>
-          <div>Look BDT: <span id="pLookHome">0%</span></div>
-          <div class="bar" id="bLookHome" style="width:0%; background:#ffb35e"></div>
-        </div>
-      </div>
-      <hr />
-      <h2>Quick Links</h2>
-      <div class="badges">
-        <a href="#journal">Journal</a><a href="#about">About</a><a href="#contact">Contact</a><a href="#music">Music</a>
-      </div>
-      <div class="webcam">
-        <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts2">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif?v=1.21.0" alt="webcam feed placeholder"></div>
-      </div>
-    `
+    rightHTML: document.querySelector('#rightPane').innerHTML
   },
 
-  /* ===== Secrets ===== */
-  heartl: {
-    leftTitle: "♥ secret — pong",
-    leftHTML: `
-      <p>Welcome to the secret arcade. Use <strong>↑/↓</strong> to move. First to <strong>7</strong> wins. <strong>R</strong> = reset, <strong>P</strong> = pause.</p>
-      <div id="pongWrap" style="width:100%;">
-        <canvas id="pong" style="display:block;width:100%;max-width:100%;border:2px solid var(--pink);background:linear-gradient(180deg,#140018,#0b0010)"></canvas>
-      </div>
-      <div style="margin-top:8px;font:12px Verdana">Score: <span id="scoreL">0</span> — <span id="scoreR">0</span></div>
-    `,
-    rightEnabled: false
-  },
-  heartr: {
-    leftTitle: "♥ secret — note",
-    leftHTML: `
-      <p>Hidden page reserved for future secrets. Check back later…</p>
-      <article>
-        <h3>Private Teaser</h3>
-        <p>Maybe an early lyric, a cover mock, or a studio camera? Shh.</p>
-      </article>
-    `,
-    rightEnabled: false
-  },
-
-  /* ===== Normal routes ===== */
   music: {
     leftTitle: "Music",
     leftHTML: `
@@ -665,7 +678,7 @@ const pages = {
         <li>Mono core; stereo for color only</li>
       </ul>
       <hr />
-      <h2>Quick Actions</h2>
+      <h2>Quick Links</h2>
       <div class="badges">
         <a href="#journal">Studio Diary</a>
         <a href="#visuals">Cover Art</a>
@@ -673,10 +686,11 @@ const pages = {
       </div>
       <div class="webcam">
         <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts3">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif?v=1.21.0" alt="webcam feed placeholder"></div>
+        <div class="screen"><img src="/assets/webcam.gif?v=1.30.0" alt="webcam feed placeholder"></div>
       </div>
     `
   },
+
   visuals: {
     leftTitle: "Visuals",
     leftHTML: `
@@ -697,21 +711,120 @@ const pages = {
       </div>
       <div class="webcam">
         <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts4">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif?v=1.21.0" alt="webcam feed placeholder"></div>
+        <div class="screen"><img src="/assets/webcam.gif?v=1.30.0" alt="webcam feed placeholder"></div>
       </div>
     `
   },
+
+  /* ====== JOURNAL (new blog) ====== */
   journal: {
     leftTitle: "Journal",
     leftHTML: `
-      <p>Web diary: raw notes, studio days, sparkly chaos.</p>
+      <div class="journal-wrap">
+        <!-- Stickies / owner mode -->
+        <aside class="j-sticky">
+          <h3>Journal Tools</h3>
+          <p style="font:12px Verdana;opacity:.85">Owner Mode lets <em>you</em> add private entries (saved locally).</p>
+          <div class="j-owner">
+            <input id="j-pass" type="password" placeholder="enter pass (your device only)">
+            <button id="j-auth">Unlock</button>
+          </div>
+          <div class="j-editor" id="j-editor">
+            <div class="row">
+              <input id="j-title" placeholder="Entry title">
+              <input id="j-date" placeholder="Date (auto if blank)">
+            </div>
+            <textarea id="j-body" rows="4" placeholder="Your entry…"></textarea>
+            <div class="actions">
+              <button id="j-save">Save entry</button>
+              <button id="j-clear">Clear local</button>
+            </div>
+          </div>
+          <p style="font:11px Verdana;opacity:.7;margin-top:8px">Entries you create here are visible only on this device. We can wire a real backend later.</p>
+        </aside>
+
+        <!-- Feed -->
+        <section class="j-feed">
+          <article class="j-entry">
+            <h4>Nov 3, 2025 — Secret Arcade Arrives!</h4>
+            <div class="date">posted today</div>
+            <p>Left heart → arcade. Three games live: Pong, Lip-Gloss Flight, Brick Breaker. Maximalism activated.</p>
+          </article>
+          <article class="j-entry">
+            <h4>Oct 31, 2025 — Mobile polish begins</h4>
+            <div class="date">posted Oct 31</div>
+            <p>Lots of CSS tweaks to keep everything cute on small screens. Fewer header notes on mobile for balance.</p>
+          </article>
+          <div id="j-private-mount"></div>
+        </section>
+      </div>
+    `,
+    rightEnabled: false
+  },
+
+  /* ====== ARCADE ====== */
+  arcade: {
+    leftTitle: "♥ secret — arcade",
+    leftHTML: `
+      <p style="margin-bottom:10px">Welcome to the secret arcade. Pick a game:</p>
+      <div class="arcade-menu">
+        <div class="arc-card" data-route="#game-pong">
+          <h3>Pong</h3>
+          <p>Classic. First to 7 wins. ↑/↓ or touch.</p>
+        </div>
+        <div class="arc-card" data-route="#game-gloss">
+          <h3>Lip-Gloss Flight</h3>
+          <p>Dodge mascara clumps. Tap/Space to float.</p>
+        </div>
+        <div class="arc-card" data-route="#game-bricks">
+          <h3>Brick Breaker</h3>
+          <p>Break glitter blocks. Drag or ← →.</p>
+        </div>
+      </div>
+    `,
+    rightEnabled: false
+  },
+
+  /* ====== Games subpages ====== */
+  "game-pong": {
+    leftTitle: "♥ arcade — pong",
+    leftHTML: `
+      <p>Use <strong>↑/↓</strong> (or touch on mobile). First to <strong>7</strong> wins. <strong>R</strong> = reset, <strong>P</strong> = pause.</p>
+      <div class="game-wrap"><canvas id="pong"></canvas></div>
+      <div style="margin-top:8px;font:12px Verdana">Score: <span id="scoreL">0</span> — <span id="scoreR">0</span></div>
+    `,
+    rightEnabled: false
+  },
+  "game-gloss": {
+    leftTitle: "♥ arcade — lip-gloss flight",
+    leftHTML: `
+      <p>Tap / Space to float. Avoid obstacles. Cute + chaotic.</p>
+      <div class="game-wrap"><canvas id="gloss"></canvas></div>
+    `,
+    rightEnabled: false
+  },
+  "game-bricks": {
+    leftTitle: "♥ arcade — brick breaker",
+    leftHTML: `
+      <p>Break all glitter bricks. Drag paddle (or use ← →).</p>
+      <div class="game-wrap"><canvas id="bricks"></canvas></div>
+    `,
+    rightEnabled: false
+  },
+
+  /* ====== Right-heart tiny secret ====== */
+  secret: {
+    leftTitle: "♥ secret — note",
+    leftHTML: `
+      <p>Hidden page reserved for future secrets. Check back later…</p>
       <article>
-        <h3>Nov 3, 2025 — Secrets!</h3>
-        <p>Left heart opens a Pong mini-game. Right heart reserved for future teasers.</p>
+        <h3>Private Teaser</h3>
+        <p>Maybe an early lyric, a cover mock, or a studio camera? Shh.</p>
       </article>
     `,
     rightEnabled: false
   },
+
   about: {
     leftTitle: "About",
     leftHTML: `
@@ -733,10 +846,12 @@ const pages = {
   }
 };
 
+const app = document.getElementById('app');
 const rootEl = document.getElementById("pageRoot");
 const leftPane = document.getElementById("leftPane");
 const rightPane = document.getElementById("rightPane");
 
+/* Helpers */
 function setLayout(single){ single ? rootEl.classList.add("single") : rootEl.classList.remove("single"); }
 function syncColumns(){
   const rightVisible = rightPane.style.display !== "none";
@@ -749,15 +864,15 @@ function syncColumns(){
 }
 let syncRAF; function scheduleSync(){ cancelAnimationFrame(syncRAF); syncRAF = requestAnimationFrame(syncColumns); }
 
+/* Mount right column (and wire poll if present) */
 function mountRight(html){
   if(!html){ rightPane.style.display="none"; setLayout(true); scheduleSync(); return; }
   rightPane.style.display=""; setLayout(false);
   rightPane.innerHTML = html;
 
-  const btn = rightPane.querySelector('#voteBtnHome');
+  const btn = rightPane.querySelector('#voteBtn');
   if(btn){
-    wirePoll('#voteBtnHome','#pollResultsHome','#pPerfHome','#pFlipHome','#pLookHome',
-             '#bPerfHome','#bFlipHome','#bLookHome','bj_poll_home');
+    wirePoll('#voteBtn','#pollResults','#pPerf','#pFlip','#pLook','#bPerf','#bFlip','#bLook','bj_poll_right');
   }
   rightPane.querySelectorAll('img').forEach(img=>{
     if(img.complete) scheduleSync(); else img.addEventListener('load', scheduleSync, {once:true});
@@ -765,12 +880,34 @@ function mountRight(html){
   scheduleSync();
 }
 
+/* Update section overlay route for per-section background accent */
+function setRouteAttr(route){
+  app.setAttribute('data-route', route);
+}
+
+/* Render route */
 function render(route){
   const key = route && pages[route] ? route : "home";
+  setRouteAttr(key);
   document.getElementById("leftTitle").textContent = pages[key].leftTitle;
   document.getElementById("leftContent").innerHTML = pages[key].leftHTML;
   mountRight(pages[key].rightEnabled ? pages[key].rightHTML : null);
-  if(key === 'heartl'){ bootPong(); }
+
+  // Page-specific boots
+  if(key === 'game-pong') bootPong();
+  if(key === 'game-gloss') bootGloss();
+  if(key === 'game-bricks') bootBricks();
+  if(key === 'journal') bootJournal();
+
+  // Arcade menu card navigation
+  if(key === 'arcade'){
+    document.querySelectorAll('.arc-card').forEach(card=>{
+      card.addEventListener('click', ()=> {
+        const r = card.getAttribute('data-route');
+        if(r) location.hash = r;
+      });
+    });
+  }
 }
 function onHash(){ render(location.hash.replace("#","").toLowerCase()); }
 window.addEventListener("hashchange", onHash);
@@ -820,7 +957,6 @@ function wirePoll(btnSel,resSel,pPerfSel,pFlipSel,pLookSel,bPerfSel,bFlipSel,bLo
 
   if(localStorage.getItem(KEY+"_voted")) draw(read());
 }
-wirePoll('#voteBtn','#pollResults','#pPerf','#pFlip','#pLook','#bPerf','#bFlip','#bLook','bj_poll_right');
 
 /* ===== Shoutbox (private posts) ===== */
 (() => {
@@ -901,23 +1037,79 @@ wirePoll('#voteBtn','#pollResults','#pPerf','#pFlip','#pLook','#bPerf','#bFlip',
   setInterval(()=>{ ['ts','ts2','ts3','ts4'].forEach(update); }, 1000);
 })();
 
-/* ===== PONG (heartl): score-to-7, win/lose, arrows no-scroll ===== */
+/* ===== JOURNAL BOOT (Owner mode, local only) ===== */
+function bootJournal(){
+  const PASS_KEY='bj_journal_pass_ok';
+  const STORE='bj_journal_entries';
+  const editor = document.getElementById('j-editor');
+  const pass = document.getElementById('j-pass');
+  const auth = document.getElementById('j-auth');
+  const saveBtn = document.getElementById('j-save');
+  const clearBtn = document.getElementById('j-clear');
+  const title = document.getElementById('j-title');
+  const date = document.getElementById('j-date');
+  const body = document.getElementById('j-body');
+  const mount = document.getElementById('j-private-mount');
+
+  function ok(){ return localStorage.getItem(PASS_KEY)==='1'; }
+  function showEditor(show){ if(editor) editor.style.display = show ? 'block':'none'; }
+
+  function load(){ try{ return JSON.parse(localStorage.getItem(STORE))||[] }catch(e){ return [] } }
+  function save(arr){ localStorage.setItem(STORE, JSON.stringify(arr)) }
+
+  function draw(){
+    if(!mount) return;
+    mount.innerHTML='';
+    const arr=load();
+    arr.forEach(en=>{
+      const art = document.createElement('article');
+      art.className='j-entry';
+      art.innerHTML = `<h4>${en.title||'(untitled)'}</h4><div class="date">${en.date||''}</div><p>${en.body||''}</p>`;
+      mount.prepend(art);
+    });
+  }
+
+  if(auth){
+    auth.onclick = ()=>{
+      // super lightweight check; you can set any pass you like; it’s local-only.
+      if((pass.value||'').length>=1){ localStorage.setItem(PASS_KEY,'1'); showEditor(true); }
+    };
+  }
+  showEditor(ok());
+  draw();
+
+  if(saveBtn){
+    saveBtn.onclick = ()=>{
+      const arr=load();
+      const d = date.value.trim() || new Date().toLocaleString();
+      arr.push({title:title.value.trim(), date:d, body:body.value.trim()});
+      save(arr); title.value=''; date.value=''; body.value='';
+      draw();
+    };
+  }
+  if(clearBtn){
+    clearBtn.onclick = ()=>{ localStorage.removeItem(STORE); draw(); };
+  }
+}
+
+/* ====== ARCADE GAMES ====== */
+
+/* PONG */
 function bootPong(){
   const canvas = document.getElementById('pong');
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  function sizeCanvas(){
+  function size(){
     const parent = canvas.parentElement || canvas;
     const w = Math.min(parent.clientWidth || 560, 820);
     const h = Math.round(w * 9 / 14);
-    canvas.width = w;
-    canvas.height = h;
+    canvas.width = w; canvas.height = h;
   }
-  sizeCanvas();
-  window.addEventListener('resize', sizeCanvas, {passive:true});
+  size();
+  window.addEventListener('resize', size, {passive:true});
 
-  let up=false, down=false, paused=false, gameOver=false;
+  let up=false, down=false, paused=false, gameOver=false, touching=false, touchY=0;
   let W = canvas.width, H = canvas.height;
 
   const maxScore = 7;
@@ -928,47 +1120,24 @@ function bootPong(){
     cpu:    { x: W-26, y: H/2-35, w: 10, h: 70, s: 4.2 },
     ball:   { x: W/2, y: H/2, r: 6, vx: 4.0*(Math.random()<.5?1:-1), vy: 2.6*(Math.random()<.5?1:-1) }
   };
-/* >>> PONG MOBILE PATCH (paste right after const state = { ... };) <<< */
-
-/* Make the canvas control the paddle on touch/mouse and stop page scroll */
-function pointerToPaddle(clientY){
-  const rect = canvas.getBoundingClientRect();
-  const y = clientY - rect.top;
-  // center paddle on pointer, clamp to canvas
-  state.player.y = Math.max(0, Math.min(y - state.player.h/2, canvas.height - state.player.h));
-}
-
-/* Prevent the page from scrolling while interacting with the game */
-canvas.addEventListener('touchstart', (e)=>{ e.preventDefault(); pointerToPaddle(e.touches[0].clientY); }, {passive:false});
-canvas.addEventListener('touchmove',  (e)=>{ e.preventDefault(); pointerToPaddle(e.touches[0].clientY); }, {passive:false});
-
-/* Optional mouse control on desktop */
-canvas.addEventListener('mousemove', (e)=>{ pointerToPaddle(e.clientY); });
-
-/* On resize, keep paddles within bounds and fix CPU X */
-window.addEventListener('resize', ()=>{
-  // canvas width/height are already updated by sizeCanvas(); just sync helpers:
-  W = canvas.width; H = canvas.height;
-  state.cpu.x = W - 26;
-  state.player.y = Math.min(state.player.y, H - state.player.h);
-  state.cpu.y    = Math.min(state.cpu.y,    H - state.cpu.h);
-});
-/* >>> END PATCH <<< */
   function clamp(v,min,max){ return v<min?min:(v>max?max:v); }
 
-  /* Prevent page scroll with arrows while on game */
-  const keydown = (e)=>{
-    if(e.key==='ArrowUp'){ up=true; e.preventDefault(); }
-    if(e.key==='ArrowDown'){ down=true; e.preventDefault(); }
-    if(e.key.toLowerCase()==='r'){ resetGame(); }
-    if(e.key.toLowerCase()==='p'){ if(!gameOver) paused=!paused; }
-  };
-  const keyup = (e)=>{
-    if(e.key==='ArrowUp'){ up=false; e.preventDefault(); }
-    if(e.key==='ArrowDown'){ down=false; e.preventDefault(); }
-  };
+  /* prevent page scroll with arrow keys */
+  const keydown=(e)=>{ if(e.key==='ArrowUp'){up=true;e.preventDefault()} if(e.key==='ArrowDown'){down=true;e.preventDefault()} if(e.key.toLowerCase()==='r'){resetGame()} if(e.key.toLowerCase()==='p'){ if(!gameOver) paused=!paused } };
+  const keyup=(e)=>{ if(e.key==='ArrowUp'){up=false;e.preventDefault()} if(e.key==='ArrowDown'){down=false;e.preventDefault()} };
   window.addEventListener('keydown', keydown, {passive:false});
   window.addEventListener('keyup', keyup, {passive:false});
+
+  /* mobile touch control: drag anywhere over canvas to move paddle */
+  canvas.addEventListener('touchstart', (e)=>{ touching=true; touchY = (e.touches[0]||e.changedTouches[0]).clientY; }, {passive:true});
+  canvas.addEventListener('touchmove', (e)=>{
+    if(!touching) return;
+    const y = (e.touches[0]||e.changedTouches[0]).clientY;
+    const dy = y - touchY;
+    state.player.y = clamp(state.player.y + dy*0.6, 0, H-state.player.h);
+    touchY = y;
+  }, {passive:true});
+  canvas.addEventListener('touchend', ()=> touching=false, {passive:true});
 
   function resetBall(dir){
     state.ball.x = W/2; state.ball.y = H/2;
@@ -982,30 +1151,24 @@ window.addEventListener('resize', ()=>{
     state.player.y = H/2 - state.player.h/2;
     state.cpu.y = H/2 - state.cpu.h/2;
     resetBall( (Math.random()<.5?1:-1) );
-    draw(); // immediate paint
+    draw();
   }
 
   function draw(){
-    // bg
     const g=ctx.createLinearGradient(0,0,0,H);
     g.addColorStop(0,'#140018'); g.addColorStop(1,'#0b0010');
     ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
 
-    // center dash
     ctx.setLineDash([8,8]); ctx.strokeStyle='rgba(255,255,255,.2)';
-    ctx.beginPath(); ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.stroke();
-    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.stroke(); ctx.setLineDash([]);
 
-    // score
     ctx.fillStyle='#ffdfff'; ctx.font='bold 20px Verdana';
     ctx.fillText(`${scoreL}`, W/2-36, 26);
     ctx.fillText(`${scoreR}`, W/2+24, 26);
 
-    // paddles
     ctx.fillStyle='#ff9ef6'; ctx.fillRect(state.player.x, state.player.y, state.player.w, state.player.h);
     ctx.fillStyle='#49c9ff'; ctx.fillRect(state.cpu.x, state.cpu.y, state.cpu.w, state.cpu.h);
 
-    // ball
     ctx.beginPath(); ctx.fillStyle='#fff';
     ctx.arc(state.ball.x, state.ball.y, state.ball.r, 0, Math.PI*2); ctx.fill();
 
@@ -1026,38 +1189,28 @@ window.addEventListener('resize', ()=>{
 
   function step(){
     if(paused || gameOver){ draw(); requestAnimationFrame(step); return; }
+    if(W !== canvas.width || H !== canvas.height){ W = canvas.width; H = canvas.height; state.cpu.x = W-26; }
 
-    if(W !== canvas.width || H !== canvas.height){
-      W = canvas.width; H = canvas.height;
-      state.cpu.x = W-26;
-    }
-
-    // player input
     if(up) state.player.y -= state.player.s;
     if(down) state.player.y += state.player.s;
     state.player.y = clamp(state.player.y, 0, H-state.player.h);
 
-    // simple cpu AI
     const target = state.ball.y - state.cpu.h/2;
     state.cpu.y += (target - state.cpu.y) * 0.085;
     state.cpu.y = clamp(state.cpu.y, 0, H-state.cpu.h);
 
-    // ball physics
     state.ball.x += state.ball.vx;
     state.ball.y += state.ball.vy;
 
-    // top/bottom bounce
     if(state.ball.y-state.ball.r<0){ state.ball.y=state.ball.r; state.ball.vy*=-1; }
     if(state.ball.y+state.ball.r>H){ state.ball.y=H-state.ball.r; state.ball.vy*=-1; }
 
-    // left/right scoring (no wall bounce)
     if(state.ball.x + state.ball.r < 0){
       scoreR++; updateScore(); checkGameOver(); resetBall(1);
     }else if(state.ball.x - state.ball.r > W){
       scoreL++; updateScore(); checkGameOver(); resetBall(-1);
     }
 
-    // paddle collisions with spin
     function collide(p){
       if(state.ball.x+state.ball.r>p.x && state.ball.x-state.ball.r<p.x+p.w &&
          state.ball.y>p.y && state.ball.y<p.y+p.h){
@@ -1075,22 +1228,265 @@ window.addEventListener('resize', ()=>{
 
   function updateScore(){
     const L=document.getElementById('scoreL'); const R=document.getElementById('scoreR');
-    if(L) L.textContent = scoreL;
-    if(R) R.textContent = scoreR;
+    if(L) L.textContent = scoreL; if(R) R.textContent = scoreR;
   }
-  function checkGameOver(){
-    if(scoreL>=maxScore || scoreR>=maxScore){
-      gameOver=true;
-    }
+  function checkGameOver(){ if(scoreL>=maxScore || scoreR>=maxScore){ gameOver=true; } }
+
+  updateScore(); draw(); requestAnimationFrame(step);
+}
+
+/* LIP-GLOSS FLIGHT (Flappy-like) */
+function bootGloss(){
+  const canvas = document.getElementById('gloss');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function size(){
+    const parent = canvas.parentElement || canvas;
+    const w = Math.min(parent.clientWidth || 560, 820);
+    const h = Math.round(w * 9 / 16);
+    canvas.width = w; canvas.height = h;
+  }
+  size(); window.addEventListener('resize', size, {passive:true});
+
+  let W=canvas.width, H=canvas.height;
+  const player = { x: W*0.25, y: H*0.5, vy:0, r:10 };
+  const gravity = 0.35, lift = -6.2;
+  let pipes=[], t=0, running=true, score=0;
+
+  function addPipe(){
+    const gap = Math.max(90, H*0.28);
+    const topH = 40 + Math.random()*(H-gap-80);
+    const speed = 2.6;
+    pipes.push({ x: W+20, w: 36, top: topH, bottom: topH+gap, v: speed });
   }
 
-  updateScore();
-  draw();
+  function reset(){
+    pipes=[]; t=0; score=0; player.y=H*0.5; player.vy=0; running=true;
+  }
+
+  function tap(){ if(!running){ reset(); return; } player.vy = lift; }
+
+  canvas.addEventListener('mousedown', tap);
+  canvas.addEventListener('touchstart', (e)=>{ e.preventDefault(); tap(); }, {passive:false});
+  window.addEventListener('keydown', (e)=>{ if(e.code==='Space'){ e.preventDefault(); tap(); } }, {passive:false});
+
+  function step(){
+    W=canvas.width; H=canvas.height;
+
+    // background
+    const g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#120019'); g.addColorStop(1,'#07000c');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+
+    // pipes
+    if(t%95===0) addPipe();
+    pipes.forEach(p=> p.x -= p.v);
+    pipes = pipes.filter(p=> p.x+p.w>0);
+
+    // player physics
+    player.vy += gravity;
+    player.y += player.vy;
+    if(player.y<player.r){ player.y=player.r; player.vy=0; }
+    if(player.y>H-player.r){ running=false; }
+
+    // draw pipes (mascara clumps as sparkly bars)
+    pipes.forEach(p=>{
+      ctx.fillStyle='#ff9ef6';
+      ctx.fillRect(p.x, 0, p.w, p.top);
+      ctx.fillRect(p.x, p.bottom, p.w, H-p.bottom);
+      // sparkly edge
+      ctx.fillStyle='rgba(255,255,255,.25)';
+      ctx.fillRect(p.x, p.top-2, p.w, 2);
+      ctx.fillRect(p.x, p.bottom, p.w, 2);
+    });
+
+    // collision & score
+    pipes.forEach(p=>{
+      const withinX = player.x+player.r > p.x && player.x-player.r < p.x+p.w;
+      const hitTop = player.y-player.r < p.top;
+      const hitBot = player.y+player.r > p.bottom;
+      if(withinX && (hitTop || hitBot)) running=false;
+      if(p.x+p.w<player.x && !p.passed){ p.passed=true; score++; }
+    });
+
+    // player (lip-gloss cap)
+    ctx.beginPath(); ctx.fillStyle='#ffffff';
+    ctx.arc(player.x, player.y, player.r, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle='#ff9ef6'; ctx.fillRect(player.x-2, player.y-player.r-10, 4, 10);
+
+    // UI
+    ctx.fillStyle='#ffdfff'; ctx.font='bold 18px Verdana';
+    ctx.fillText(`Score: ${score}`, 10, 22);
+
+    if(!running){
+      ctx.fillStyle='rgba(0,0,0,.45)'; ctx.fillRect(0,0,W,H);
+      ctx.fillStyle='#ffdfff'; ctx.font='bold 22px Verdana';
+      ctx.textAlign='center'; ctx.fillText('GAME OVER', W/2, H/2-6);
+      ctx.font='bold 14px Verdana'; ctx.fillText('Tap or Space to restart', W/2, H/2+16);
+      ctx.textAlign='start';
+      return; // stop loop until user taps
+    }
+
+    t++; requestAnimationFrame(step);
+  }
   requestAnimationFrame(step);
 }
 
-/* Mount static right poll too */
+/* BRICK BREAKER */
+function bootBricks(){
+  const canvas = document.getElementById('bricks');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function size(){
+    const parent = canvas.parentElement || canvas;
+    const w = Math.min(parent.clientWidth || 560, 860);
+    const h = Math.round(w * 3 / 5);
+    canvas.width = w; canvas.height = h;
+  }
+  size(); window.addEventListener('resize', size, {passive:true});
+
+  let W=canvas.width, H=canvas.height;
+  const paddle = { w: Math.max(60, W*0.18), h: 12, x: W*0.41, y: H-24, s: 7.2 };
+  const ball = { x: W*0.5, y: H*0.5, r: 7, vx: 3.2, vy: -3.6 };
+  let bricks=[], cols=8, rows=5, spacing=6, topPad=48, leftPad=12, bw, bh, dragging=false, keys={left:false,right:false}, running=true;
+
+  function layout(){
+    W=canvas.width; H=canvas.height;
+    paddle.y = H-24; paddle.w = Math.max(60, W*0.18);
+    bw = Math.floor((W - leftPad*2 - spacing*(cols-1)) / cols);
+    bh = 18;
+    bricks=[];
+    for(let r=0;r<rows;r++){
+      for(let c=0;c<cols;c++){
+        bricks.push({x:leftPad + c*(bw+spacing), y: topPad + r*(bh+spacing), w:bw, h:bh, hit:false});
+      }
+    }
+  }
+  layout();
+
+  canvas.addEventListener('mousemove', (e)=>{
+    if(!dragging) return;
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    paddle.x = Math.max(0, Math.min(mx - paddle.w/2, W - paddle.w));
+  });
+  canvas.addEventListener('mousedown', (e)=>{ dragging=true; });
+  canvas.addEventListener('mouseup', ()=> dragging=false);
+  canvas.addEventListener('touchstart', (e)=>{ dragging=true; }, {passive:true});
+  canvas.addEventListener('touchend', ()=> dragging=false, {passive:true});
+  canvas.addEventListener('touchmove', (e)=>{
+    if(!dragging) return;
+    const rect = canvas.getBoundingClientRect();
+    const mx = (e.touches[0]||e.changedTouches[0]).clientX - rect.left;
+    paddle.x = Math.max(0, Math.min(mx - paddle.w/2, W - paddle.w));
+  }, {passive:true});
+
+  window.addEventListener('keydown', (e)=>{
+    if(e.key==='ArrowLeft'){ keys.left=true; e.preventDefault(); }
+    if(e.key==='ArrowRight'){ keys.right=true; e.preventDefault(); }
+    if(e.key.toLowerCase()==='r'){ reset(); }
+  }, {passive:false});
+  window.addEventListener('keyup', (e)=>{
+    if(e.key==='ArrowLeft'){ keys.left=false; e.preventDefault(); }
+    if(e.key==='ArrowRight'){ keys.right=false; e.preventDefault(); }
+  }, {passive:false});
+
+  function reset(){
+    ball.x=W*0.5; ball.y=H*0.5; ball.vx=3.2*(Math.random()<.5?-1:1); ball.vy=-3.6;
+    layout(); running=true;
+  }
+
+  function step(){
+    if(!running){
+      draw(true); return;
+    }
+    // move paddle by keys
+    if(keys.left) paddle.x = Math.max(0, paddle.x - paddle.s);
+    if(keys.right) paddle.x = Math.min(W - paddle.w, paddle.x + paddle.s);
+
+    // move ball
+    ball.x += ball.vx; ball.y += ball.vy;
+    if(ball.x-ball.r<0){ ball.x=ball.r; ball.vx*=-1; }
+    if(ball.x+ball.r>W){ ball.x=W-ball.r; ball.vx*=-1; }
+    if(ball.y-ball.r<0){ ball.y=ball.r; ball.vy*=-1; }
+    if(ball.y-ball.r>H){ running=false; draw(true); return; }
+
+    // paddle collision
+    if(ball.x>paddle.x && ball.x<paddle.x+paddle.w && ball.y+ball.r>paddle.y && ball.y< paddle.y + paddle.h){
+      ball.y = paddle.y - ball.r;
+      ball.vy *= -1;
+      // add angle
+      const rel = (ball.x - (paddle.x+paddle.w/2))/(paddle.w/2);
+      ball.vx = 3.2*rel*2.2;
+    }
+
+    // brick collisions
+    let remaining=0;
+    bricks.forEach(b=>{
+      if(b.hit) return;
+      remaining++;
+      if(ball.x> b.x && ball.x< b.x+b.w && ball.y> b.y && ball.y< b.y+b.h){
+        b.hit=true;
+        // reflect smarter on which side was hit
+        const prevX = ball.x - ball.vx, prevY = ball.y - ball.vy;
+        if(prevX <= b.x || prevX >= b.x+b.w){ ball.vx *= -1; }
+        else{ ball.vy *= -1; }
+      }
+    });
+    if(remaining===0){ running=false; draw(true); return; }
+
+    draw(false);
+    requestAnimationFrame(step);
+  }
+
+  function draw(frozen){
+    const g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#140018'); g.addColorStop(1,'#0b0010');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+
+    // paddle
+    ctx.fillStyle='#49c9ff'; ctx.fillRect(paddle.x, paddle.y, paddle.w, paddle.h);
+
+    // ball
+    ctx.beginPath(); ctx.fillStyle='#fff';
+    ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI*2); ctx.fill();
+
+    // bricks
+    bricks.forEach(b=>{
+      if(b.hit) return;
+      const grad = ctx.createLinearGradient(b.x,b.y,b.x,b.y+b.h);
+      grad.addColorStop(0,'#ff9ef6'); grad.addColorStop(1,'#ffb35e');
+      ctx.fillStyle=grad; ctx.fillRect(b.x,b.y,b.w,b.h);
+      ctx.strokeStyle='rgba(0,0,0,.5)'; ctx.strokeRect(b.x+.5,b.y+.5,b.w-1,b.h-1);
+    });
+
+    // status
+    if(frozen){
+      ctx.fillStyle='rgba(0,0,0,.45)'; ctx.fillRect(0,0,W,H);
+      ctx.fillStyle='#ffdfff'; ctx.font='bold 22px Verdana'; ctx.textAlign='center';
+      const allGone = bricks.every(b=>b.hit);
+      ctx.fillText(allGone ? 'YOU WIN!' : 'GAME OVER', W/2, H/2-6);
+      ctx.font='bold 14px Verdana';
+      ctx.fillText('Press R to restart', W/2, H/2+16);
+      ctx.textAlign='start';
+    }
+  }
+
+  requestAnimationFrame(step);
+}
+
+/* Mount static right poll too (home) */
 wirePoll('#voteBtn','#pollResults','#pPerf','#pFlip','#pLook','#bPerf','#bFlip','#bLook','bj_poll_right');
+
+/* ========== ROUTER HOOK ========== */
+function showSection(route){ location.hash = '#'+route; }
+
+/* Allow clicking hearts always to go to secrets */
+document.querySelector('.heart.left').addEventListener('click', (e)=>{ /* default anchor works */ });
+document.querySelector('.heart.right').addEventListener('click', (e)=>{ /* default anchor works */ });
+
 </script>
 </body>
 </html>
