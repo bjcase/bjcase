@@ -6,11 +6,11 @@
 <title>bj case — home</title>
 
 <!-- Favicons (always included, cache-busted) -->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.20.5">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1.20.5">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1.20.5">
-<link rel="manifest" href="/site.webmanifest?v=1.20.5">
-<link rel="shortcut icon" href="/favicon.ico?v=1.20.5">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.20.7">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1.20.7">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1.20.7">
+<link rel="manifest" href="/site.webmanifest?v=1.20.7">
+<link rel="shortcut icon" href="/favicon.ico?v=1.20.7">
 <meta name="theme-color" content="#ff9ef6">
 
 <!-- Cache hints -->
@@ -23,12 +23,10 @@
 
 <style>
 /* ===========================================================
-   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.20.5)
-   - Hearts route FIX: lowercase (#heartl / #heartr, pages.heartl/.heartr)
-   - Header tight; hearts pink/wide and clickable
-   - Poll: clean full border + subtle sparkle sweep
-   - Status: unique border; bold pink labels
-   - Featured Links restored; Release Timeline year fixed (2026)
+   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.20.7)
+   - Hearts secret routes (lowercase) working
+   - PONG: responsive canvas, arrow-keys no-scroll, all borders bounce
+   - Music page intro text replaced; Status removed on Music
    =========================================================== */
 
 /* ---------- PALETTE ---------- */
@@ -54,7 +52,7 @@ body{
 .wrapper{max-width:860px;margin:0 auto;padding:16px}
 a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 
-/* ---------- HEADER (tighter) ---------- */
+/* ---------- HEADER (tight vertical) ---------- */
 .site-header{
   border:2px solid var(--pink);
   background:linear-gradient(180deg,#520061 0%,#36003e 60%,#240024 100%);
@@ -67,15 +65,13 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 /* Logo + Hearts wrapper */
 .logo-wrap{
   position:relative; display:flex; align-items:center; justify-content:center;
-  gap:.9em; /* tuned so hearts don’t collide with notes */
-  width:100%; margin:0 auto 6px;
-  z-index:3;
+  gap:.9em; width:100%; margin:0 auto 6px; z-index:3;
 }
 .heart{
   display:inline-block; text-decoration:none; line-height:1;
-  color:var(--pink); /* PINK hearts */
+  color:var(--pink);
   font-size:clamp(26px,4.6vw,44px);
-  transform:scaleX(1.3); /* wide heart look */
+  transform:scaleX(1.3);
   text-shadow:0 0 6px var(--pink), 0 0 10px var(--neon-blue), 0 0 14px rgba(255,255,255,.35);
   filter:drop-shadow(0 0 2px #fff6);
   transition: transform .12s ease, text-shadow .2s ease;
@@ -101,7 +97,7 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 }
 @keyframes logoShine{0%{background-position:-180% 0,0 50%}100%{background-position:180% 0,0 50%}}
 
-/* Music notes stay behind hearts/logo, away from center text */
+/* Notes stay behind hearts/logo, away from center text */
 .note{
   position:absolute; user-select:none; pointer-events:none; z-index:1;
   color:#ffd1fa; text-shadow:0 0 6px var(--pink), 0 0 10px #fff8;
@@ -171,7 +167,7 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 .panel + .panel{ margin-top:14px }
 hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--neon-blue),transparent); margin:12px 0}
 
-/* ---------- STATUS BOX (unique styling) ---------- */
+/* ---------- STATUS BOX ---------- */
 .status-box{
   position:relative; padding:12px; border-radius:8px;
   background:linear-gradient(180deg,#2b0037 0%, #17001e 100%);
@@ -218,7 +214,7 @@ hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--n
 .badges{display:flex; flex-wrap:wrap; gap:6px}
 .badges a{display:inline-block; padding:6px 10px; border:1px solid var(--pink); box-shadow:0 0 0 2px #000 inset; background:#300033; color:#ffbdfb; font:800 10px/1 Verdana; text-align:center; text-decoration:none}
 
-/* ---------- POLL (sparkle border v2) ---------- */
+/* ---------- POLL ---------- */
 .pollbox{
   position:relative;
   border:2px solid var(--pink);
@@ -227,7 +223,6 @@ hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--n
   padding:12px; border-radius:8px; overflow:hidden;
 }
 .pollbox::after{
-  /* subtle sparkly sweep along the border */
   content:""; position:absolute; inset:-2px; border-radius:10px; pointer-events:none;
   background:
     linear-gradient(90deg, transparent 0%, rgba(255,255,255,.6) 10%, transparent 20%) 0 0 / 120px 2px no-repeat,
@@ -329,7 +324,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 
   <!-- ========== HEADER ========== -->
   <header class="site-header" id="header">
-    <!-- Left notes cluster -->
+    <!-- Left cluster -->
     <span class="note" style="left:10px; top:4px;  font-size:16px; --dur:4.8s; --amp:8px;">♪</span>
     <span class="note" style="left:34px; top:22px; font-size:21px; --dur:4.2s; --amp:6px;">♫</span>
     <span class="note" style="left:18px; top:46px; font-size:14px; --dur:5.1s; --amp:7px;">♪</span>
@@ -340,7 +335,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
     <span class="note" style="left:96px; top:10px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
     <span class="note" style="left:112px; top:36px;font-size:18px; --dur:4.6s; --amp:7px;">♫</span>
 
-    <!-- Right notes cluster -->
+    <!-- Right cluster -->
     <span class="note" style="right:12px; top:6px;  font-size:20px; --dur:4.6s; --amp:8px;">♫</span>
     <span class="note" style="right:42px; top:24px;  font-size:14px; --dur:4.0s; --amp:6px;">♪</span>
     <span class="note" style="right:20px; top:48px;  font-size:23px; --dur:5.0s; --amp:7px;">♫</span>
@@ -351,7 +346,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
     <span class="note" style="right:104px; top:14px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
     <span class="note" style="right:124px; top:40px;font-size:18px; --dur:4.6s; --amp:7px;">♫</span>
 
-    <!-- Logo + Clickable Hearts (lowercase routes) -->
+    <!-- Logo + Hearts -->
     <div class="logo-wrap">
       <a class="heart left"  href="#heartl" title="secret left">♥</a>
       <div class="logo" id="logo">bj case</div>
@@ -441,7 +436,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
       <hr />
       <h2>Studio Log</h2>
       <ul id="rightBlock2" style="margin:0 0 10px 18px; padding:0;">
-        <li><strong>Nov 3, 2025:</strong> Poll sparkle border v2; hearts fixed</li>
+        <li><strong>Nov 3, 2025:</strong> Pong responsive + no-scroll; music intro updated</li>
         <li><strong>Nov 2, 2025:</strong> Webcam moved to bottom; Winamp fixed</li>
       </ul>
 
@@ -483,7 +478,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
           <div class="ts" id="ts">00:00:00</div>
         </div>
         <div class="screen">
-          <img id="webcamFeed" src="/assets/webcam.gif?v=1.20.5" alt="webcam feed placeholder">
+          <img id="webcamFeed" src="/assets/webcam.gif?v=1.20.7" alt="webcam feed placeholder">
         </div>
       </div>
     </aside>
@@ -517,7 +512,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 
 <script>
 /* ===== VERSION & CACHE-BUST ===== */
-const SITE_VERSION = '1.20.5';
+const SITE_VERSION = '1.20.7';
 (function ensureVersionParam(){
   try{
     const u = new URL(location.href);
@@ -607,7 +602,7 @@ const pages = {
       <hr />
       <h2>Studio Log</h2>
       <ul style="margin:0 0 10px 18px; padding:0;">
-        <li><strong>Nov 3, 2025:</strong> Poll sparkle border v2; hearts fixed</li>
+        <li><strong>Nov 3, 2025:</strong> Pong responsive + no-scroll; music intro updated</li>
         <li><strong>Nov 2, 2025:</strong> Webcam moved to bottom; Winamp fixed</li>
       </ul>
       <hr />
@@ -638,7 +633,7 @@ const pages = {
       </div>
       <div class="webcam">
         <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts2">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif?v=1.20.5" alt="webcam feed placeholder"></div>
+        <div class="screen"><img src="/assets/webcam.gif?v=1.20.7" alt="webcam feed placeholder"></div>
       </div>
     `
   },
@@ -647,8 +642,10 @@ const pages = {
   heartl: {
     leftTitle: "♥ secret — pong",
     leftHTML: `
-      <p>Welcome to the secret arcade. Use <strong>↑/↓</strong> to move. First to 5 wins!</p>
-      <canvas id="pong" width="560" height="360" style="display:block;width:100%;max-width:560px;border:2px solid var(--pink);background:linear-gradient(180deg,#140018,#0b0010)"></canvas>
+      <p>Welcome to the secret arcade. Use <strong>↑/↓</strong> to move. First to… endless rallies, since walls bounce!</p>
+      <div id="pongWrap" style="width:100%;">
+        <canvas id="pong" style="display:block;width:100%;max-width:100%;border:2px solid var(--pink);background:linear-gradient(180deg,#140018,#0b0010)"></canvas>
+      </div>
       <div style="margin-top:8px;font:12px Verdana">Press <strong>R</strong> to reset • Press <strong>P</strong> to pause</div>
     `,
     rightEnabled: false
@@ -669,17 +666,9 @@ const pages = {
   music: {
     leftTitle: "Music",
     leftHTML: `
-      <p>Singles, demos, and deep cuts. Glossy synths, rubbery bass, and late-2000s tension.</p>
-      <ul>
-        <li><strong>Performance</strong> — demo snippet</li>
-        <li><strong>Flip Phone</strong> — bratty, digital, groovy</li>
-        <li><strong>Look But Don’t Touch</strong> — raunchy, glossy attitude</li>
-      </ul>
-      <hr />
-      <h2>Status</h2>
-      <div class="status-box">
-        <p style="margin:0"><strong>Mixing:</strong> lift 100–200 Hz warmth; tighten clap stacks.<br><strong>Next:</strong> vocal doubles + delay throws.</p>
-      </div>
+      <p>Hey — you’ve found the music section. Let me provide an update on that front.</p>
+      <p>Right now, I’m still in the early stages of learning production. However, my demo for my first song, “Performance” is pretty well developed and is close to being ready for vocals which I’m excited for!! Also, I’ve started to build my song “Flip Phone” too. I’m so excited!!!</p>
+
       <hr />
       <h2>Player</h2>
       <div class="winamp" role="group" aria-label="Player">
@@ -718,7 +707,7 @@ const pages = {
       </div>
       <div class="webcam">
         <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts3">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif?v=1.20.5" alt="webcam feed placeholder"></div>
+        <div class="screen"><img src="/assets/webcam.gif?v=1.20.7" alt="webcam feed placeholder"></div>
       </div>
     `
   },
@@ -748,7 +737,7 @@ const pages = {
       </div>
       <div class="webcam">
         <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts4">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif?v=1.20.5" alt="webcam feed placeholder"></div>
+        <div class="screen"><img src="/assets/webcam.gif?v=1.20.7" alt="webcam feed placeholder"></div>
       </div>
     `
   },
@@ -826,7 +815,7 @@ function render(route){
   document.getElementById("leftContent").innerHTML = pages[key].leftHTML;
   mountRight(pages[key].rightEnabled ? pages[key].rightHTML : null);
 
-  /* Boot the Pong game on the left-heart page (lowercase match) */
+  /* Boot the Pong game on the left-heart page */
   if(key === 'heartl'){ bootPong(); }
 }
 function onHash(){ render(location.hash.replace("#","").toLowerCase()); }
@@ -866,7 +855,7 @@ function wirePoll(btnSel,resSel,pPerfSel,pFlipSel,pLookSel,bPerfSel,bFlipSel,bLo
     els.results.style.display='block';
   }
 
-  els.btn.addEventListener('click',(ev)=>{
+  els.btn.addEventListener('click',()=>{
     const chosen = document.querySelector('input[name="poll"]:checked'); if(!chosen) return;
     const voted = localStorage.getItem(KEY+"_voted"); const data=read();
     if(voted){ draw(data); return; }
@@ -959,43 +948,73 @@ wirePoll('#voteBtn','#pollResults','#pPerf','#pFlip','#pLook','#bPerf','#bFlip',
   setInterval(()=>{ ['ts','ts2','ts3','ts4'].forEach(update); }, 1000);
 })();
 
-/* ===== Pong (heartl) ===== */
+/* ===== PONG (heartl): responsive, no-scroll arrows, all borders bounce ===== */
 function bootPong(){
   const canvas = document.getElementById('pong');
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
+
+  /* Fill the box responsively (14:9 aspect) */
+  function sizeCanvas(){
+    const parent = canvas.parentElement || canvas;
+    const w = Math.min(parent.clientWidth || 560, 820);
+    const h = Math.round(w * 9 / 14);
+    canvas.width = w;
+    canvas.height = h;
+  }
+  sizeCanvas();
+  window.addEventListener('resize', sizeCanvas, {passive:true});
 
   let up=false, down=false, paused=false;
-  let player = { x: 16, y: H/2-35, w: 10, h: 70, s: 5 };
-  let cpu    = { x: W-26, y: H/2-35, w: 10, h: 70, s: 4.2 };
-  let ball   = { x: W/2, y: H/2, r: 6, vx: 3.8*(Math.random()<.5?1:-1), vy: 2.6*(Math.random()<.5?1:-1) };
-  let score  = { p:0, c:0 };
+  let W = canvas.width, H = canvas.height;
 
-  function resetBall(dir=1){
-    ball.x=W/2; ball.y=H/2;
-    ball.vx = 3.6*dir; ball.vy = (Math.random()>0.5?2.4:-2.4);
-  }
+  const state = {
+    player: { x: 16, y: H/2-35, w: 10, h: 70, s: 5.0 },
+    cpu:    { x: W-26, y: H/2-35, w: 10, h: 70, s: 4.2 },
+    ball:   { x: W/2, y: H/2, r: 6, vx: rnd(3.6,4.2)*(Math.random()<.5?1:-1), vy: rnd(2.2,3.0)*(Math.random()<.5?1:-1) }
+  };
+
+  function rnd(a,b){ return a + Math.random()*(b-a); }
   function clamp(v,min,max){ return v<min?min:(v>max?max:v); }
 
+  /* Prevent page scroll while playing with arrows */
+  const keydown = (e)=>{
+    if(e.key==='ArrowUp'){ up=true; e.preventDefault(); }
+    if(e.key==='ArrowDown'){ down=true; e.preventDefault(); }
+    if(e.key.toLowerCase()==='r'){ resetBall(); }
+    if(e.key.toLowerCase()==='p'){ paused=!paused; }
+  };
+  const keyup = (e)=>{
+    if(e.key==='ArrowUp'){ up=false; e.preventDefault(); }
+    if(e.key==='ArrowDown'){ down=false; e.preventDefault(); }
+  };
+  window.addEventListener('keydown', keydown, {passive:false});
+  window.addEventListener('keyup', keyup, {passive:false});
+
+  function resetBall(){
+    W = canvas.width; H = canvas.height;
+    state.player.y = H/2 - state.player.h/2;
+    state.cpu.y = H/2 - state.cpu.h/2;
+    state.ball.x = W/2; state.ball.y = H/2;
+    state.ball.vx = rnd(3.6,4.2)*(Math.random()<.5?1:-1);
+    state.ball.vy = rnd(2.2,3.0)*(Math.random()<.5?1:-1);
+  }
+
   function draw(){
+    // bg
     const g=ctx.createLinearGradient(0,0,0,H);
     g.addColorStop(0,'#140018'); g.addColorStop(1,'#0b0010');
     ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-
+    // center dash
     ctx.setLineDash([8,8]); ctx.strokeStyle='rgba(255,255,255,.2)';
     ctx.beginPath(); ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.stroke();
     ctx.setLineDash([]);
-
-    ctx.fillStyle='#ff9ef6'; ctx.fillRect(player.x, player.y, player.w, player.h);
-    ctx.fillStyle='#49c9ff'; ctx.fillRect(cpu.x, cpu.y, cpu.w, cpu.h);
-
+    // paddles
+    ctx.fillStyle='#ff9ef6'; ctx.fillRect(state.player.x, state.player.y, state.player.w, state.player.h);
+    ctx.fillStyle='#49c9ff'; ctx.fillRect(state.cpu.x, state.cpu.y, state.cpu.w, state.cpu.h);
+    // ball
     ctx.beginPath(); ctx.fillStyle='#fff';
-    ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI*2); ctx.fill();
-
-    ctx.font='bold 18px Verdana'; ctx.fillStyle='#ffbdfb';
-    ctx.fillText(score.p, W/2-40, 26);
-    ctx.fillStyle='#9fdfff'; ctx.fillText(score.c, W/2+28, 26);
+    ctx.arc(state.ball.x, state.ball.y, state.ball.r, 0, Math.PI*2); ctx.fill();
 
     if(paused){
       ctx.fillStyle='rgba(0,0,0,.45)'; ctx.fillRect(0,0,W,H);
@@ -1004,50 +1023,57 @@ function bootPong(){
   }
 
   function step(){
-    if(paused) return draw();
+    if(paused){ draw(); requestAnimationFrame(step); return; }
 
-    if(up) player.y -= player.s;
-    if(down) player.y += player.s;
-    player.y = clamp(player.y, 0, H-player.h);
+    // update dims if resized
+    if(W !== canvas.width || H !== canvas.height){
+      W = canvas.width; H = canvas.height;
+    }
 
-    const target = ball.y - cpu.h/2;
-    cpu.y += (target - cpu.y) * 0.08;
-    cpu.y = clamp(cpu.y, 0, H-cpu.h);
+    // player input
+    if(up) state.player.y -= state.player.s;
+    if(down) state.player.y += state.player.s;
+    state.player.y = clamp(state.player.y, 0, H-state.player.h);
 
-    ball.x += ball.vx; ball.y += ball.vy;
-    if(ball.y-ball.r<0 || ball.y+ball.r>H){ ball.vy*=-1; }
+    // simple cpu follow
+    const target = state.ball.y - state.cpu.h/2;
+    state.cpu.y += (target - state.cpu.y) * 0.085;
+    state.cpu.y = clamp(state.cpu.y, 0, H-state.cpu.h);
 
+    // ball physics
+    state.ball.x += state.ball.vx;
+    state.ball.y += state.ball.vy;
+
+    // top/bottom bounce
+    if(state.ball.y-state.ball.r<0){ state.ball.y=state.ball.r; state.ball.vy*=-1; }
+    if(state.ball.y+state.ball.r>H){ state.ball.y=H-state.ball.r; state.ball.vy*=-1; }
+
+    // left/right bounce (no scoring)
+    if(state.ball.x-state.ball.r<0){ state.ball.x=state.ball.r; state.ball.vx*=-1; jitterBall(); }
+    if(state.ball.x+state.ball.r>W){ state.ball.x=W-state.ball.r; state.ball.vx*=-1; jitterBall(); }
+
+    // paddle collisions with spin
     function collide(p){
-      if(ball.x+ball.r>p.x && ball.x-ball.r<p.x+p.w && ball.y>p.y && ball.y<p.y+p.h){
-        ball.vx *= -1.06;
-        const rel = (ball.y - (p.y+p.h/2)) / (p.h/2);
-        ball.vy = rel*3.2;
+      if(state.ball.x+state.ball.r>p.x && state.ball.x-state.ball.r<p.x+p.w &&
+         state.ball.y>p.y && state.ball.y<p.y+p.h){
+        state.ball.vx *= -1.06;
+        const rel = (state.ball.y - (p.y+p.h/2)) / (p.h/2); // -1..1
+        state.ball.vy = clamp(state.ball.vy + rel*2.4, -5.2, 5.2);
+        jitterBall();
       }
     }
-    collide(player); collide(cpu);
-
-    if(ball.x < 0){ score.c++; resetBall(1); }
-    if(ball.x > W){ score.p++; resetBall(-1); }
-
-    if(score.p>=5 || score.c>=5){
-      paused = true;
-      setTimeout(()=>{ score.p=0; score.c=0; paused=false; resetBall(score.c>score.p?-1:1); }, 1200);
-    }
+    collide(state.player);
+    collide(state.cpu);
 
     draw();
     requestAnimationFrame(step);
   }
 
-  window.onkeydown = (e)=>{
-    if(e.key==='ArrowUp') up=true;
-    if(e.key==='ArrowDown') down=true;
-    if(e.key.toLowerCase()==='r'){ score.p=0; score.c=0; resetBall((Math.random()<.5)?1:-1); }
-    if(e.key.toLowerCase()==='p'){ paused=!paused; }
-  };
-  window.onkeyup = (e)=>{
-    if(e.key==='ArrowUp') up=false;
-    if(e.key==='ArrowDown') down=false;
-  };
+  function jitterBall(){
+    // tiny randomness to avoid endless straight lines
+    state.ball.vx += (Math.random()*0.4 - 0.2);
+    state.ball.vy += (Math.random()*0.4 - 0.2);
+  }
 
   draw(); requestAnimationFrame(step);
 }
