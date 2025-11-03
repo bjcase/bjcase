@@ -5,24 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>bj case — home</title>
 
-<!-- Favicons (always included) -->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="shortcut icon" href="/favicon.ico">
+<!-- Favicons (always included, versioned to bust cache) -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.19.0">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1.19.0">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1.19.0">
+<link rel="manifest" href="/site.webmanifest?v=1.19.0">
+<link rel="shortcut icon" href="/favicon.ico?v=1.19.0">
 <meta name="theme-color" content="#ff9ef6">
+
+<!-- Strong anti-cache hints (helpful, not absolute) -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Atma:wght@400&display=swap" rel="stylesheet" />
 
 <style>
 /* ===========================================================
-   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.18 w/ header & logo tweak)
-   - Header padding reduced (less vertical stretch)
-   - Logo slightly smaller + subtle visual centering
-   - Heart spacing remains scaleX(1.3) per request
-   - Extra notes + Timeline typo fix will appear in the HTML sections
+   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.19.0)
+   - Header slightly shorter; logo scales smaller with it
+   - Hearts spacing reset to 1.3; hearts = secret links only
+   - Music notes filled the previous gap; no notes overlap logo
+   - Release Timeline “Autumn 2026” typo fixed
+   - Sidebar equal height with main; webcam at bottom
+   - Anti-stale cache busting & versioned assets
    =========================================================== */
 
 /* ---------- PALETTE ---------- */
@@ -52,17 +59,16 @@ body{
   background:linear-gradient(180deg,#520061 0%,#36003e 60%,#240024 100%);
   box-shadow:0 0 0 2px #000 inset,0 12px 26px #000c;
   margin:16px 0 18px;
-  /* tighter vertically */
-  padding:16px 18px 16px;
+  /* shorter header */
+  padding:18px 18px 14px;
   position:relative; overflow:hidden;
 }
 
-/* Logo with text-only shine and static hearts */
+/* Logo with text-only shine (no background shine) */
 .logo{
   position:relative;
   font-family:"Orbitron","Arial Black",sans-serif;
-  /* slightly smaller max for balance in the tighter header */
-  font-size:clamp(36px,8vw,96px);
+  font-size:clamp(34px,7.5vw,92px); /* slightly smaller */
   text-transform:lowercase;
   text-align:center;
   background-image:
@@ -71,22 +77,26 @@ body{
   background-size: 220% 100%, 400% 400%;
   background-position: -180% 0, 0 50%;
   -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
-  animation: logoShine 3s linear infinite;
+  animation: logoShine 3.1s linear infinite;
   text-shadow:0 0 6px var(--neon-blue),0 0 10px var(--pink);
-  margin: 0 auto; width:max-content;
+  margin: 2px auto 0; width:max-content;
 }
 @keyframes logoShine{0%{background-position:-180% 0,0 50%}100%{background-position:180% 0,0 50%}}
 
-/* Hearts (secret links) — spacing scaleX(1.3) */
+/* Hearts (secret links) — spacing scaleX(1.3) and crisp */
 .logo::before,.logo::after{
   content:"♥";
-  position:absolute; top:50%; transform:translateY(-50%) scaleX(1.3);
-  font-size:.9em; line-height:1; color:#fff;
+  position:absolute; top:50%;
+  transform:translateY(-50%) scaleX(1.3);
+  font-size:.92em; line-height:1; color:#fff;
   text-shadow:0 0 4px var(--pink), 0 0 8px var(--neon-blue);
   cursor:pointer;
+  filter:contrast(1.15) saturate(1.1) drop-shadow(0 0 2px #fff6);
 }
-.logo::before{ left:-0.8em }
-.logo::after { right:-0.8em }
+.logo::before{ left:-0.85em }
+.logo::after { right:-0.85em }
+
+/* Clickable hotspots that route to secret pages */
 .header-hotspot{
   position:absolute; top:50%; width:2.1em; height:1.6em; transform:translateY(-50%);
   cursor:pointer; background:transparent;
@@ -103,7 +113,7 @@ body{
 @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(var(--amp,7px))}}
 
 /* ---------- NAV — chrome buttons ---------- */
-.nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:14px 0 8px}
+.nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:12px 0 8px}
 .nav a{
   --glow: rgba(73,201,255,.65);
   text-decoration:none; color:#fff; font-weight:700; letter-spacing:.02em;
@@ -262,48 +272,31 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 /* ---------- RESPONSIVE ---------- */
 @media(max-width:520px){
   .nav a{font-size:14px; padding:8px 12px}
-  .logo{font-size:clamp(32px,9vw,88px)}
+  .logo{font-size:clamp(30px,9vw,78px)}
 }
 </style>
 </head>
 <body>
 <div class="wrapper">
+
   <!-- ========== HEADER ========== -->
   <header class="site-header" id="header">
-    <!-- Decorative music notes (original clusters) -->
-    <!-- left cluster -->
+    <!-- Decorative music notes (dense cluster left/right, filling previous gap; none behind/over logo) -->
+    <!-- Left cluster (top to bottom, staggered) -->
     <span class="note" style="left:10px; top:6px;  font-size:16px; --dur:4.8s; --amp:8px;">♪</span>
-    <span class="note" style="left:36px; top:28px; font-size:22px; --dur:4.2s; --amp:6px;">♫</span>
-    <span class="note" style="left:18px; top:64px; font-size:14px; --dur:5.1s; --amp:7px;">♪</span>
-    <span class="note" style="left:70px; top:98px; font-size:18px; --dur:4.5s; --amp:6px;">♫</span>
-    <!-- right cluster -->
-    <span class="note" style="right:12px; top:10px;  font-size:20px; --dur:4.6s; --amp:8px;">♫</span>
-    <span class="note" style="right:42px; top:30px;  font-size:14px; --dur:4.0s; --amp:6px;">♪</span>
-    <span class="note" style="right:22px; top:66px;  font-size:24px; --dur:5.0s; --amp:7px;">♫</span>
-    <span class="note" style="right:78px; top:96px;  font-size:16px; --dur:4.3s; --amp:6px;">♪</span>
+    <span class="note" style="left:36px; top:26px; font-size:21px; --dur:4.2s; --amp:6px;">♫</span>
+    <span class="note" style="left:18px; top:54px; font-size:14px; --dur:5.1s; --amp:7px;">♪</span>
+    <span class="note" style="left:64px; top:78px; font-size:18px; --dur:4.5s; --amp:6px;">♫</span>
+    <span class="note" style="left:22px; top:104px;font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
+    <span class="note" style="left:74px; top:126px;font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
 
-    <!-- extra edge notes (you added previously) -->
-    <!-- extra left -->
-    <span class="note" style="left:16px; top:44px; font-size:15px; --dur:4.9s; --amp:6px;">♪</span>
-    <span class="note" style="left:54px; top:18px; font-size:17px; --dur:4.1s; --amp:6px;">♫</span>
-    <span class="note" style="left:12px; top:82px; font-size:16px; --dur:5.2s; --amp:7px;">♪</span>
-    <span class="note" style="left:62px; top:116px;font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
-    <!-- extra right -->
-    <span class="note" style="right:18px; top:44px; font-size:15px; --dur:4.9s; --amp:6px;">♪</span>
-    <span class="note" style="right:56px; top:18px; font-size:17px; --dur:4.1s; --amp:6px;">♫</span>
-    <span class="note" style="right:14px; top:82px; font-size:16px; --dur:5.2s; --amp:7px;">♪</span>
-    <span class="note" style="right:64px; top:116px;font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
-
-    <!-- NEW: gap-filler notes (balanced, away from the logo) -->
-    <!-- upper-left mid (not near logo) -->
-    <span class="note" style="left:9%;  top:6px;  font-size:14px; --dur:4.7s; --amp:6px;">♪</span>
-    <span class="note" style="left:14%; top:18px; font-size:16px; --dur:4.9s; --amp:7px;">♫</span>
-    <!-- upper-right mid (not near logo) -->
-    <span class="note" style="right:9%; top:6px;  font-size:14px; --dur:4.6s; --amp:6px;">♪</span>
-    <span class="note" style="right:14%; top:18px; font-size:16px; --dur:5.0s; --amp:7px;">♫</span>
-    <!-- midline accents staying clear of center text -->
-    <span class="note" style="left:7%;  top:42px; font-size:15px; --dur:4.8s; --amp:6px;">♫</span>
-    <span class="note" style="right:7%; top:42px; font-size:15px; --dur:4.8s; --amp:6px;">♫</span>
+    <!-- Right cluster -->
+    <span class="note" style="right:12px; top:8px;  font-size:20px; --dur:4.6s; --amp:8px;">♫</span>
+    <span class="note" style="right:42px; top:28px;  font-size:14px; --dur:4.0s; --amp:6px;">♪</span>
+    <span class="note" style="right:20px; top:56px;  font-size:23px; --dur:5.0s; --amp:7px;">♫</span>
+    <span class="note" style="right:76px; top:82px;  font-size:16px; --dur:4.3s; --amp:6px;">♪</span>
+    <span class="note" style="right:26px; top:108px; font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
+    <span class="note" style="right:80px; top:130px; font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
 
     <!-- hearts (secret links) -->
     <span id="hot-left"  class="header-hotspot" data-route="music"   title="secret: music"></span>
@@ -320,10 +313,9 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
       <a href="#contact">Contact</a>
     </nav>
 
-    <div class="ticker">
-      <span>✧ Welcome to the official BJ Case webzone • New music coming soon • Chasing dreams since 2003 ✧</span>
-    </div>
+    <div class="ticker"><span>✧ Welcome to the official BJ Case webzone • New music coming soon • Chasing dreams since 2003 ✧</span></div>
   </header>
+
   <!-- ========== MAIN GRID (left + right; right dynamic/hideable) ========== -->
   <main class="grid" id="pageRoot">
     <!-- LEFT -->
@@ -335,8 +327,8 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
         <hr />
         <h2>Status</h2>
         <p>
-          Currently: rewatching Charmed and working on music : ) <br>
-          Now listening to: Britney — “Phonography” (on repeat)<br>
+          Currently: rewatching AHS and working on music<br>
+          Now listening to: Britney — “Phonography”<br>
           Mood: excited and nervous :D
         </p>
 
@@ -363,7 +355,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
         </div>
 
         <hr />
-        <h2>Featured Links</h2>
+        <h2>Welcome</h2>
         <p>A little something I’ve learned from my short time on Earth so far is the importance of placing an extreme emphasis on LOVE. ;)</p>
 
         <hr />
@@ -388,9 +380,9 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
       <hr />
       <h2>Studio Log</h2>
       <ul id="rightBlock2" style="margin:0 0 10px 18px; padding:0;">
+        <li><strong>Nov 3, 2025:</strong> Cache-bust failsafes; header tightened; note gap filled</li>
         <li><strong>Nov 2, 2025:</strong> Webcam moved to bottom; Winamp fixed; column sync</li>
         <li><strong>Nov 1, 2025:</strong> Logo shine sweep (text-only)</li>
-        <li><strong>Oct 31, 2025:</strong> Mobile layout fixed</li>
       </ul>
 
       <hr />
@@ -424,7 +416,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
         <a href="#music">Music</a>
       </div>
 
-      <!-- Webcam moved to the very bottom of the sidebar -->
+      <!-- Webcam at the very bottom of the sidebar -->
       <div class="webcam">
         <div class="bar">
           <div class="rec"><span class="dot"></span> REC</div>
@@ -432,11 +424,12 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
         </div>
         <div class="screen">
           <!-- Replace with your looping GIF -->
-          <img id="webcamFeed" src="/assets/webcam.gif" alt="webcam feed placeholder">
+          <img id="webcamFeed" src="/assets/webcam.gif?v=1.19.0" alt="webcam feed placeholder">
         </div>
       </div>
     </aside>
   </main>
+
   <!-- ========== SHOUTBOX (chat-style with emoticons; private posts) ========== -->
   <section class="panel shoutbox" aria-label="Shoutbox">
     <h2>Shoutbox</h2>
@@ -465,6 +458,26 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 </div>
 
 <script>
+/* ===== VERSION & CACHE-BUST FAILSAFES ===== */
+const SITE_VERSION = '1.19.0';
+(function ensureVersionParam(){
+  try{
+    const u = new URL(location.href);
+    if(u.searchParams.get('v') !== SITE_VERSION){
+      u.searchParams.set('v', SITE_VERSION);
+      history.replaceState(null, '', u.toString());
+    }
+  }catch(e){}
+})();
+/* Hold Shift + R to force a fresh cache-buster */
+window.addEventListener('keydown', (e)=>{
+  if(e.key.toLowerCase()==='r' && e.shiftKey){
+    const u = new URL(location.href);
+    u.searchParams.set('v', Date.now().toString(36));
+    location.href = u.toString();
+  }
+});
+
 /* ===== YEAR ===== */
 document.getElementById('y').textContent = new Date().getFullYear();
 
@@ -506,7 +519,7 @@ const pages = {
       </div>
 
       <hr />
-      <h2>Featured Links</h2>
+      <h2>Welcome</h2>
       <p>A little something I’ve learned from my short time on Earth so far is the importance of placing an extreme emphasis on LOVE. ;)</p>
 
       <hr />
@@ -528,9 +541,9 @@ const pages = {
       <hr />
       <h2>Studio Log</h2>
       <ul style="margin:0 0 10px 18px; padding:0;">
+        <li><strong>Nov 3, 2025:</strong> Cache-bust failsafes; header tightened; note gap filled</li>
         <li><strong>Nov 2, 2025:</strong> Webcam moved to bottom; Winamp fixed; column sync</li>
         <li><strong>Nov 1, 2025:</strong> Logo shine sweep (text-only)</li>
-        <li><strong>Oct 31, 2025:</strong> Mobile layout fixed</li>
       </ul>
       <hr />
       <h2>Poll</h2>
@@ -560,7 +573,7 @@ const pages = {
       </div>
       <div class="webcam">
         <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts2">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif" alt="webcam feed placeholder"></div>
+        <div class="screen"><img src="/assets/webcam.gif?v=1.19.0" alt="webcam feed placeholder"></div>
       </div>
     `
   },
@@ -614,7 +627,7 @@ const pages = {
       </div>
       <div class="webcam">
         <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts3">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif" alt="webcam feed placeholder"></div>
+        <div class="screen"><img src="/assets/webcam.gif?v=1.19.0" alt="webcam feed placeholder"></div>
       </div>
     `
   },
@@ -644,7 +657,7 @@ const pages = {
       </div>
       <div class="webcam">
         <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts4">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif" alt="webcam feed placeholder"></div>
+        <div class="screen"><img src="/assets/webcam.gif?v=1.19.0" alt="webcam feed placeholder"></div>
       </div>
     `
   },
@@ -653,8 +666,8 @@ const pages = {
     leftHTML: `
       <p>Web diary: raw notes, studio days, sparkly chaos.</p>
       <article>
-        <h3>Nov 2, 2025 — Webcam!</h3>
-        <p>Sidebar fake webcam now lives at the bottom. Winamp panel fixed, and columns sync heights.</p>
+        <h3>Nov 3, 2025 — Versioned!</h3>
+        <p>Anti-cache versioning added so new builds show up reliably.</p>
       </article>
     `,
     rightEnabled: false
@@ -764,15 +777,15 @@ function wirePoll(btnSel,resSel,pPerfSel,pFlipSel,pLookSel,bPerfSel,bFlipSel,bLo
 
   function read(){ try{ return JSON.parse(localStorage.getItem(KEY))||{performance:0,flip:0,look:0}; }catch(e){ return {performance:0,flip:0,look:0}; } }
   function save(d){ localStorage.setItem(KEY, JSON.stringify(d)); }
+  function per(v,t){ return Math.round((v||0)/(t||1)*100); }
   function draw(d){
     const t=(d.performance||0)+(d.flip||0)+(d.look||0)||1;
-    const per=v=>Math.round((v||0)/t*100);
-    els.pPerf.textContent=per(d.performance)+"%";
-    els.pFlip.textContent=per(d.flip)+"%";
-    els.pLook.textContent=per(d.look)+"%";
-    els.bPerf.style.width=per(d.performance)+"%";
-    els.bFlip.style.width=per(d.flip)+"%";
-    els.bLook.style.width=per(d.look)+"%";
+    els.pPerf.textContent=per(d.performance,t)+"%";
+    els.pFlip.textContent=per(d.flip,t)+"%";
+    els.pLook.textContent=per(d.look,t)+"%";
+    els.bPerf.style.width=per(d.performance,t)+"%";
+    els.bFlip.style.width=per(d.flip,t)+"%";
+    els.bLook.style.width=per(d.look,t)+"%";
     els.results.style.display='block';
   }
 
@@ -893,4 +906,3 @@ wirePoll('#voteBtn','#pollResults','#pPerf','#pFlip','#pLook','#bPerf','#bFlip',
 </script>
 </body>
 </html>
-
