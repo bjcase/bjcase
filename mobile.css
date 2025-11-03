@@ -1,46 +1,119 @@
-/* --- mobile cleanup --- */
-@media (max-width: 800px) {
-  body {
-    font-size: 16px;
+/* ===============================
+   💖 bjcase.com — Mobile Layout
+   Seamless for screens ≤ 850px
+   Keeps desktop styling intact
+   =============================== */
+
+@media (max-width: 850px) {
+
+  /* --------- BASE --------- */
+  html, body {
     margin: 0;
     padding: 0;
+    font-size: 15px;
+    overflow-x: hidden;
   }
 
-  #container, .wrapper, main, section {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 auto;
-    padding: 12px;
+  .wrapper {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
   }
 
-  /* sidebars move below main content */
-  #sidebar, .left, .right {
-    float: none !important;
-    width: 100% !important;
-    margin: 12px 0;
+  /* --------- HEADER --------- */
+  .site-header {
+    margin: 8px 0 16px;
+    padding: 14px 8px;
   }
 
-  /* navigation buttons stack vertically */
-  nav, #nav, .menu {
+  .logo {
+    font-size: clamp(36px, 12vw, 72px);
+    line-height: 1.1;
+  }
+
+  .nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
+    margin: 10px 0;
   }
-  nav a, #nav a, .menu a {
+
+  .nav a {
     flex: 1 1 45%;
     text-align: center;
     padding: 10px;
+    font-size: 14px;
   }
 
-  /* images and content scale */
+  .ticker {
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  /* --------- GRID --------- */
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #leftPane, #rightPane {
+    width: 100% !important;
+    min-height: auto !important;
+  }
+
+  /* stack order: main first, sidebar second */
+  #rightPane {
+    order: 2;
+  }
+
+  /* --------- PANELS --------- */
+  .panel {
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  .panel h2 {
+    font-size: 18px;
+  }
+
+  /* --------- STATUS --------- */
+  .panel#leftPane p {
+    line-height: 1.4;
+  }
+
+  /* --------- WEBCAM --------- */
+  .webcam .screen {
+    aspect-ratio: 4 / 3;
+  }
+
+  /* --------- CHAT --------- */
+  .chat {
+    max-height: 320px;
+    overflow-y: auto;
+  }
+
+  /* --------- FOOTER --------- */
+  footer {
+    font-size: 12px;
+    padding: 8px 0;
+  }
+
+  /* --------- IMAGES --------- */
   img {
     max-width: 100%;
     height: auto;
   }
+}
 
-  /* reduce big paddings/margins */
-  header, footer {
-    padding: 12px;
+/* cache-busting helper */
+@media (prefers-reduced-motion: no-preference) {
+  .ticker span {
+    animation-duration: 18s;
+    animation-iteration-count: infinite;
   }
 }
