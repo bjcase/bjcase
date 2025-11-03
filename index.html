@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>bj case — home</title>
 
-<!-- Favicons (always included, versioned to bust cache) -->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.19.0">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1.19.0">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1.19.0">
-<link rel="manifest" href="/site.webmanifest?v=1.19.0">
-<link rel="shortcut icon" href="/favicon.ico?v=1.19.0">
+<!-- Favicons (versioned to bust cache) -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.20.0">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1.20.0">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1.20.0">
+<link rel="manifest" href="/site.webmanifest?v=1.20.0">
+<link rel="shortcut icon" href="/favicon.ico?v=1.20.0">
 <meta name="theme-color" content="#ff9ef6">
 
-<!-- Strong anti-cache hints (helpful, not absolute) -->
+<!-- Anti-cache hints -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
@@ -23,13 +23,13 @@
 
 <style>
 /* ===========================================================
-   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.19.0)
-   - Header slightly shorter; logo scales smaller with it
-   - Hearts spacing reset to 1.3; hearts = secret links only
-   - Music notes filled the previous gap; no notes overlap logo
-   - Release Timeline “Autumn 2026” typo fixed
-   - Sidebar equal height with main; webcam at bottom
-   - Anti-stale cache busting & versioned assets
+   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.20.0)
+   - Header tightened; hearts further from logo (1.3 spacing)
+   - Poll panel upgraded (border, description, fancy buttons)
+   - Secret heart pages: #heartL (Pong), #heartR (hidden note)
+   - More header music notes (none overlap the logo)
+   - Y2K extras: fake online counter, blink badges, CRT toggle
+   - Cache-bust version param + versioned assets
    =========================================================== */
 
 /* ---------- PALETTE ---------- */
@@ -40,6 +40,7 @@
   --red:#ff4d4d;
   --ink:#ffeaff;
   --link:#ffbffb;
+  --deep:#21002a;
 }
 
 /* ---------- BASE ---------- */
@@ -52,23 +53,32 @@ body{
   cursor:url('https://cur.cursors-4u.net/cursors/cur-2/cur116.cur'), auto;
 }
 .wrapper{max-width:860px;margin:0 auto;padding:16px}
+a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 
-/* ---------- HEADER ---------- */
+/* Optional CRT lines overlay (toggle Shift+C) */
+.crt::before{
+  content:""; pointer-events:none; position:fixed; inset:0;
+  background:repeating-linear-gradient(to bottom, rgba(255,255,255,.04) 0 1px, transparent 1px 3px);
+  mix-blend-mode:overlay; opacity:.4; z-index:9999; display:none;
+}
+.crt.crt-on::before{ display:block }
+
+/* ---------- HEADER (tighter) ---------- */
 .site-header{
   border:2px solid var(--pink);
   background:linear-gradient(180deg,#520061 0%,#36003e 60%,#240024 100%);
   box-shadow:0 0 0 2px #000 inset,0 12px 26px #000c;
   margin:16px 0 18px;
-  /* shorter header */
-  padding:18px 18px 14px;
+  /* tighter vertical padding */
+  padding:12px 18px 10px;
   position:relative; overflow:hidden;
 }
 
-/* Logo with text-only shine (no background shine) */
+/* Logo with text-only shine */
 .logo{
   position:relative;
   font-family:"Orbitron","Arial Black",sans-serif;
-  font-size:clamp(34px,7.5vw,92px); /* slightly smaller */
+  font-size:clamp(32px,7vw,86px);
   text-transform:lowercase;
   text-align:center;
   background-image:
@@ -77,43 +87,41 @@ body{
   background-size: 220% 100%, 400% 400%;
   background-position: -180% 0, 0 50%;
   -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
-  animation: logoShine 3.1s linear infinite;
+  animation: logoShine 3.05s linear infinite;
   text-shadow:0 0 6px var(--neon-blue),0 0 10px var(--pink);
-  margin: 2px auto 0; width:max-content;
+  margin: 0 auto; width:max-content;
 }
 @keyframes logoShine{0%{background-position:-180% 0,0 50%}100%{background-position:180% 0,0 50%}}
 
-/* Hearts (secret links) — spacing scaleX(1.3) and crisp */
+/* Hearts (secret links) — further from logo, scaleX(1.3) */
 .logo::before,.logo::after{
   content:"♥";
-  position:absolute; top:50%;
-  transform:translateY(-50%) scaleX(1.3);
-  font-size:.92em; line-height:1; color:#fff;
+  position:absolute; top:50%; transform:translateY(-50%) scaleX(1.3);
+  font-size:.95em; line-height:1; color:#fff;
   text-shadow:0 0 4px var(--pink), 0 0 8px var(--neon-blue);
-  cursor:pointer;
   filter:contrast(1.15) saturate(1.1) drop-shadow(0 0 2px #fff6);
 }
-.logo::before{ left:-0.85em }
-.logo::after { right:-0.85em }
+.logo::before{ left:-1.6em }  /* farther */
+.logo::after { right:-1.6em } /* farther */
 
-/* Clickable hotspots that route to secret pages */
+/* Clickable hotspots aligned with hearts */
 .header-hotspot{
-  position:absolute; top:50%; width:2.1em; height:1.6em; transform:translateY(-50%);
+  position:absolute; top:50%; width:2.6em; height:1.8em; transform:translateY(-50%);
   cursor:pointer; background:transparent;
 }
-#hot-left{ left: calc(50% - 7.8ch - 2.2em) }
-#hot-right{ right: calc(50% - 7.8ch - 2.2em) }
+#hot-left{ left: calc(50% - 7.8ch - 2.8em) }
+#hot-right{ right: calc(50% - 7.8ch - 2.8em) }
 
-/* Decorative music notes (strictly in header, away from logo) */
+/* Music notes in header only (none behind/over logo) */
 .note{
   position:absolute; user-select:none; pointer-events:none;
   color:#ffd1fa; text-shadow:0 0 6px var(--pink), 0 0 10px #fff8;
-  opacity:.95; animation: floatY var(--dur,4.6s) ease-in-out infinite;
+  opacity:.96; animation: floatY var(--dur,4.6s) ease-in-out infinite;
 }
 @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(var(--amp,7px))}}
 
-/* ---------- NAV — chrome buttons ---------- */
-.nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:12px 0 8px}
+/* ---------- NAV ---------- */
+.nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:10px 0 8px}
 .nav a{
   --glow: rgba(73,201,255,.65);
   text-decoration:none; color:#fff; font-weight:700; letter-spacing:.02em;
@@ -173,7 +181,6 @@ body{
 }
 .panel + .panel{ margin-top:14px }
 hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--neon-blue),transparent); margin:12px 0}
-a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 
 /* ---------- WINAMP (Now Playing) ---------- */
 .winamp{
@@ -194,7 +201,6 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 .btn::after{content:""; position:absolute; inset:0; background:linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent); transform:translateX(-120%); opacity:0}
 .btn:hover::after{ animation: shine .9s ease; opacity:1 }
 @keyframes shine{ from{ left:-70px } to{ left:120% } }
-
 .scrubber{
   flex:1; height:8px; border:1px solid #ff7ef6; box-shadow:0 0 0 2px #000 inset;
   background: linear-gradient(90deg,#ff9ef6 0%, #49c9ff 45%, #ffb35e 85%);
@@ -205,8 +211,29 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 .badges{display:flex; flex-wrap:wrap; gap:6px}
 .badges a{display:inline-block; padding:6px 10px; border:1px solid var(--pink); box-shadow:0 0 0 2px #000 inset; background:#300033; color:#ffbdfb; font:800 10px/1 Verdana; text-align:center; text-decoration:none}
 
-/* ---------- POLL ---------- */
+/* ---------- POLL (upgraded) ---------- */
+.pollbox{
+  border:2px solid var(--pink);
+  background:linear-gradient(180deg,#2a0034 0%,#1a0024 100%);
+  box-shadow:0 0 0 2px #000 inset, 0 10px 18px #0007;
+  padding:10px; border-radius:4px;
+}
+.pollbox p.desc{
+  margin:0 0 8px; font:12px Verdana,Tahoma,Arial,sans-serif; color:#ffdfff; opacity:.9;
+}
 .poll label{display:block; margin:6px 0; font:12px Verdana,Tahoma,Arial,sans-serif}
+.voteBtn{
+  margin-top:8px; padding:9px 14px; font-weight:800; letter-spacing:.02em;
+  border:2px solid var(--pink); border-radius:6px; cursor:pointer; color:#fff;
+  background:
+     linear-gradient(180deg,#6c006c 0%, #420042 100%),
+     radial-gradient(80% 60% at 50% 0%, rgba(255,255,255,.28), transparent 60%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25), inset 0 -6px 12px rgba(0,0,0,.45), 0 0 0 2px #000 inset, 0 0 14px rgba(73,201,255,.35);
+  transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.voteBtn:hover{ transform:translateY(-1px); border-color:var(--neon-blue); box-shadow:inset 0 1px 0 rgba(255,255,255,.35), inset 0 -6px 12px rgba(0,0,0,.45), 0 0 0 2px #000 inset, 0 0 18px rgba(73,201,255,.55) }
+.poll-results{ margin-top:8px; font:12px Verdana,Tahoma,Arial,sans-serif }
+.bar{height:12px;background:#ff79e9;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset}
 
 /* ---------- FAKE WEBCAM ---------- */
 .webcam{
@@ -229,7 +256,7 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 }
 .webcam .screen img{ width:100%; height:100%; object-fit:cover; display:block; filter:contrast(1.05) saturate(1.1) brightness(.95); }
 
-/* ---------- SHOUTBOX (chat-style) ---------- */
+/* ---------- SHOUTBOX ---------- */
 .shoutbox{ margin-top:14px }
 .chat{
   display:flex; flex-direction:column; gap:8px;
@@ -272,35 +299,40 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 /* ---------- RESPONSIVE ---------- */
 @media(max-width:520px){
   .nav a{font-size:14px; padding:8px 12px}
-  .logo{font-size:clamp(30px,9vw,78px)}
+  .logo{font-size:clamp(28px,9vw,72px)}
 }
 </style>
 </head>
 <body>
 <div class="wrapper">
 
-  <!-- ========== HEADER ========== -->
+  <!-- ========== HEADER (notes strictly inside, away from logo) ========== -->
   <header class="site-header" id="header">
-    <!-- Decorative music notes (dense cluster left/right, filling previous gap; none behind/over logo) -->
-    <!-- Left cluster (top to bottom, staggered) -->
-    <span class="note" style="left:10px; top:6px;  font-size:16px; --dur:4.8s; --amp:8px;">♪</span>
-    <span class="note" style="left:36px; top:26px; font-size:21px; --dur:4.2s; --amp:6px;">♫</span>
-    <span class="note" style="left:18px; top:54px; font-size:14px; --dur:5.1s; --amp:7px;">♪</span>
-    <span class="note" style="left:64px; top:78px; font-size:18px; --dur:4.5s; --amp:6px;">♫</span>
-    <span class="note" style="left:22px; top:104px;font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
-    <span class="note" style="left:74px; top:126px;font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
+    <!-- Left cluster -->
+    <span class="note" style="left:10px; top:4px;  font-size:16px; --dur:4.8s; --amp:8px;">♪</span>
+    <span class="note" style="left:34px; top:22px; font-size:21px; --dur:4.2s; --amp:6px;">♫</span>
+    <span class="note" style="left:18px; top:46px; font-size:14px; --dur:5.1s; --amp:7px;">♪</span>
+    <span class="note" style="left:64px; top:70px; font-size:18px; --dur:4.5s; --amp:6px;">♫</span>
+    <span class="note" style="left:22px; top:94px; font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
+    <span class="note" style="left:74px; top:114px;font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
+    <!-- Fill gap -->
+    <span class="note" style="left:96px; top:10px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
+    <span class="note" style="left:112px; top:36px;font-size:18px; --dur:4.6s; --amp:7px;">♫</span>
 
     <!-- Right cluster -->
-    <span class="note" style="right:12px; top:8px;  font-size:20px; --dur:4.6s; --amp:8px;">♫</span>
-    <span class="note" style="right:42px; top:28px;  font-size:14px; --dur:4.0s; --amp:6px;">♪</span>
-    <span class="note" style="right:20px; top:56px;  font-size:23px; --dur:5.0s; --amp:7px;">♫</span>
-    <span class="note" style="right:76px; top:82px;  font-size:16px; --dur:4.3s; --amp:6px;">♪</span>
-    <span class="note" style="right:26px; top:108px; font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
-    <span class="note" style="right:80px; top:130px; font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
+    <span class="note" style="right:12px; top:6px;  font-size:20px; --dur:4.6s; --amp:8px;">♫</span>
+    <span class="note" style="right:42px; top:24px;  font-size:14px; --dur:4.0s; --amp:6px;">♪</span>
+    <span class="note" style="right:20px; top:48px;  font-size:23px; --dur:5.0s; --amp:7px;">♫</span>
+    <span class="note" style="right:76px; top:72px;  font-size:16px; --dur:4.3s; --amp:6px;">♪</span>
+    <span class="note" style="right:26px; top:96px;  font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
+    <span class="note" style="right:80px; top:116px; font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
+    <!-- Fill gap -->
+    <span class="note" style="right:104px; top:14px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
+    <span class="note" style="right:124px; top:40px;font-size:18px; --dur:4.6s; --amp:7px;">♫</span>
 
-    <!-- hearts (secret links) -->
-    <span id="hot-left"  class="header-hotspot" data-route="music"   title="secret: music"></span>
-    <span id="hot-right" class="header-hotspot" data-route="visuals" title="secret: visuals"></span>
+    <!-- hearts (secret links) via hotspots -->
+    <span id="hot-left"  class="header-hotspot" data-route="heartL" title="♥ secret left"></span>
+    <span id="hot-right" class="header-hotspot" data-route="heartR" title="♥ secret right"></span>
 
     <div class="logo" id="logo">bj case</div>
 
@@ -326,10 +358,10 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 
         <hr />
         <h2>Status</h2>
-        <p>
-          Currently: rewatching AHS and working on music<br>
-          Now listening to: Britney — “Phonography”<br>
-          Mood: excited and nervous :D
+        <p style="white-space:pre-line">
+Currently: rewatching Charmed and working on music : )  (and HW ugh)
+Now listening to: Britney — “Phonography” (on repeat)
+Mood: excited and nervous :D
         </p>
 
         <hr />
@@ -365,6 +397,11 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
           <li>Flip Phone — saw/square stack groove polish</li>
           <li>Website — secret sticker links &amp; gallery</li>
         </ul>
+
+        <div style="margin-top:12px; font:11px Verdana">
+          <span style="padding:2px 6px;border:1px solid var(--pink);background:#300033;box-shadow:0 0 0 2px #000 inset">★ NEW ★</span>
+          &nbsp;Online now: <span id="onlineCount">7</span> users
+        </div>
       </div>
     </section>
 
@@ -380,30 +417,30 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
       <hr />
       <h2>Studio Log</h2>
       <ul id="rightBlock2" style="margin:0 0 10px 18px; padding:0;">
-        <li><strong>Nov 3, 2025:</strong> Cache-bust failsafes; header tightened; note gap filled</li>
-        <li><strong>Nov 2, 2025:</strong> Webcam moved to bottom; Winamp fixed; column sync</li>
-        <li><strong>Nov 1, 2025:</strong> Logo shine sweep (text-only)</li>
+        <li><strong>Nov 3, 2025:</strong> Poll glow-up + heart pages; header tightened </li>
+        <li><strong>Nov 3, 2025:</strong> Cache-bust failsafes</li>
+        <li><strong>Nov 2, 2025:</strong> Webcam moved to bottom; Winamp fixed</li>
       </ul>
 
       <hr />
       <h2>Poll</h2>
-      <div class="poll" id="pollArea">
-        <label><input type="radio" name="poll" value="performance"> “Performance”</label>
-        <label><input type="radio" name="poll" value="flip"> “Flip Phone”</label>
-        <label><input type="radio" name="poll" value="look"> “Look But Don’t Touch”</label>
-        <button id="voteBtn" style="margin-top:6px; padding:8px 12px; font-weight:700; border:2px solid var(--pink);
-          background:linear-gradient(#6c006c,#420042); color:#fff; box-shadow:0 0 0 3px #000 inset; border-radius:3px; cursor:pointer;">
-          Vote
-        </button>
-        <div class="poll-results" id="pollResults" style="display:none; margin-top:8px; font:12px Verdana, Tahoma, Arial, sans-serif">
+      <div class="pollbox" id="pollArea">
+        <p class="desc">🎧 Which song do you wanna hear first? Pick one and make it sparkle.</p>
+        <div class="poll">
+          <label><input type="radio" name="poll" value="performance"> “Performance”</label>
+          <label><input type="radio" name="poll" value="flip"> “Flip Phone”</label>
+          <label><input type="radio" name="poll" value="look"> “Look But Don’t Touch”</label>
+          <button id="voteBtn" class="voteBtn">Cast Vote ✨</button>
+        </div>
+        <div class="poll-results" id="pollResults" style="display:none;">
           <div>Performance: <span id="pPerf">0%</span></div>
-          <div class="bar" id="bPerf" style="width:0%;height:12px;background:#ff79e9;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset;"></div>
+          <div class="bar" id="bPerf" style="width:0%"></div>
           <div style="height:6px"></div>
           <div>Flip Phone: <span id="pFlip">0%</span></div>
-          <div class="bar" id="bFlip" style="width:0%;height:12px;background:#49c9ff;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset;"></div>
+          <div class="bar" id="bFlip" style="width:0%; background:#49c9ff"></div>
           <div style="height:6px"></div>
           <div>Look BDT: <span id="pLook">0%</span></div>
-          <div class="bar" id="bLook" style="width:0%;height:12px;background:#ffb35e;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset;"></div>
+          <div class="bar" id="bLook" style="width:0%; background:#ffb35e"></div>
         </div>
       </div>
 
@@ -416,21 +453,20 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
         <a href="#music">Music</a>
       </div>
 
-      <!-- Webcam at the very bottom of the sidebar -->
+      <!-- Webcam at bottom -->
       <div class="webcam">
         <div class="bar">
           <div class="rec"><span class="dot"></span> REC</div>
           <div class="ts" id="ts">00:00:00</div>
         </div>
         <div class="screen">
-          <!-- Replace with your looping GIF -->
-          <img id="webcamFeed" src="/assets/webcam.gif?v=1.19.0" alt="webcam feed placeholder">
+          <img id="webcamFeed" src="/assets/webcam.gif?v=1.20.0" alt="webcam feed placeholder">
         </div>
       </div>
     </aside>
   </main>
 
-  <!-- ========== SHOUTBOX (chat-style with emoticons; private posts) ========== -->
+  <!-- ========== SHOUTBOX (private posts) ========== -->
   <section class="panel shoutbox" aria-label="Shoutbox">
     <h2>Shoutbox</h2>
     <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
@@ -459,7 +495,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 
 <script>
 /* ===== VERSION & CACHE-BUST FAILSAFES ===== */
-const SITE_VERSION = '1.19.0';
+const SITE_VERSION = '1.20.0';
 (function ensureVersionParam(){
   try{
     const u = new URL(location.href);
@@ -469,7 +505,7 @@ const SITE_VERSION = '1.19.0';
     }
   }catch(e){}
 })();
-/* Hold Shift + R to force a fresh cache-buster */
+/* Shift + R = hard bust */
 window.addEventListener('keydown', (e)=>{
   if(e.key.toLowerCase()==='r' && e.shiftKey){
     const u = new URL(location.href);
@@ -477,9 +513,33 @@ window.addEventListener('keydown', (e)=>{
     location.href = u.toString();
   }
 });
+/* Shift + C = CRT overlay toggle */
+(function(){
+  const root = document.documentElement;
+  window.addEventListener('keydown', (e)=>{
+    if(e.key.toLowerCase()==='c' && e.shiftKey){
+      root.classList.toggle('crt-on');
+      root.classList.toggle('crt');
+    }
+  });
+})();
 
 /* ===== YEAR ===== */
 document.getElementById('y').textContent = new Date().getFullYear();
+
+/* ===== FAKE ONLINE COUNTER ===== */
+(function(){
+  const el = document.getElementById('onlineCount');
+  if(!el) return;
+  let base = 7 + Math.floor(Math.random()*3);
+  function bump(){
+    base += (Math.random()>.6?1:-1);
+    if(base<3) base=3;
+    if(base>18) base=18;
+    el.textContent = base;
+  }
+  setInterval(bump, 3500);
+})();
 
 /* ===== HASH ROUTER + dynamic layout ===== */
 const pages = {
@@ -490,10 +550,10 @@ const pages = {
 
       <hr />
       <h2>Status</h2>
-      <p>
-        Currently: rewatching AHS and working on music<br>
-        Now listening to: Britney — “Phonography”<br>
-        Mood: excited and nervous :D
+      <p style="white-space:pre-line">
+Currently: rewatching Charmed and working on music : )  (and HW ugh)
+Now listening to: Britney — “Phonography” (on repeat)
+Mood: excited and nervous :D
       </p>
 
       <hr />
@@ -541,29 +601,29 @@ const pages = {
       <hr />
       <h2>Studio Log</h2>
       <ul style="margin:0 0 10px 18px; padding:0;">
-        <li><strong>Nov 3, 2025:</strong> Cache-bust failsafes; header tightened; note gap filled</li>
-        <li><strong>Nov 2, 2025:</strong> Webcam moved to bottom; Winamp fixed; column sync</li>
-        <li><strong>Nov 1, 2025:</strong> Logo shine sweep (text-only)</li>
+        <li><strong>Nov 3, 2025:</strong> Poll glow-up + heart pages; header tightened</li>
+        <li><strong>Nov 3, 2025:</strong> Cache-bust failsafes</li>
+        <li><strong>Nov 2, 2025:</strong> Webcam moved to bottom; Winamp fixed</li>
       </ul>
       <hr />
       <h2>Poll</h2>
-      <div class="poll">
-        <label><input type="radio" name="poll" value="performance"> “Performance”</label>
-        <label><input type="radio" name="poll" value="flip"> “Flip Phone”</label>
-        <label><input type="radio" name="poll" value="look"> “Look But Don’t Touch”</label>
-        <button id="voteBtnHome" style="margin-top:6px; padding:8px 12px; font-weight:700; border:2px solid var(--pink);
-          background:linear-gradient(#6c006c,#420042); color:#fff; box-shadow:0 0 0 3px #000 inset; border-radius:3px; cursor:pointer;">
-          Vote
-        </button>
-        <div class="poll-results" id="pollResultsHome" style="display:none; margin-top:8px; font:12px Verdana, Tahoma, Arial, sans-serif">
+      <div class="pollbox">
+        <p class="desc">🎧 Which song do you wanna hear first? Pick one and make it sparkle.</p>
+        <div class="poll">
+          <label><input type="radio" name="poll" value="performance"> “Performance”</label>
+          <label><input type="radio" name="poll" value="flip"> “Flip Phone”</label>
+          <label><input type="radio" name="poll" value="look"> “Look But Don’t Touch”</label>
+          <button id="voteBtnHome" class="voteBtn">Cast Vote ✨</button>
+        </div>
+        <div class="poll-results" id="pollResultsHome" style="display:none;">
           <div>Performance: <span id="pPerfHome">0%</span></div>
-          <div class="bar" id="bPerfHome" style="width:0%;height:12px;background:#ff79e9;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset;"></div>
+          <div class="bar" id="bPerfHome" style="width:0%"></div>
           <div style="height:6px"></div>
           <div>Flip Phone: <span id="pFlipHome">0%</span></div>
-          <div class="bar" id="bFlipHome" style="width:0%;height:12px;background:#49c9ff;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset;"></div>
+          <div class="bar" id="bFlipHome" style="width:0%; background:#49c9ff"></div>
           <div style="height:6px"></div>
           <div>Look BDT: <span id="pLookHome">0%</span></div>
-          <div class="bar" id="bLookHome" style="width:0%;height:12px;background:#ffb35e;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset;"></div>
+          <div class="bar" id="bLookHome" style="width:0%; background:#ffb35e"></div>
         </div>
       </div>
       <hr />
@@ -573,10 +633,34 @@ const pages = {
       </div>
       <div class="webcam">
         <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts2">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif?v=1.19.0" alt="webcam feed placeholder"></div>
+        <div class="screen"><img src="/assets/webcam.gif?v=1.20.0" alt="webcam feed placeholder"></div>
       </div>
     `
   },
+
+  /* ===== Secret heart routes ===== */
+  heartL: {
+    leftTitle: "♥ secret — pong",
+    leftHTML: `
+      <p>Welcome to the secret arcade. Use <strong>↑/↓</strong> to move. First to 5 wins!</p>
+      <canvas id="pong" width="560" height="360" style="display:block;width:100%;max-width:560px;border:2px solid var(--pink);background:linear-gradient(180deg,#140018,#0b0010)"></canvas>
+      <div style="margin-top:8px;font:12px Verdana">Press <strong>R</strong> to reset • Press <strong>P</strong> to pause</div>
+    `,
+    rightEnabled: false
+  },
+  heartR: {
+    leftTitle: "♥ secret — note",
+    leftHTML: `
+      <p>Hidden page reserved for future secrets. Check back later…</p>
+      <article>
+        <h3>Private Teaser</h3>
+        <p>Maybe an early lyric, a cover mock, or a studio camera? Shh.</p>
+      </article>
+    `,
+    rightEnabled: false
+  },
+
+  /* ===== Normal routes ===== */
   music: {
     leftTitle: "Music",
     leftHTML: `
@@ -627,7 +711,7 @@ const pages = {
       </div>
       <div class="webcam">
         <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts3">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif?v=1.19.0" alt="webcam feed placeholder"></div>
+        <div class="screen"><img src="/assets/webcam.gif?v=1.20.0" alt="webcam feed placeholder"></div>
       </div>
     `
   },
@@ -657,7 +741,7 @@ const pages = {
       </div>
       <div class="webcam">
         <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts4">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif?v=1.19.0" alt="webcam feed placeholder"></div>
+        <div class="screen"><img src="/assets/webcam.gif?v=1.20.0" alt="webcam feed placeholder"></div>
       </div>
     `
   },
@@ -666,8 +750,8 @@ const pages = {
     leftHTML: `
       <p>Web diary: raw notes, studio days, sparkly chaos.</p>
       <article>
-        <h3>Nov 3, 2025 — Versioned!</h3>
-        <p>Anti-cache versioning added so new builds show up reliably.</p>
+        <h3>Nov 3, 2025 — Secrets!</h3>
+        <p>Left heart now opens a Pong mini-game. Right heart reserved for future teasers.</p>
       </article>
     `,
     rightEnabled: false
@@ -691,17 +775,15 @@ const pages = {
   }
 };
 
-const root = document.getElementById("pageRoot");
+const rootEl = document.getElementById("pageRoot");
 const leftPane = document.getElementById("leftPane");
 const rightPane = document.getElementById("rightPane");
 
 /* ===== Layout helpers ===== */
 function setLayout(single){
-  if(single){ root.classList.add("single"); }
-  else{ root.classList.remove("single"); }
+  if(single){ rootEl.classList.add("single"); }
+  else{ rootEl.classList.remove("single"); }
 }
-
-/* Match BOTH columns: whichever is taller sets the min-height for the other */
 function syncColumns(){
   const rightVisible = rightPane.style.display !== "none";
   if(!rightVisible){ leftPane.style.minHeight=""; return; }
@@ -711,41 +793,36 @@ function syncColumns(){
   leftPane.style.minHeight = H + "px";
   rightPane.style.minHeight = H + "px";
 }
-
-/* Re-sync after layout settles */
 let syncRAF;
-function scheduleSync(){
-  cancelAnimationFrame(syncRAF);
-  syncRAF = requestAnimationFrame(syncColumns);
-}
+function scheduleSync(){ cancelAnimationFrame(syncRAF); syncRAF = requestAnimationFrame(syncColumns); }
 
-/* Mount right column and rewire poll if needed */
+/* ===== Right column mount + home poll hookup ===== */
 function mountRight(html){
   if(!html){ rightPane.style.display="none"; setLayout(true); scheduleSync(); return; }
   rightPane.style.display=""; setLayout(false);
   rightPane.innerHTML = html;
 
-  // If home: wire home-poll
   const btn = rightPane.querySelector('#voteBtnHome');
   if(btn){
     wirePoll('#voteBtnHome','#pollResultsHome','#pPerfHome','#pFlipHome','#pLookHome','#bPerfHome','#bFlipHome','#bLookHome','bj_poll_home');
   }
 
-  // Re-sync after images (e.g., webcam GIF) load
   rightPane.querySelectorAll('img').forEach(img=>{
     if(img.complete) scheduleSync();
     else img.addEventListener('load', scheduleSync, {once:true});
   });
-
   scheduleSync();
 }
 
-/* Render route */
+/* ===== Router ===== */
 function render(route){
   const key = route && pages[route] ? route : "home";
   document.getElementById("leftTitle").textContent = pages[key].leftTitle;
   document.getElementById("leftContent").innerHTML = pages[key].leftHTML;
   mountRight(pages[key].rightEnabled ? pages[key].rightHTML : null);
+
+  // If on Pong page, boot the game
+  if(key === 'heartL'){ bootPong(); }
 }
 function onHash(){ render(location.hash.replace("#","").toLowerCase()); }
 window.addEventListener("hashchange", onHash);
@@ -754,14 +831,14 @@ onHash();
 /* Resync on window resize */
 window.addEventListener('resize', scheduleSync);
 
-/* ===== SECRET LINKS ON HEARTS ONLY ===== */
+/* ===== Hearts → secret routes ===== */
 function routeTo(r){ if(!r) return; location.hash = "#"+r; }
 document.querySelectorAll('.header-hotspot').forEach(el=>{
   el.addEventListener('click', ()=> routeTo(el.getAttribute('data-route')));
 });
 document.getElementById('logo').addEventListener('click', ()=> routeTo('home'));
 
-/* ===== POLL (localStorage) ===== */
+/* ===== POLL (localStorage) + confetti ===== */
 function wirePoll(btnSel,resSel,pPerfSel,pFlipSel,pLookSel,bPerfSel,bFlipSel,bLookSel,KEY){
   const els = {
     btn: document.querySelector(btnSel),
@@ -789,28 +866,40 @@ function wirePoll(btnSel,resSel,pPerfSel,pFlipSel,pLookSel,bPerfSel,bFlipSel,bLo
     els.results.style.display='block';
   }
 
-  els.btn.addEventListener('click',()=>{
+  function confettiBurst(x,y){
+    for(let i=0;i<12;i++){
+      const s=document.createElement('span');
+      s.className='cursor-star';
+      s.style.left=(x+(Math.random()*40-20))+'px';
+      s.style.top=(y+(Math.random()*18-9))+'px';
+      const colors=["#ff9ef6","#49c9ff","#ffb35e","#ff4d4d","#ffffff"];
+      const c=colors[(Math.random()*colors.length)|0];
+      s.style.color=c;
+      s.style.background=`radial-gradient(circle, ${c} 0%, transparent 70%)`;
+      s.style.animationDuration=(300+Math.random()*300)+'ms';
+      document.body.appendChild(s);
+      setTimeout(()=>s.remove(), 450);
+    }
+  }
+
+  els.btn.addEventListener('click',(ev)=>{
     const chosen = document.querySelector('input[name="poll"]:checked'); if(!chosen) return;
     const voted = localStorage.getItem(KEY+"_voted"); const data=read();
-    if(voted){ draw(data); return; }
+    if(voted){ draw(data); confettiBurst(ev.clientX+window.scrollX, ev.clientY+window.scrollY); return; }
     if(chosen.value==="performance") data.performance++;
     if(chosen.value==="flip") data.flip++;
     if(chosen.value==="look") data.look++;
     save(data); localStorage.setItem(KEY+"_voted","1"); draw(data);
+    confettiBurst(ev.clientX+window.scrollX, ev.clientY+window.scrollY);
   });
+
   if(localStorage.getItem(KEY+"_voted")) draw(read());
 }
-// Mount poll in the static right column too
+// Wire the static right-column poll
 wirePoll('#voteBtn','#pollResults','#pPerf','#pFlip','#pLook','#bPerf','#bFlip','#bLook','bj_poll_right');
 
-/* ====== SHOUTBOX (private posts; default hidden) ====== */
+/* ===== Shoutbox (private posts) ===== */
 (() => {
-  try{
-    localStorage.removeItem('bj_shout_v1');
-    localStorage.removeItem('bj_shout_v2');
-    localStorage.removeItem('bj_shout_v3');
-  }catch(e){}
-
   const SB_KEY="bj_shout_private";
   const chat = document.getElementById('chat');
   const nameInput = document.getElementById('nameInput');
@@ -854,7 +943,7 @@ wirePoll('#voteBtn','#pollResults','#pPerf','#pFlip','#pLook','#bPerf','#bFlip',
   renderPrivate();
 })();
 
-/* ===== MULTICOLOR CURSOR GLITTER (natural scroll, fast fade) ===== */
+/* ===== Multicolor cursor glitter ===== */
 (()=> {
   const colors = ["#ff9ef6","#49c9ff","#ffb35e","#ff4d4d","#ffffff"];
   let lastT = 0;
@@ -872,23 +961,9 @@ wirePoll('#voteBtn','#pollResults','#pPerf','#pFlip','#pLook','#bPerf','#bFlip',
     document.body.appendChild(star);
     setTimeout(()=>{ star.remove(); }, 550);
   }, {passive:true});
-
-  document.addEventListener("click",(e)=>{
-    for(let i=0;i<6;i++){
-      const star=document.createElement("span");
-      star.className="cursor-star";
-      star.style.left=(window.scrollX+e.clientX + (Math.random()*14-7))+"px";
-      star.style.top =(window.scrollY+e.clientY + (Math.random()*14-7))+"px";
-      const c=colors[(Math.random()*colors.length)|0];
-      star.style.color=c;
-      star.style.background=`radial-gradient(circle, ${c} 0%, transparent 70%)`;
-      document.body.appendChild(star);
-      setTimeout(()=>star.remove(), 500+Math.random()*200);
-    }
-  }, {passive:true});
 })();
 
-/* ===== Tiny REC timestamp updater for webcam bars ===== */
+/* ===== REC timers ===== */
 (function recTimers(){
   const update = (id)=> {
     const el = document.getElementById(id);
@@ -899,10 +974,117 @@ wirePoll('#voteBtn','#pollResults','#pPerf','#pFlip','#pLook','#bPerf','#bFlip',
     const s = String(t.getSeconds()).padStart(2,'0');
     el.textContent = `${h}:${m}:${s}`;
   };
-  setInterval(()=>{
-    ['ts','ts2','ts3','ts4'].forEach(update);
-  }, 1000);
+  setInterval(()=>{ ['ts','ts2','ts3','ts4'].forEach(update); }, 1000);
 })();
+
+/* ======== PONG MINI-GAME (heartL) ======== */
+function bootPong(){
+  const canvas = document.getElementById('pong');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+
+  let up=false, down=false, paused=false;
+  let player = { x: 16, y: H/2-35, w: 10, h: 70, s: 5 };
+  let cpu    = { x: W-26, y: H/2-35, w: 10, h: 70, s: 4.2 };
+  let ball   = { x: W/2, y: H/2, r: 6, vx: 3.8*(Math.random()<.5?1:-1), vy: 2.6*(Math.random()<.5?1:-1) };
+  let score  = { p:0, c:0 };
+
+  function resetBall(dir=1){
+    ball.x=W/2; ball.y=H/2;
+    ball.vx = 3.6*dir; ball.vy = (Math.random()>0.5?2.4:-2.4);
+  }
+
+  function clamp(v,min,max){ return v<min?min:(v>max?max:v); }
+
+  function draw(){
+    // bg
+    const g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#140018'); g.addColorStop(1,'#0b0010');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+
+    // center line
+    ctx.setLineDash([8,8]); ctx.strokeStyle='rgba(255,255,255,.2)';
+    ctx.beginPath(); ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // paddles
+    ctx.fillStyle='#ff9ef6'; ctx.fillRect(player.x, player.y, player.w, player.h);
+    ctx.fillStyle='#49c9ff'; ctx.fillRect(cpu.x, cpu.y, cpu.w, cpu.h);
+
+    // ball
+    ctx.beginPath(); ctx.fillStyle='#fff';
+    ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI*2); ctx.fill();
+
+    // score
+    ctx.font='bold 18px Verdana'; ctx.fillStyle='#ffbdfb';
+    ctx.fillText(score.p, W/2-40, 26);
+    ctx.fillStyle='#9fdfff'; ctx.fillText(score.c, W/2+28, 26);
+
+    if(paused){
+      ctx.fillStyle='rgba(0,0,0,.45)'; ctx.fillRect(0,0,W,H);
+      ctx.fillStyle='#ffdfff'; ctx.font='bold 20px Verdana'; ctx.fillText('PAUSED', W/2-38, H/2);
+    }
+  }
+
+  function step(){
+    if(paused) return draw();
+
+    // player movement
+    if(up) player.y -= player.s;
+    if(down) player.y += player.s;
+    player.y = clamp(player.y, 0, H-player.h);
+
+    // cpu AI
+    const target = ball.y - cpu.h/2;
+    cpu.y += (target - cpu.y) * 0.08; // easing
+    cpu.y = clamp(cpu.y, 0, H-cpu.h);
+
+    // ball
+    ball.x += ball.vx; ball.y += ball.vy;
+    if(ball.y-ball.r<0 || ball.y+ball.r>H){ ball.vy*=-1; }
+
+    // collide paddles
+    function collide(p){
+      if(ball.x+ball.r>p.x && ball.x-ball.r<p.x+p.w && ball.y>p.y && ball.y<p.y+p.h){
+        ball.vx *= -1.06; // a little faster
+        const rel = (ball.y - (p.y+p.h/2)) / (p.h/2);
+        ball.vy = rel*3.2;
+      }
+    }
+    collide(player); collide(cpu);
+
+    // score
+    if(ball.x < 0){ score.c++; resetBall(1); }
+    if(ball.x > W){ score.p++; resetBall(-1); }
+
+    // win condition
+    if(score.p>=5 || score.c>=5){
+      paused = true;
+      setTimeout(()=>{ score.p=0; score.c=0; paused=false; resetBall(score.c>score.p?-1:1); }, 1200);
+    }
+
+    draw();
+    requestAnimationFrame(step);
+  }
+
+  // controls
+  window.onkeydown = (e)=>{
+    if(e.key==='ArrowUp') up=true;
+    if(e.key==='ArrowDown') down=true;
+    if(e.key.toLowerCase()==='r'){ score.p=0; score.c=0; resetBall((Math.random()<.5)?1:-1); }
+    if(e.key.toLowerCase()==='p'){ paused=!paused; }
+  };
+  window.onkeyup = (e)=>{
+    if(e.key==='ArrowUp') up=false;
+    if(e.key==='ArrowDown') down=false;
+  };
+
+  draw(); requestAnimationFrame(step);
+}
+
+/* ===== Mount the static (right column) poll too ===== */
+wirePoll('#voteBtn','#pollResults','#pPerf','#pFlip','#pLook','#bPerf','#bFlip','#bLook','bj_poll_right');
 </script>
 </body>
 </html>
