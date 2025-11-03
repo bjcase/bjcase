@@ -6,11 +6,11 @@
 <title>bj case — home</title>
 
 <!-- Favicons (always included, cache-busted) -->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.20.2">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1.20.2">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1.20.2">
-<link rel="manifest" href="/site.webmanifest?v=1.20.2">
-<link rel="shortcut icon" href="/favicon.ico?v=1.20.2">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.20.5">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1.20.5">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1.20.5">
+<link rel="manifest" href="/site.webmanifest?v=1.20.5">
+<link rel="shortcut icon" href="/favicon.ico?v=1.20.5">
 <meta name="theme-color" content="#ff9ef6">
 
 <!-- Cache hints -->
@@ -23,11 +23,12 @@
 
 <style>
 /* ===========================================================
-   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.20.2)
-   - Hearts: pink, wide, clickable to #heartL/#heartR (z-index fixed)
-   - Poll: full border with subtle sparkle/shine sweep
-   - Status: dedicated styled box; removed “(and HW ugh)”
-   - “Featured Links” restored
+   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.20.5)
+   - Hearts route FIX: lowercase (#heartl / #heartr, pages.heartl/.heartr)
+   - Header tight; hearts pink/wide and clickable
+   - Poll: clean full border + subtle sparkle sweep
+   - Status: unique border; bold pink labels
+   - Featured Links restored; Release Timeline year fixed (2026)
    =========================================================== */
 
 /* ---------- PALETTE ---------- */
@@ -63,16 +64,16 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
   position:relative; overflow:hidden;
 }
 
-/* Logo + Hearts wrapper (keeps hearts aligned & above notes) */
+/* Logo + Hearts wrapper */
 .logo-wrap{
   position:relative; display:flex; align-items:center; justify-content:center;
-  gap:.9em; /* closer than last pass; not colliding with notes */
+  gap:.9em; /* tuned so hearts don’t collide with notes */
   width:100%; margin:0 auto 6px;
   z-index:3;
 }
 .heart{
   display:inline-block; text-decoration:none; line-height:1;
-  color:var(--pink); /* PINK hearts back */
+  color:var(--pink); /* PINK hearts */
   font-size:clamp(26px,4.6vw,44px);
   transform:scaleX(1.3); /* wide heart look */
   text-shadow:0 0 6px var(--pink), 0 0 10px var(--neon-blue), 0 0 14px rgba(255,255,255,.35);
@@ -81,8 +82,6 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
   z-index:4;
 }
 .heart:hover{ transform:scaleX(1.3) scale(1.08); text-shadow:0 0 8px var(--neon-blue), 0 0 14px var(--pink) }
-.heart.left{ margin-right:.1em }
-.heart.right{ margin-left:.1em }
 
 .logo{
   position:relative; z-index:3;
@@ -102,7 +101,7 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 }
 @keyframes logoShine{0%{background-position:-180% 0,0 50%}100%{background-position:180% 0,0 50%}}
 
-/* Music notes stay behind hearts/logo, away from the center text */
+/* Music notes stay behind hearts/logo, away from center text */
 .note{
   position:absolute; user-select:none; pointer-events:none; z-index:1;
   color:#ffd1fa; text-shadow:0 0 6px var(--pink), 0 0 10px #fff8;
@@ -337,7 +336,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
     <span class="note" style="left:64px; top:70px; font-size:18px; --dur:4.5s; --amp:6px;">♫</span>
     <span class="note" style="left:22px; top:94px; font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
     <span class="note" style="left:74px; top:114px;font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
-    <!-- Fill gap -->
+    <!-- fill gap -->
     <span class="note" style="left:96px; top:10px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
     <span class="note" style="left:112px; top:36px;font-size:18px; --dur:4.6s; --amp:7px;">♫</span>
 
@@ -348,15 +347,15 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
     <span class="note" style="right:76px; top:72px;  font-size:16px; --dur:4.3s; --amp:6px;">♪</span>
     <span class="note" style="right:26px; top:96px;  font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
     <span class="note" style="right:80px; top:116px; font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
-    <!-- Fill gap -->
+    <!-- fill gap -->
     <span class="note" style="right:104px; top:14px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
     <span class="note" style="right:124px; top:40px;font-size:18px; --dur:4.6s; --amp:7px;">♫</span>
 
-    <!-- Logo + Clickable Hearts -->
+    <!-- Logo + Clickable Hearts (lowercase routes) -->
     <div class="logo-wrap">
-      <a class="heart left"  href="#heartL" title="secret left">♥</a>
+      <a class="heart left"  href="#heartl" title="secret left">♥</a>
       <div class="logo" id="logo">bj case</div>
-      <a class="heart right" href="#heartR" title="secret right">♥</a>
+      <a class="heart right" href="#heartr" title="secret right">♥</a>
     </div>
 
     <nav class="nav" aria-label="Main">
@@ -484,7 +483,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
           <div class="ts" id="ts">00:00:00</div>
         </div>
         <div class="screen">
-          <img id="webcamFeed" src="/assets/webcam.gif?v=1.20.2" alt="webcam feed placeholder">
+          <img id="webcamFeed" src="/assets/webcam.gif?v=1.20.5" alt="webcam feed placeholder">
         </div>
       </div>
     </aside>
@@ -518,7 +517,7 @@ footer{margin:18px 0 32px; text-align:center; color:#ffdfff; font:12px Verdana,T
 
 <script>
 /* ===== VERSION & CACHE-BUST ===== */
-const SITE_VERSION = '1.20.2';
+const SITE_VERSION = '1.20.5';
 (function ensureVersionParam(){
   try{
     const u = new URL(location.href);
@@ -639,13 +638,13 @@ const pages = {
       </div>
       <div class="webcam">
         <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts2">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif?v=1.20.2" alt="webcam feed placeholder"></div>
+        <div class="screen"><img src="/assets/webcam.gif?v=1.20.5" alt="webcam feed placeholder"></div>
       </div>
     `
   },
 
-  /* ===== Secrets ===== */
-  heartL: {
+  /* ===== Secrets (lowercase keys) ===== */
+  heartl: {
     leftTitle: "♥ secret — pong",
     leftHTML: `
       <p>Welcome to the secret arcade. Use <strong>↑/↓</strong> to move. First to 5 wins!</p>
@@ -654,7 +653,7 @@ const pages = {
     `,
     rightEnabled: false
   },
-  heartR: {
+  heartr: {
     leftTitle: "♥ secret — note",
     leftHTML: `
       <p>Hidden page reserved for future secrets. Check back later…</p>
@@ -719,7 +718,7 @@ const pages = {
       </div>
       <div class="webcam">
         <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts3">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif?v=1.20.2" alt="webcam feed placeholder"></div>
+        <div class="screen"><img src="/assets/webcam.gif?v=1.20.5" alt="webcam feed placeholder"></div>
       </div>
     `
   },
@@ -749,7 +748,7 @@ const pages = {
       </div>
       <div class="webcam">
         <div class="bar"><div class="rec"><span class="dot"></span> REC</div><div class="ts" id="ts4">00:00:00</div></div>
-        <div class="screen"><img src="/assets/webcam.gif?v=1.20.2" alt="webcam feed placeholder"></div>
+        <div class="screen"><img src="/assets/webcam.gif?v=1.20.5" alt="webcam feed placeholder"></div>
       </div>
     `
   },
@@ -827,7 +826,8 @@ function render(route){
   document.getElementById("leftContent").innerHTML = pages[key].leftHTML;
   mountRight(pages[key].rightEnabled ? pages[key].rightHTML : null);
 
-  if(key === 'heartL'){ bootPong(); }
+  /* Boot the Pong game on the left-heart page (lowercase match) */
+  if(key === 'heartl'){ bootPong(); }
 }
 function onHash(){ render(location.hash.replace("#","").toLowerCase()); }
 window.addEventListener("hashchange", onHash);
@@ -959,7 +959,7 @@ wirePoll('#voteBtn','#pollResults','#pPerf','#pFlip','#pLook','#bPerf','#bFlip',
   setInterval(()=>{ ['ts','ts2','ts3','ts4'].forEach(update); }, 1000);
 })();
 
-/* ===== Pong (heartL) ===== */
+/* ===== Pong (heartl) ===== */
 function bootPong(){
   const canvas = document.getElementById('pong');
   if(!canvas) return;
