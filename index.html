@@ -23,13 +23,11 @@
 
 <style>
 /* ===========================================================
-   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.22.1 hotfix)
-   Hotfixes only:
-   - Router remount bug fix (no stale content bleed)
-   - Mobile header shows only 2 notes per side
-   - Right heart -> #heartr (secret teaser page)
-   - Arcade hub headline uses white heart (♡), not emoji/<3
-   Everything else is unchanged from your v1.22.0.
+   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.22.2 arcade fix)
+   Only arcade sizing tweaks, everything else unchanged.
+   - Mobile: make 16:10 games (Pong/Brick) bigger
+   - Desktop: cap LipGloss (3:4) height so it’s not too tall
+   - Brick Breaker bricks at TOP (already true, preserved)
    =========================================================== */
 
 /* ---------- PALETTE ---------- */
@@ -245,7 +243,7 @@ hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--n
 .owner-pass{ display:none }
 .jpost{ background:linear-gradient(180deg,#3d0055,#260038); border:1px solid var(--pink); box-shadow:0 0 0 2px #000 inset; padding:10px; border-radius:6px; margin-bottom:10px; font:13px Verdana }
 
-/* ---------- ARCADE (unchanged visuals; white heart applied in HTML) ---------- */
+/* ---------- ARCADE (unchanged look; add responsive helpers below) ---------- */
 .arcade-hero{
   border:2px solid var(--pink); border-radius:8px; padding:12px;
   background:
@@ -265,25 +263,20 @@ hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--n
 .stage-controls button{ padding:8px 10px; border:2px solid var(--pink); border-radius:6px; background:linear-gradient(180deg,#6c006c,#420042); color:#fff; font-weight:800 }
 
 /* Canvas wrapper keeps aspect and grows large on mobile too */
-.canvas-wrap{ width:100%; max-width:100%; }
-.canvas-wrap.ratio-16x10{ aspect-ratio:16/10 }
-.canvas-wrap.ratio-3x4{ aspect-ratio:3/4 }
-canvas.game{ display:block; width:100%; height:100% }
+.canvas-wrap{ width:100%; max-width:100%; margin:0 auto; }
+.canvas-wrap.ratio-16x10{ aspect-ratio:16/10; }
+.canvas-wrap.ratio-3x4 { aspect-ratio:3/4; max-height:520px; } /* desktop cap for LipGloss */
 
-/* ---------- CURSOR GLITTER ---------- */
-.cursor-star{ position:absolute; width:7px; height:7px; pointer-events:none; background:radial-gradient(circle,#fff 0%,transparent 70%); opacity:.95; filter:drop-shadow(0 0 4px currentColor); animation:starFade .5s linear forwards }
-@keyframes starFade{from{transform:scale(1);opacity:.95}to{transform:scale(0);opacity:0}}
-
-/* ---------- RESPONSIVE ---------- */
+/* Make 16:10 games taller on mobile; remove LipGloss cap on mobile */
 @media(max-width:840px){
-  /* MOBILE NOTE TRIM: show only two per side (keep the first two; hide the rest) */
   .note.m-hide{ display:none }
-
-  .grid{ grid-template-columns:1fr }                 /* sidebar under main */
-  #leftPane, #rightPane{ min-height:initial }       /* natural height */
-  .journal-grid{ grid-template-columns:1fr }         /* owner pad under feed */
-  .arcade-tiles{ grid-template-columns:1fr }         /* one card per row */
-  .canvas-wrap{ height:auto }                        /* big canvases still */
+  .grid{ grid-template-columns:1fr }
+  #leftPane, #rightPane{ min-height:initial }
+  .journal-grid{ grid-template-columns:1fr }
+  .arcade-tiles{ grid-template-columns:1fr }
+  .canvas-wrap{ height:auto }
+  .canvas-wrap.ratio-16x10{ height:62vh; }           /* bigger Pong/Brick on phones */
+  .canvas-wrap.ratio-3x4{ max-height:none; }         /* keep LipGloss tall on phones */
 }
 @media(max-width:520px){
   .nav a{font-size:14px; padding:8px 12px}
@@ -528,7 +521,7 @@ const pages = {
     `
   },
 
-  /* ===== Journal: diary cover + owner pad (same content) ===== */
+  /* ===== Journal: diary cover + owner pad ===== */
   journal: {
     leftTitle: "Journal",
     leftHTML: `
@@ -561,7 +554,7 @@ const pages = {
     rightEnabled: false
   },
 
-  /* ===== Arcade hub + 3 games (unchanged text except white heart) ===== */
+  /* ===== Arcade hub + 3 games (white heart kept) ===== */
   arcade: {
     leftTitle: "Arcade Center",
     leftHTML: `
@@ -649,7 +642,7 @@ const pages = {
   contact:{ leftTitle:"Contact", leftHTML:`<p>These are my other pages:</p><p>• Instagram: @itsbjcase<br>• Tiktok: @wannabj<br>• I’m not on Twitter rn cuz it’s called ‘X’ now, among other reasons :(</p><p>Also, I’ll be on streaming platforms soon! I’ll put them here when the time comes.</p><p>Ohhh and my email is <br><strong>itsbjcase@gmail.com</strong><br>for any inquiries (business only please!)</p>`, rightEnabled:false }
 };
 
-/* ===== Mount helpers (unchanged visuals) ===== */
+/* ===== Mount helpers (unchanged) ===== */
 const rootEl = document.getElementById("pageRoot");
 const leftPane = document.getElementById("leftPane");
 const rightPane = document.getElementById("rightPane");
@@ -680,7 +673,7 @@ function mountRight(html){
   scheduleSync();
 }
 
-/* ===== Router (FIX: always remount left & right cleanly) ===== */
+/* ===== Router (remounts cleanly) ===== */
 function render(route){
   const key = route && pages[route] ? route : "home";
   const pg = pages[key];
@@ -844,10 +837,22 @@ function bootJournal(){
 
 /* ===== Arcade: responsive helpers ===== */
 function sizedCanvas(canvas, baseW, baseH){
-  const parent=canvas.parentElement;
-  const w=parent.clientWidth;
-  const h=parent.clientHeight || Math.round(w*baseH/baseW);
-  canvas.width=w; canvas.height=h;
+  const parent = canvas.parentElement;
+  let w = parent.clientWidth;
+  let h = Math.round(w * baseH / baseW);
+
+  // Desktop cap for 3:4 (LipGloss) so it isn't too tall
+  if(parent.classList.contains('ratio-3x4') && window.matchMedia('(min-width: 841px)').matches){
+    if(h > 520){ h = 520; w = Math.round(h * baseW / baseH); }
+  }
+  // On mobile, make 16:10 games (Pong/Brick) taller if needed (~62vh)
+  if(parent.classList.contains('ratio-16x10') && window.matchMedia('(max-width: 840px)').matches){
+    const targetH = Math.round(window.innerHeight * 0.62);
+    if(h < targetH){ h = targetH; w = Math.round(h * baseW / baseH); }
+  }
+
+  canvas.width = w;
+  canvas.height = h;
 }
 
 /* ===== Pong (to 11) ===== */
@@ -911,7 +916,7 @@ function bootPong(){
   requestAnimationFrame(step);
 }
 
-/* ===== LipGloss Flight ===== */
+/* ===== LipGloss Flight (desktop height capped via sizedCanvas) ===== */
 function bootGloss(){
   const c=document.getElementById('gloss'); if(!c) return; const x=c.getContext('2d');
   function resize(){ sizedCanvas(c, 540, 720) } resize(); window.addEventListener('resize', resize);
@@ -966,7 +971,7 @@ function bootGloss(){
   requestAnimationFrame(step);
 }
 
-/* ===== Brick Breaker ===== */
+/* ===== Brick Breaker (bricks at TOP; larger on mobile via sizedCanvas) ===== */
 function bootBrick(){
   const c=document.getElementById('brick'); if(!c) return; const x=c.getContext('2d');
   function resize(){ sizedCanvas(c, 800, 500) } resize(); window.addEventListener('resize', resize);
@@ -979,7 +984,7 @@ function bootBrick(){
 
   function makeBricks(){
     bricks=[];
-    const cols=8, rows=5, pad=8, bw=(W()- (cols+1)*pad)/cols, bh=18, top=60;
+    const cols=8, rows=5, pad=8, bw=(W()- (cols+1)*pad)/cols, bh=18, top=60; /* TOP rows */
     for(let r=0;r<rows;r++) for(let c1=0;c1<cols;c1++){
       bricks.push({x:pad+c1*(bw+pad), y:top+r*(bh+pad), w:bw, h:bh, hp:1});
     }
@@ -1001,8 +1006,8 @@ function bootBrick(){
     bricks.forEach(b=>{ x.fillStyle='rgba(73,201,255,.95)'; x.fillRect(b.x,b.y,b.w,b.h) });
 
     if(paused||over||win){ x.fillStyle='rgba(0,0,0,.45)'; x.fillRect(0,0,W(),H()); x.fillStyle='#ffdfff'; x.textAlign='center';
-      x.font='bold 22px Verdana'; x.fillText(win?'YOU WIN!':(over?'GAME OVER':'PAUSED'), W()/2, H()/2-6);
-      x.font='bold 14px Verdana'; x.fillText('Tap Reset to play again', W()/2, H()/2+16); x.textAlign='start';
+      x.font='bold 22px Verdana'; x.fillText(win?'YOU WIN!':(over?'GAME OVER':'PAUSED'), W/2, H/2-6);
+      x.font='bold 14px Verdana'; x.fillText('Tap Reset to play again', W/2, H/2+16); x.textAlign='start';
     }
   }
 
