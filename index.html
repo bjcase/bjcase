@@ -23,14 +23,13 @@
 
 <style>
 /* ===========================================================
-   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.22.0)
-   What’s new:
-   - Desktop header restores all music notes; mobile trims safely
-   - Arcade Center: Pong(11), Brick Breaker, LipGloss Flight (lipstick+mascara)
-     * Big responsive canvases, touch controls, pause/reset buttons
-   - Journal: textured diary cover + slower open animation, metal heart latch,
-     owner passbox (local-only) + public feed layout
-   - Everything else preserved
+   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.22.1 hotfix)
+   Hotfixes only:
+   - Router remount bug fix (no stale content bleed)
+   - Mobile header shows only 2 notes per side
+   - Right heart -> #heartr (secret teaser page)
+   - Arcade hub headline uses white heart (♡), not emoji/<3
+   Everything else is unchanged from your v1.22.0.
    =========================================================== */
 
 /* ---------- PALETTE ---------- */
@@ -97,7 +96,7 @@ a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 }
 @keyframes logoShine{0%{background-position:-180% 0,0 50%}100%{background-position:180% 0,0 50%}}
 
-/* Music notes — all for desktop, trimmed for mobile via media query */
+/* Music notes — full set for desktop; we trim them via media query */
 .note{
   position:absolute; user-select:none; pointer-events:none; z-index:1;
   color:#ffd1fa; text-shadow:0 0 6px var(--pink), 0 0 10px #fff8;
@@ -209,16 +208,15 @@ hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--n
 .emotes{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px }
 .emotes button{ font:12px Verdana,Tahoma,Arial,sans-serif; padding:4px 8px; border:1px solid var(--pink); background:#300033; color:#ffdfff; border-radius:3px; cursor:pointer }
 
-/* ---------- JOURNAL (diary cover animation + owner pad) ---------- */
+/* ---------- JOURNAL (unchanged visuals – route added below) ---------- */
 .journal-wrap{ position:relative; min-height:560px }
 .diary-cover{
   position:absolute; inset:0; background:
-    /* subtle texture */
     repeating-linear-gradient(135deg, #5a0066 0 8px, #4a0058 8px 16px),
     radial-gradient(150% 100% at 50% 0%, rgba(255,255,255,.06), transparent 70%);
   border:2px solid var(--pink); box-shadow:0 0 0 2px #000 inset, 0 14px 26px #0009;
   display:flex; align-items:center; justify-content:center; z-index:5; transform-origin:left center;
-  animation: openDiary 2.2s ease forwards; /* slowed down */
+  animation: openDiary 2.2s ease forwards;
 }
 .diary-title{ font-family:"Orbitron"; font-size:clamp(26px,6vw,48px); color:#fff; text-shadow:0 0 10px #ff9ef6 }
 .diary-latch{
@@ -228,7 +226,6 @@ hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--n
 }
 .diary-latch::after{
   content:""; position:absolute; left:-10px; top:50%; transform:translateY(-50%) rotate(-12deg);
-  /* metal heart */
   width:24px; height:24px; background:
     radial-gradient(circle at 30% 30%, #fff, #bbb 35%, #777 60%, #444 100%);
   clip-path: path("M12 21 C10 19 4 14 4 9 C4 6.5 6 5 8 5 C9.5 5 11 6 12 7 C13 6 14.5 5 16 5 C18 5 20 6.5 20 9 C20 14 14 19 12 21 Z");
@@ -239,7 +236,6 @@ hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--n
   35%{ transform:rotateY(45deg) }
   100%{ transform:rotateY(100deg); opacity:0; pointer-events:none }
 }
-
 .journal-grid{ display:grid; grid-template-columns:3fr 1fr; gap:12px }
 .journal-feed{ min-height:520px; background:linear-gradient(180deg,var(--vio) 0,var(--vio-deep) 100%); border:2px solid var(--pink); box-shadow:0 0 0 2px #000 inset; border-radius:6px; padding:12px; overflow:auto }
 .journal-owner{ background:linear-gradient(180deg,#190022,#0e0016); border:2px dashed var(--pink); box-shadow:0 0 0 2px #000 inset; border-radius:6px; padding:12px; align-self:start }
@@ -249,7 +245,7 @@ hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--n
 .owner-pass{ display:none }
 .jpost{ background:linear-gradient(180deg,#3d0055,#260038); border:1px solid var(--pink); box-shadow:0 0 0 2px #000 inset; padding:10px; border-radius:6px; margin-bottom:10px; font:13px Verdana }
 
-/* ---------- ARCADE ---------- */
+/* ---------- ARCADE (unchanged visuals; white heart applied in HTML) ---------- */
 .arcade-hero{
   border:2px solid var(--pink); border-radius:8px; padding:12px;
   background:
@@ -280,13 +276,14 @@ canvas.game{ display:block; width:100%; height:100% }
 
 /* ---------- RESPONSIVE ---------- */
 @media(max-width:840px){
-  /* Trim header notes for mobile */
-  .note.trim-mobile{ display:none }
+  /* MOBILE NOTE TRIM: show only two per side (keep the first two; hide the rest) */
+  .note.m-hide{ display:none }
+
   .grid{ grid-template-columns:1fr }                 /* sidebar under main */
-  #leftPane, #rightPane{ min-height:initial }       /* let them size naturally */
+  #leftPane, #rightPane{ min-height:initial }       /* natural height */
   .journal-grid{ grid-template-columns:1fr }         /* owner pad under feed */
   .arcade-tiles{ grid-template-columns:1fr }         /* one card per row */
-  .canvas-wrap{ height:auto }                        /* keep big canvases */
+  .canvas-wrap{ height:auto }                        /* big canvases still */
 }
 @media(max-width:520px){
   .nav a{font-size:14px; padding:8px 12px}
@@ -299,30 +296,31 @@ canvas.game{ display:block; width:100%; height:100% }
 
   <!-- ========== HEADER ========== -->
   <header class="site-header" id="header">
-    <!-- LEFT notes (desktop full set; some marked trim-mobile to hide on phones) -->
-    <span class="note" style="left:10px; top:4px;  font-size:16px; --dur:4.8s; --amp:8px;">♪</span>
-    <span class="note" style="left:34px; top:22px; font-size:21px; --dur:4.2s; --amp:6px;">♫</span>
-    <span class="note trim-mobile" style="left:18px; top:46px; font-size:14px; --dur:5.1s; --amp:7px;">♪</span>
-    <span class="note trim-mobile" style="left:64px; top:70px; font-size:18px; --dur:4.5s; --amp:6px;">♫</span>
-    <span class="note" style="left:22px; top:94px; font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
-    <span class="note trim-mobile" style="left:74px; top:114px;font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
-    <span class="note trim-mobile" style="left:96px; top:10px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
-    <span class="note" style="left:112px; top:36px;font-size:18px; --dur:4.6s; --amp:7px;">♫</span>
+    <!-- LEFT notes (desktop full set; on mobile we hide ones marked .m-hide) -->
+    <span class="note"             style="left:10px; top:4px;  font-size:16px; --dur:4.8s; --amp:8px;">♪</span>
+    <span class="note"             style="left:34px; top:22px; font-size:21px; --dur:4.2s; --amp:6px;">♫</span>
+    <span class="note m-hide"      style="left:18px; top:46px; font-size:14px; --dur:5.1s; --amp:7px;">♪</span>
+    <span class="note m-hide"      style="left:64px; top:70px; font-size:18px; --dur:4.5s; --amp:6px;">♫</span>
+    <span class="note m-hide"      style="left:22px; top:94px; font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
+    <span class="note m-hide"      style="left:74px; top:114px;font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
+    <span class="note m-hide"      style="left:96px; top:10px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
+    <span class="note m-hide"      style="left:112px; top:36px;font-size:18px; --dur:4.6s; --amp:7px;">♫</span>
 
     <!-- RIGHT notes -->
-    <span class="note" style="right:12px; top:6px;  font-size:20px; --dur:4.6s; --amp:8px;">♫</span>
-    <span class="note" style="right:42px; top:24px;  font-size:14px; --dur:4.0s; --amp:6px;">♪</span>
-    <span class="note trim-mobile" style="right:20px; top:48px;  font-size:23px; --dur:5.0s; --amp:7px;">♫</span>
-    <span class="note trim-mobile" style="right:76px; top:72px;  font-size:16px; --dur:4.3s; --amp:6px;">♪</span>
-    <span class="note" style="right:26px; top:96px;  font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
-    <span class="note trim-mobile" style="right:80px; top:116px; font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
-    <span class="note trim-mobile" style="right:104px; top:14px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
-    <span class="note" style="right:124px; top:40px;font-size:18px; --dur:4.6s; --amp:7px;">♫</span>
+    <span class="note"             style="right:12px; top:6px;  font-size:20px; --dur:4.6s; --amp:8px;">♫</span>
+    <span class="note"             style="right:42px; top:24px;  font-size:14px; --dur:4.0s; --amp:6px;">♪</span>
+    <span class="note m-hide"      style="right:20px; top:48px;  font-size:23px; --dur:5.0s; --amp:7px;">♫</span>
+    <span class="note m-hide"      style="right:76px; top:72px;  font-size:16px; --dur:4.3s; --amp:6px;">♪</span>
+    <span class="note m-hide"      style="right:26px; top:96px;  font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
+    <span class="note m-hide"      style="right:80px; top:116px; font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
+    <span class="note m-hide"      style="right:104px; top:14px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
+    <span class="note m-hide"      style="right:124px; top:40px;font-size:18px; --dur:4.6s; --amp:7px;">♫</span>
 
     <div class="logo-wrap">
       <a class="heart left"  href="#arcade" title="secret left">♥</a>
       <div class="logo" id="logo">bj case</div>
-      <a class="heart right" href="#journal" title="journal">♥</a>
+      <!-- FIX: right heart goes to secret teaser page -->
+      <a class="heart right" href="#heartr" title="secret right">♥</a>
     </div>
 
     <nav class="nav" aria-label="Main">
@@ -481,9 +479,18 @@ canvas.game{ display:block; width:100%; height:100% }
 /* ===== YEAR ===== */
 document.getElementById('y').textContent = new Date().getFullYear();
 
+/* ===== Capture original Home HTML so router can remount cleanly ===== */
+const __homeLeftHTML  = document.getElementById("leftContent").innerHTML;
+const __homeRightHTML = document.getElementById("rightPane").innerHTML;
+
 /* ===== ROUTER PAGES ===== */
 const pages = {
-  home: {/* (left & right already mounted on load) */},
+  home: {
+    leftTitle: "Welcome",
+    leftHTML: __homeLeftHTML,
+    rightEnabled: true,
+    rightHTML: __homeRightHTML
+  },
   music: {
     leftTitle: "Music",
     leftHTML: `
@@ -521,7 +528,7 @@ const pages = {
     `
   },
 
-  /* ===== Journal: diary cover + owner pad ===== */
+  /* ===== Journal: diary cover + owner pad (same content) ===== */
   journal: {
     leftTitle: "Journal",
     leftHTML: `
@@ -554,12 +561,12 @@ const pages = {
     rightEnabled: false
   },
 
-  /* ===== Arcade hub + 3 games ===== */
+  /* ===== Arcade hub + 3 games (unchanged text except white heart) ===== */
   arcade: {
     leftTitle: "Arcade Center",
     leftHTML: `
       <div class="arcade-hero">
-        <h3 style="margin:0;color:#fff;text-align:center;font-family:Atma;letter-spacing:.06em">Welcome to the ♥ Secret Arcade</h3>
+        <h3 style="margin:0;color:#fff;text-align:center;font-family:Atma;letter-spacing:.06em">Welcome to the ♡ Secret Arcade</h3>
         <p style="opacity:.85;text-align:center;font:12px Verdana;margin:6px 0">Tap a card to play. All games have touch + buttons.</p>
         <div class="arcade-tiles">
           <div class="arcade-card">
@@ -576,6 +583,19 @@ const pages = {
           </div>
         </div>
       </div>
+    `,
+    rightEnabled:false
+  },
+
+  /* ===== Secret right-heart page (teaser) ===== */
+  heartr: {
+    leftTitle: "♥ secret — note",
+    leftHTML: `
+      <p>Hidden page reserved for future secrets. Check back later…</p>
+      <article>
+        <h3>Private Teaser</h3>
+        <p>Maybe an early lyric, a cover mock, or a studio camera? Shh.</p>
+      </article>
     `,
     rightEnabled:false
   },
@@ -629,7 +649,7 @@ const pages = {
   contact:{ leftTitle:"Contact", leftHTML:`<p>These are my other pages:</p><p>• Instagram: @itsbjcase<br>• Tiktok: @wannabj<br>• I’m not on Twitter rn cuz it’s called ‘X’ now, among other reasons :(</p><p>Also, I’ll be on streaming platforms soon! I’ll put them here when the time comes.</p><p>Ohhh and my email is <br><strong>itsbjcase@gmail.com</strong><br>for any inquiries (business only please!)</p>`, rightEnabled:false }
 };
 
-/* ===== Mount helpers (reuse from your previous build) ===== */
+/* ===== Mount helpers (unchanged visuals) ===== */
 const rootEl = document.getElementById("pageRoot");
 const leftPane = document.getElementById("leftPane");
 const rightPane = document.getElementById("rightPane");
@@ -650,7 +670,7 @@ function mountRight(html){
   rightPane.style.display=""; setLayout(false);
   rightPane.innerHTML = html;
 
-  // wire poll if present
+  // wire poll if present (OG behavior)
   const btn = rightPane.querySelector('#voteBtn');
   if(btn){ wirePoll('#voteBtn','#pollResults','#pPerf','#pFlip','#pLook','#bPerf','#bFlip','#bLook','bj_poll_right'); }
 
@@ -660,13 +680,19 @@ function mountRight(html){
   scheduleSync();
 }
 
+/* ===== Router (FIX: always remount left & right cleanly) ===== */
 function render(route){
   const key = route && pages[route] ? route : "home";
-  document.getElementById("leftTitle").textContent = pages[key].leftTitle || "Welcome";
-  document.getElementById("leftContent").innerHTML = pages[key].leftHTML || document.getElementById("leftContent").innerHTML;
-  mountRight(pages[key].rightEnabled ? pages[key].rightHTML : null);
+  const pg = pages[key];
 
-  // page-specific boots
+  // Left
+  document.getElementById("leftTitle").textContent = pg.leftTitle || "Welcome";
+  document.getElementById("leftContent").innerHTML = pg.leftHTML || __homeLeftHTML;
+
+  // Right
+  mountRight(pg.rightEnabled ? (pg.rightHTML || __homeRightHTML) : null);
+
+  // Page-specific boots
   if(key === 'arcade_pong') bootPong();
   if(key === 'arcade_gloss') bootGloss();
   if(key === 'arcade_brick') bootBrick();
@@ -771,7 +797,6 @@ function wirePoll(btnSel,resSel,pPerfSel,pFlipSel,pLookSel,bPerfSel,bFlipSel,bLo
 
 /* ===== Journal boot ===== */
 function bootJournal(){
-  // open cover (animation already runs); populate feed + wire owner pad
   const FEED_KEY='bj_journal_feed';
   const OWNER_KEY='bj_journal_owner';
   const grid = document.getElementById('journalGrid');
@@ -794,8 +819,7 @@ function bootJournal(){
   }
   draw();
 
-  // owner lock/unlock
-  const PASS='glitter'; // ← change anytime
+  const PASS='glitter'; // change whenever you like
   const unlockBtn=document.getElementById('jUnlock');
   const passInput=document.getElementById('jPass');
   const postBtn=document.getElementById('jPost');
@@ -841,10 +865,7 @@ function bootPong(){
   function serve(dir){ B.x=W/2; B.y=H/2; B.vx=(dir|| (Math.random()<.5?1:-1))*(2.2 + W/400); B.vy=(Math.random()<.5?1:-1)*(1.6 + H/600) }
 
   // Touch drag left/right halves to move
-  let touchY=null;
-  c.addEventListener('touchstart',e=>{ const t=e.touches[0]; touchY=t.clientY; e.preventDefault(); }, {passive:false});
   c.addEventListener('touchmove',e=>{ const t=e.touches[0]; const rect=c.getBoundingClientRect(); const y=t.clientY-rect.top; const x=t.clientX-rect.left; if(x<W/2){ P.y=Math.max(0, Math.min(H-P.h, y-P.h/2)); } else { C.y=Math.max(0, Math.min(H-C.h, y-C.h/2)); } e.preventDefault();}, {passive:false});
-
   window.addEventListener('keydown',e=>{ if(e.key==='ArrowUp'){up=true;e.preventDefault()} if(e.key==='ArrowDown'){down=true;e.preventDefault()} if(e.key.toLowerCase()==='p'){paused=!paused} if(e.key.toLowerCase()==='r'){reset()} }, {passive:false});
   window.addEventListener('keyup',e=>{ if(e.key==='ArrowUp'){up=false;e.preventDefault()} if(e.key==='ArrowDown'){down=false;e.preventDefault()} }, {passive:false});
   document.getElementById('btnPauseP')?.addEventListener('click',()=>paused=!paused);
@@ -854,13 +875,9 @@ function bootPong(){
   reset();
 
   function draw(){
-    // bg
     const g=ctx.createLinearGradient(0,0,0,H); g.addColorStop(0,'#140018'); g.addColorStop(1,'#0b0010'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-    // center
     ctx.setLineDash([10,10]); ctx.strokeStyle='rgba(255,255,255,.25)'; ctx.beginPath(); ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.stroke(); ctx.setLineDash([]);
-    // scores
     ctx.fillStyle='#ffdfff'; ctx.font='bold ' + Math.max(18, W/40) + 'px Verdana'; ctx.fillText(L, W/2-40, 28); ctx.fillText(R, W/2+28, 28);
-    // paddles/ball
     ctx.fillStyle='#ff9ef6'; ctx.fillRect(P.x,P.y,P.w,P.h);
     ctx.fillStyle='#49c9ff'; ctx.fillRect(C.x,C.y,C.w,C.h);
     ctx.beginPath(); ctx.fillStyle='#fff'; ctx.arc(B.x,B.y,B.r,0,Math.PI*2); ctx.fill();
@@ -875,17 +892,18 @@ function bootPong(){
     W=c.width; H=c.height; C.x=W-26;
     if(paused||over){ draw(); requestAnimationFrame(step); return; }
     if(up) P.y-=P.s*8; if(down) P.y+=P.s*8; P.y=Math.max(0,Math.min(H-P.h,P.y));
-    // simple auto CPU
     C.y += (B.y-C.y-C.h/2)*0.08; C.y=Math.max(0,Math.min(H-C.h,C.y));
 
     B.x+=B.vx; B.y+=B.vy;
     if(B.y-B.r<0){ B.y=B.r; B.vy*=-1 } if(B.y+B.r>H){ B.y=H-B.r; B.vy*=-1 }
-    // wall score
     if(B.x+B.r<0){ R++; if(R>=MAX){over=true}else serve(1) }
     if(B.x-B.r>W){ L++; if(L>=MAX){over=true}else serve(-1) }
 
-    // paddle collisions
-    function hit(p){ if(B.x+B.r>p.x && B.x-B.r<p.x+p.w && B.y>p.y && B.y<p.y+p.h){ B.vx*=-1.08; const rel=(B.y-(p.y+p.h/2))/(p.h/2); B.vy = Math.max(-6, Math.min(6, B.vy + rel*3)); } }
+    function hit(p){
+      if(B.x+B.r>p.x && B.x-B.r<p.x+p.w && B.y>p.y && B.y<p.y+p.h){
+        B.vx*=-1.08; const rel=(B.y-(p.y+p.h/2))/(p.h/2); B.vy = Math.max(-6, Math.min(6, B.vy + rel*3));
+      }
+    }
     hit(P); hit(C);
 
     draw(); requestAnimationFrame(step);
@@ -914,38 +932,18 @@ function bootGloss(){
   c.addEventListener('mousedown',flap); c.addEventListener('touchstart',e=>{flap(); e.preventDefault()},{passive:false});
   window.addEventListener('keydown',e=>{ if(e.code==='Space'){flap(); e.preventDefault()} if(e.key.toLowerCase()==='p'){paused=!paused} if(e.key.toLowerCase()==='r'){reset()} },{passive:false});
 
-  function addPipe(){
-    const gapY = 80 + Math.random()*(H()-160-GAP);
-    pipes.push({x:W()+40, y:gapY, w:masOK?48:36});
-  }
+  function addPipe(){ const gapY = 80 + Math.random()*(H()-160-GAP); pipes.push({x:W()+40, y:gapY, w:masOK?48:36}); }
 
   function draw(){
-    // glam bg
     const g=x.createLinearGradient(0,0,0,H()); g.addColorStop(0,'#1a0020'); g.addColorStop(1,'#0d0012'); x.fillStyle=g; x.fillRect(0,0,W(),H());
-
-    // lipstick
     const lx=W()*0.32, lw=lipOK?48:28, lh=lipOK?48:28;
-    if(lipOK){ x.drawImage(lip, lx-lw/2, y-lh/2, lw, lh); }
-    else{ x.fillStyle='#ff3fa5'; x.fillRect(lx-lw/2, y-lh/2, lw, lh) }
-
-    // mascara pipes
-    x.fillStyle='#8f5cff';
+    if(lipOK){ x.drawImage(lip, lx-lw/2, y-lh/2, lw, lh); } else { x.fillStyle='#ff3fa5'; x.fillRect(lx-lw/2, y-lh/2, lw, lh) }
     pipes.forEach(p=>{
       const w=p.w, top=p.y, bottom=p.y+GAP;
-      if(masOK){
-        // stack mascara sprites to form columns
-        for(let yy=top-32; yy> -64; yy-=32){ x.drawImage(mas, p.x- w/2, yy, w, 32) }
-        for(let yy=bottom; yy< H()+64; yy+=32){ x.drawImage(mas, p.x- w/2, yy, w, 32) }
-      }else{
-        x.fillRect(p.x-w/2, 0, w, top);
-        x.fillRect(p.x-w/2, bottom, w, H()-bottom);
-      }
+      if(masOK){ for(let yy=top-32; yy> -64; yy-=32){ x.drawImage(mas, p.x- w/2, yy, w, 32) } for(let yy=bottom; yy< H()+64; yy+=32){ x.drawImage(mas, p.x- w/2, yy, w, 32) } }
+      else{ x.fillStyle='#8f5cff'; x.fillRect(p.x-w/2, 0, w, top); x.fillRect(p.x-w/2, bottom, w, H()-bottom); }
     });
-
-    // score
-    x.fillStyle='#ffdfff'; x.font='bold ' + Math.max(18, W()/20) + 'px Verdana'; x.textAlign='center';
-    x.fillText(score, W()/2, 36); x.textAlign='start';
-
+    x.fillStyle='#ffdfff'; x.font='bold ' + Math.max(18, W()/20) + 'px Verdana'; x.textAlign='center'; x.fillText(score, W()/2, 36); x.textAlign='start';
     if(paused||over){ x.fillStyle='rgba(0,0,0,.45)'; x.fillRect(0,0,W(),H()); x.fillStyle='#ffdfff'; x.textAlign='center';
       x.font='bold 22px Verdana'; x.fillText(over?'GAME OVER':'PAUSED', W()/2, H()/2-6);
       x.font='bold 14px Verdana'; x.fillText('Tap Reset to play again', W()/2, H()/2+16); x.textAlign='start';
@@ -955,20 +953,14 @@ function bootGloss(){
   function step(){
     if(paused||over){ draw(); requestAnimationFrame(step); return; }
     t++; if(t%70===0) addPipe();
-
     vy += G; y += vy; if(y<12) y=12; if(y>H()-12){ y=H()-12; over=true }
-
-    pipes.forEach(p=> p.x -= 2.8 );
-    while(pipes.length && pipes[0].x < -60) pipes.shift();
-
-    // collide + score
+    pipes.forEach(p=> p.x -= 2.8 ); while(pipes.length && pipes[0].x < -60) pipes.shift();
     const lx=W()*0.32, lw=lipOK?34:24, lh=lipOK?34:24;
     pipes.forEach(p=>{
       if(!p.scored && p.x < lx){ p.scored=true; score++; }
       const w=p.w, top=p.y, bottom=p.y+GAP;
       if(lx+lw/2>p.x-w/2 && lx-lw/2<p.x+w/2 && (y-lh/2<top || y+lh/2>bottom)){ over=true; }
     });
-
     draw(); requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
@@ -996,7 +988,6 @@ function bootBrick(){
   function reset(){ paused=false; over=false; win=false; paddle.x=W()/2; ball.x=W()/2; ball.y=H()/2; ball.vx=3.2; ball.vy=-3.0; makeBricks(); }
   reset();
 
-  // touch/drag
   c.addEventListener('touchmove',e=>{ const t=e.touches[0]; const rect=c.getBoundingClientRect(); paddle.x = Math.max(paddle.w/2, Math.min(W()-paddle.w/2, t.clientX-rect.left)); e.preventDefault(); }, {passive:false});
   c.addEventListener('mousemove',e=>{ const rect=c.getBoundingClientRect(); if(e.buttons) paddle.x = Math.max(paddle.w/2, Math.min(W()-paddle.w/2, e.clientX-rect.left)); });
 
@@ -1005,11 +996,8 @@ function bootBrick(){
 
   function draw(){
     const g=x.createLinearGradient(0,0,0,H()); g.addColorStop(0,'#15001a'); g.addColorStop(1,'#09000e'); x.fillStyle=g; x.fillRect(0,0,W(),H());
-    // paddle
     x.fillStyle='#ff9ef6'; x.fillRect(paddle.x-paddle.w/2, paddle.y, paddle.w, paddle.h);
-    // ball
     x.beginPath(); x.fillStyle='#fff'; x.arc(ball.x,ball.y,ball.r,0,Math.PI*2); x.fill();
-    // bricks
     bricks.forEach(b=>{ x.fillStyle='rgba(73,201,255,.95)'; x.fillRect(b.x,b.y,b.w,b.h) });
 
     if(paused||over||win){ x.fillStyle='rgba(0,0,0,.45)'; x.fillRect(0,0,W(),H()); x.fillStyle='#ffdfff'; x.textAlign='center';
@@ -1020,14 +1008,12 @@ function bootBrick(){
 
   function step(){
     if(paused||over||win){ draw(); requestAnimationFrame(step); return; }
-    // move ball
     ball.x+=ball.vx; ball.y+=ball.vy;
     if(ball.x-ball.r<0){ ball.x=ball.r; ball.vx*=-1 }
     if(ball.x+ball.r>W()){ ball.x=W()-ball.r; ball.vx*=-1 }
     if(ball.y-ball.r<0){ ball.y=ball.r; ball.vy*=-1 }
     if(ball.y-ball.r>H()){ over=true }
 
-    // paddle
     if(ball.y+ball.r>paddle.y && ball.y-ball.r<paddle.y+paddle.h &&
        ball.x>paddle.x-paddle.w/2 && ball.x<paddle.x+paddle.w/2){
       ball.vy*=-1.05;
@@ -1036,7 +1022,6 @@ function bootBrick(){
       ball.y = paddle.y - ball.r - 1;
     }
 
-    // bricks
     bricks = bricks.filter(b=>{
       const hit = ball.x> b.x && ball.x< b.x+b.w && ball.y> b.y && ball.y< b.y+b.h;
       if(hit){ ball.vy*=-1; return false } return true;
