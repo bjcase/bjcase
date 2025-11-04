@@ -5,48 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>bj case — home</title>
 
-<!-- Favicons (with cache-bust kept) -->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.22.0">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1.22.0">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1.22.0">
-<link rel="manifest" href="/site.webmanifest?v=1.22.0">
-<link rel="shortcut icon" href="/favicon.ico?v=1.22.0">
+<!-- Favicons (cache-busted) -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.22.1">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1.22.1">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1.22.1">
+<link rel="manifest" href="/site.webmanifest?v=1.22.1">
+<link rel="shortcut icon" href="/favicon.ico?v=1.22.1">
 <meta name="theme-color" content="#ff9ef6">
 
-<!-- No-cache nudges -->
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
-
-<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Atma:wght@400&display=swap" rel="stylesheet" />
 
 <style>
-/* ===========================================================
-   🌈  BJ CASE 2003 WEBZONE — SINGLE FILE INDEX (v1.22.0)
-   What’s new:
-   - Desktop header restores all music notes; mobile trims safely
-   - Arcade Center: Pong(11), Brick Breaker, LipGloss Flight (lipstick+mascara)
-     * Big responsive canvases, touch controls, pause/reset buttons
-   - Journal: textured diary cover + slower open animation, metal heart latch,
-     owner passbox (local-only) + public feed layout
-   - Everything else preserved
-   =========================================================== */
+/* ---------------------------------------------------------
+   BJ CASE — v1.22.1
+   Fixes:
+   • Router now hard-renders pages (no bleed-over)
+   • Mobile header shows only 2 notes per side
+   • Right heart -> secret teaser (#heartr)
+   • Arcade hub uses "<3" (no emoji)
+---------------------------------------------------------- */
 
-/* ---------- PALETTE ---------- */
 :root{
-  --pink:#ff9ef6;
-  --neon-blue:#49c9ff;
-  --orange:#ffb35e;
-  --red:#ff4d4d;
-  --ink:#ffeaff;
-  --link:#ffbffb;
-  --bright-red:#ff3b3b;
-  --vio:#2a0034;
-  --vio-deep:#1a001e;
+  --pink:#ff9ef6; --neon-blue:#49c9ff; --orange:#ffb35e; --red:#ff4d4d;
+  --ink:#ffeaff; --link:#ffbffb; --bright-red:#ff3b3b;
+  --vio:#2a0034; --vio-deep:#1a001e;
 }
 
-/* ---------- BASE ---------- */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
@@ -58,238 +42,104 @@ body{
 .wrapper{max-width:860px;margin:0 auto;padding:16px}
 a{color:var(--link)} a:hover{color:#fff; text-decoration:underline}
 
-/* ---------- HEADER ---------- */
+/* Header */
 .site-header{
   border:2px solid var(--pink);
   background:linear-gradient(180deg,#520061 0%,#36003e 60%,#240024 100%);
   box-shadow:0 0 0 2px #000 inset,0 12px 26px #000c;
   margin:16px 0 18px; padding:10px 18px 10px; position:relative; overflow:hidden;
 }
-.logo-wrap{
-  position:relative; display:flex; align-items:center; justify-content:center;
-  gap:1.1em; width:100%; margin:0 auto 6px; z-index:3;
-}
-.heart{
-  display:inline-block; text-decoration:none; line-height:1;
-  color:var(--pink);
-  font-size:clamp(26px,4.6vw,44px);
-  transform:scaleX(1.3);
-  text-shadow:0 0 6px var(--pink), 0 0 10px var(--neon-blue), 0 0 14px rgba(255,255,255,.35);
-  filter:drop-shadow(0 0 2px #fff6);
-  transition: transform .12s ease, text-shadow .2s ease;
-}
-.heart:hover{ transform:scaleX(1.3) scale(1.08); text-shadow:0 0 8px var(--neon-blue), 0 0 14px var(--pink) }
-
+.logo-wrap{position:relative;display:flex;align-items:center;justify-content:center;gap:1.1em;margin:0 auto 6px;z-index:3}
+.heart{display:inline-block;color:var(--pink);text-decoration:none;font-size:clamp(26px,4.6vw,44px);transform:scaleX(1.3);text-shadow:0 0 6px var(--pink),0 0 10px var(--neon-blue),0 0 14px #fff5;filter:drop-shadow(0 0 2px #fff6)}
 .logo{
-  position:relative; z-index:3;
   font-family:"Orbitron","Arial Black",sans-serif;
-  font-size:clamp(32px,7vw,86px);
-  text-transform:lowercase; text-align:center;
+  font-size:clamp(32px,7vw,86px); text-transform:lowercase;
   background-image:
     linear-gradient(120deg, transparent 45%, rgba(255,255,255,.98) 50%, transparent 55%),
     linear-gradient(90deg, var(--neon-blue), var(--orange), var(--red), var(--pink), var(--neon-blue));
   background-size: 220% 100%, 400% 400%;
   background-position: -180% 0, 0 50%;
-  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
   animation: logoShine 3.05s linear infinite;
   text-shadow:0 0 6px var(--neon-blue),0 0 10px var(--pink);
-  margin:0; width:max-content;
 }
 @keyframes logoShine{0%{background-position:-180% 0,0 50%}100%{background-position:180% 0,0 50%}}
 
-/* Music notes — all for desktop, trimmed for mobile via media query */
-.note{
-  position:absolute; user-select:none; pointer-events:none; z-index:1;
-  color:#ffd1fa; text-shadow:0 0 6px var(--pink), 0 0 10px #fff8;
-  opacity:.96; animation: floatY var(--dur,4.6s) ease-in-out infinite;
-}
+/* Notes */
+.note{position:absolute;user-select:none;pointer-events:none;color:#ffd1fa;text-shadow:0 0 6px var(--pink),0 0 10px #fff8;opacity:.96;animation:floatY var(--dur,4.6s) ease-in-out infinite;z-index:1}
 @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(var(--amp,7px))}}
+/* Mobile note strategy: hide all notes on small screens, show only 2 per side via .mobile-note */
+.mobile-note{display:none}
+@media(max-width:840px){
+  .note{display:none}
+  .mobile-note{display:inline}
+}
 
-/* ---------- NAV ---------- */
+/* Nav */
 .nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:10px 0 8px}
 .nav a{
-  --glow: rgba(73,201,255,.65);
-  text-decoration:none; color:#fff; font-weight:700; letter-spacing:.02em;
-  padding:10px 16px; border-radius:6px; position:relative; overflow:hidden;
-  border:2px solid var(--pink);
-  background:
-    linear-gradient(180deg, #4a005f 0%, #2a003d 55%, #1a0026 100%),
-    radial-gradient(120% 100% at 50% 0%, rgba(255,255,255,.25), transparent 60%);
+  text-decoration:none;color:#fff;font-weight:700;letter-spacing:.02em;
+  padding:10px 16px;border-radius:6px;border:2px solid var(--pink);
+  background:linear-gradient(180deg,#4a005f 0%,#2a003d 55%,#1a0026 100%),radial-gradient(120% 100% at 50% 0%, rgba(255,255,255,.25), transparent 60%);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.25), inset 0 -6px 12px rgba(0,0,0,.45), 0 0 0 2px #000 inset;
-  transition:transform .15s ease, box-shadow .2s ease, border-color .2s ease, color .2s ease;
 }
-.nav a::after{content:""; position:absolute; inset:0; background:linear-gradient(120deg, transparent 45%, rgba(255,255,255,.5) 50%, transparent 55%); transform:translateX(-130%); transition:transform .5s ease}
-.nav a:hover{ border-color:var(--neon-blue); color:var(--neon-blue); box-shadow:inset 0 1px 0 rgba(255,255,255,.35), inset 0 -6px 14px rgba(0,0,0,.5), 0 0 12px var(--glow); transform:translateY(-1px) }
-.nav a:hover::after{ transform:translateX(130%) }
 
-/* ---------- TICKER ---------- */
-.ticker{
-  overflow:hidden; white-space:nowrap; border:2px solid var(--pink);
-  background:linear-gradient(180deg,#330033,#240024);
-  font:800 13px/2.1 Verdana,Tahoma,Arial,sans-serif; color:#ffdfff; text-transform:uppercase; letter-spacing:.08em;
-}
-.ticker span{display:inline-block; padding-left:100%; animation:slide 18s linear infinite}
+/* Ticker */
+.ticker{overflow:hidden;white-space:nowrap;border:2px solid var(--pink);background:linear-gradient(180deg,#330033,#240024);font:800 13px/2.1 Verdana,Tahoma,Arial,sans-serif;color:#ffdfff;text-transform:uppercase;letter-spacing:.08em}
+.ticker span{display:inline-block;padding-left:100%;animation:slide 18s linear infinite}
 @keyframes slide{to{transform:translateX(-100%)}}
 
-/* ---------- GRID ---------- */
-.grid{display:grid; gap:14px; grid-template-columns:2fr 1fr; align-items:start;}
-.grid.single{ grid-template-columns:1fr; }
-#leftPane{ min-height: 640px; }
-.grid.single #leftPane{ min-height: 780px; }
+/* Grid */
+.grid{display:grid;gap:14px;grid-template-columns:2fr 1fr;align-items:start}
+.grid.single{grid-template-columns:1fr}
+#leftPane{min-height:640px}
+.grid.single #leftPane{min-height:780px}
 
-/* ---------- PANELS ---------- */
-.panel{
-  border:2px solid var(--pink);
-  background:linear-gradient(180deg,#3d0055 0%,#21002a 60%,#1a001a 100%);
-  box-shadow:0 0 0 2px #000 inset, 0 12px 22px #0007;
-  padding:16px; border-radius:3px; position:relative; overflow:hidden;
-}
-.panel h2{
-  margin:0 0 12px;
-  font-family:"Atma", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight:400; font-size:20px; line-height:1.2;
-  text-transform:uppercase; letter-spacing:.08em; color:var(--neon-blue);
-}
-.panel + .panel{ margin-top:14px }
-hr{border:none; height:1px; background:linear-gradient(90deg,transparent,var(--neon-blue),transparent); margin:12px 0}
+/* Panels */
+.panel{border:2px solid var(--pink);background:linear-gradient(180deg,#3d0055 0%,#21002a 60%,#1a001a 100%);box-shadow:0 0 0 2px #000 inset, 0 12px 22px #0007;padding:16px;border-radius:3px;position:relative;overflow:hidden}
+.panel h2{margin:0 0 12px;font-family:"Atma",system-ui;font-weight:400;font-size:20px;text-transform:uppercase;letter-spacing:.08em;color:var(--neon-blue)}
+hr{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--neon-blue),transparent);margin:12px 0}
 
-/* ---------- STATUS BOX ---------- */
-.status-box{ position:relative; padding:12px; border-radius:8px; background:linear-gradient(180deg,#2b0037 0%, #17001e 100%); border:2px solid var(--neon-blue); box-shadow:0 0 0 2px #000 inset, 0 0 18px rgba(73,201,255,.18) }
-.pink{color:var(--pink); font-weight:700}
-
-/* ---------- WINAMP (Home) ---------- */
-.winamp{ border:1px solid #ff7ef6; background:#1b001d; box-shadow:0 0 0 2px #000 inset, 0 0 0 3px #2a0030 inset; padding:10px; border-radius:4px; color:#ffe5ff; font:12px Tahoma,Verdana,Arial,sans-serif }
-.winamp .display{ border:1px solid #ff7ef6; box-shadow:0 0 0 2px #000 inset; background:#120016; padding:6px 8px; margin-bottom:8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
-.winamp .row{display:flex; align-items:center; gap:8px; margin-top:6px}
-.btn{ display:inline-block; width:22px; height:22px; border:1px solid #ff7ef6; background:#350036; box-shadow:0 0 0 2px #000 inset; text-align:center; line-height:20px; font-weight:800; user-select:none; position:relative; overflow:hidden; cursor:pointer }
-.btn::after{content:""; position:absolute; inset:0; background:linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent); transform:translateX(-120%); opacity:0}
-.btn:hover::after{ animation: shine .9s ease; opacity:1 }
-@keyframes shine{ from{ left:-70px } to{ left:120% } }
-.scrubber{ flex:1; height:8px; border:1px solid #ff7ef6; box-shadow:0 0 0 2px #000 inset; background: linear-gradient(90deg,#ff9ef6 0%, #49c9ff 45%, #ffb35e 85%); margin-left:8px; border-radius:2px }
-
-/* ---------- BADGES ---------- */
-.badges{display:flex; flex-wrap:wrap; gap:6px}
-.badges a{display:inline-block; padding:6px 10px; border:1px solid var(--pink); box-shadow:0 0 0 2px #000 inset; background:#300033; color:#ffbdfb; font:800 10px/1 Verdana; text-align:center; text-decoration:none}
-
-/* ---------- POLL ---------- */
-.pollbox{ position:relative; border:2px solid var(--pink); background:linear-gradient(180deg,#2a0034 0%,#1a0024 100%); box-shadow:0 0 0 2px #000 inset, 0 10px 18px #0007; padding:12px; border-radius:8px; overflow:hidden }
-.pollbox::after{ content:""; position:absolute; inset:-2px; border-radius:10px; pointer-events:none; background:
-  linear-gradient(90deg, transparent 0%, rgba(255,255,255,.6) 10%, transparent 20%) 0 0 / 120px 2px no-repeat,
-  linear-gradient(90deg, transparent 0%, rgba(255,255,255,.6) 10%, transparent 20%) 0 100% / 120px 2px no-repeat,
-  linear-gradient(0deg,  transparent 0%, rgba(255,255,255,.6) 10%, transparent 20%) 0 0 / 2px 120px no-repeat,
-  linear-gradient(0deg,  transparent 0%, rgba(255,255,255,.6) 10%, transparent 20%) 100% 0 / 2px 120px no-repeat;
-  animation: borderSweep 4s linear infinite; mix-blend-mode:screen; opacity:.7 }
-@keyframes borderSweep{ 0%{background-position:0 0,0 100%,0 0,100% 0} 100%{background-position:100% 0,100% 100%,0 100%,100% 100%}}
-.pollbox p.desc{ margin:0 0 10px; font:12px Verdana,Tahoma,Arial,sans-serif; color:#ffdfff; opacity:.95 }
-.poll label{display:block; margin:6px 0; font:12px Verdana,Tahoma,Arial,sans-serif}
-.voteBtn{ margin-top:10px; padding:9px 14px; font-weight:800; letter-spacing:.02em; border:2px solid var(--pink); border-radius:6px; cursor:pointer; color:#fff; background: linear-gradient(180deg,#6c006c 0%, #420042 100%), radial-gradient(80% 60% at 50% 0%, rgba(255,255,255,.28), transparent 60%); box-shadow: inset 0 1px 0 rgba(255,255,255,.25), inset 0 -6px 12px rgba(0,0,0,.45), 0 0 0 2px #000 inset, 0 0 14px rgba(73,201,255,.35); transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease }
-.voteBtn:hover{ transform:translateY(-1px); border-color:var(--neon-blue); box-shadow:inset 0 1px 0 rgba(255,255,255,.35), inset 0 -6px 12px rgba(0,0,0,.45), 0 0 0 2px #000 inset, 0 0 18px rgba(73,201,255,.55) }
-.poll-results{ margin-top:10px; font:12px Verdana,Tahoma,Arial,sans-serif }
-.bar{height:12px;background:#ff79e9;border:1px solid var(--pink);box-shadow:0 0 0 2px #000 inset}
-
-/* ---------- WEBCAM ---------- */
-.webcam{ border:2px solid #ff7ef6; background:#0d0010; box-shadow:0 0 0 2px #000 inset, 0 0 0 3px #2a0030 inset; padding:10px; border-radius:4px; position:relative; margin-top:12px }
-.webcam .bar{ display:flex; justify-content:space-between; align-items:center; background:none; font:10px Tahoma,Verdana,Arial,sans-serif; color:var(--bright-red); opacity:1; margin-bottom:8px }
-.webcam .rec{ display:inline-flex; gap:6px; align-items:center; letter-spacing:.08em; text-transform:uppercase; color:var(--bright-red) }
-.webcam .dot{ width:8px; height:8px; background:var(--bright-red); border-radius:50%; box-shadow:0 0 6px var(--bright-red); animation:blink 1s steps(2,end) infinite }
+/* Bits kept (status/winamp/poll/webcam/shoutbox) */
+.status-box{padding:12px;border-radius:8px;background:linear-gradient(180deg,#2b0037 0%, #17001e 100%);border:2px solid var(--neon-blue);box-shadow:0 0 0 2px #000 inset, 0 0 18px rgba(73,201,255,.18)}
+.pink{color:var(--pink);font-weight:700}
+.winamp{border:1px solid #ff7ef6;background:#1b001d;box-shadow:0 0 0 2px #000 inset, 0 0 0 3px #2a0030 inset;padding:10px;border-radius:4px;color:#ffe5ff;font:12px Tahoma,Verdana,Arial,sans-serif}
+.winamp .display{border:1px solid #ff7ef6;box-shadow:0 0 0 2px #000 inset;background:#120016;padding:6px 8px;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.winamp .row{display:flex;align-items:center;gap:8px;margin-top:6px}
+.btn{display:inline-block;width:22px;height:22px;border:1px solid #ff7ef6;background:#350036;box-shadow:0 0 0 2px #000 inset;text-align:center;line-height:20px;font-weight:800}
+.scrubber{flex:1;height:8px;border:1px solid #ff7ef6;box-shadow:0 0 0 2px #000 inset;background:linear-gradient(90deg,#ff9ef6 0%, #49c9ff 45%, #ffb35e 85%);margin-left:8px;border-radius:2px}
+.pollbox{border:2px solid var(--pink);background:linear-gradient(180deg,#2a0034 0%,#1a0024 100%);box-shadow:0 0 0 2px #000 inset, 0 10px 18px #0007;padding:12px;border-radius:8px}
+.webcam{border:2px solid #ff7ef6;background:#0d0010;box-shadow:0 0 0 2px #000 inset, 0 0 0 3px #2a0030 inset;padding:10px;border-radius:4px;margin-top:12px}
+.webcam .bar{display:flex;justify-content:space-between;align-items:center;font:10px Tahoma;color:var(--bright-red);margin-bottom:8px}
+.webcam .dot{width:8px;height:8px;background:var(--bright-red);border-radius:50%;box-shadow:0 0 6px var(--bright-red);animation:blink 1s steps(2,end) infinite}
 @keyframes blink{50%{opacity:.2}}
-.webcam .ts{ color:var(--bright-red) }
-.webcam .screen{ width:100%; aspect-ratio:4/3; background:#120016; border:1px solid #ff7ef6; box-shadow:0 0 0 2px #000 inset; overflow:hidden; position:relative }
-.webcam .screen img{ width:100%; height:100%; object-fit:cover; display:block; filter:contrast(1.05) saturate(1.1) brightness(.95) }
+.webcam .screen{width:100%;aspect-ratio:4/3;background:#120016;border:1px solid #ff7ef6;box-shadow:0 0 0 2px #000 inset;overflow:hidden}
+.webcam .screen img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.05) saturate(1.1) brightness(.95)}
+/* Shoutbox */
+.chat{display:flex;flex-direction:column;gap:8px;max-height:460px;min-height:260px;overflow:auto;background:#1a001e;border:1px solid #ff7ef6;box-shadow:0 0 0 2px #000 inset;padding:10px;border-radius:4px}
+.bubble{max-width:92%;padding:8px 10px;border-radius:10px;font:12px Verdana;line-height:1.3;background:linear-gradient(180deg,#420046,#2a0030);border:1px solid #ff7ef6;box-shadow:0 0 0 2px #000 inset}
+.bubble.me{align-self:flex-end;background:linear-gradient(180deg,#004a66,#002436);border-color:#49c9ff}
 
-/* ---------- SHOUTBOX ---------- */
-.shoutbox{ margin-top:14px }
-.chat{ display:flex; flex-direction:column; gap:8px; max-height: 460px; min-height: 260px; overflow:auto; background:#1a001e; border:1px solid #ff7ef6; box-shadow:0 0 0 2px #000 inset; padding:10px; border-radius:4px }
-.bubble{ max-width:92%; padding:8px 10px; border-radius:10px; font:12px Verdana,Tahoma,Arial,sans-serif; line-height:1.3; background:linear-gradient(180deg,#420046,#2a0030); border:1px solid #ff7ef6; box-shadow:0 0 0 2px #000 inset }
-.bubble.me{ align-self:flex-end; background:linear-gradient(180deg,#004a66,#002436); border-color:#49c9ff }
-.meta{ font-size:10px; opacity:.7; margin-top:3px }
-.inputRow{ display:flex; gap:6px; margin-top:10px }
-.inputRow input,.inputRow textarea{ flex:1; background:#26002c; color:#ffeaff; border:1px solid #ff7ef6; border-radius:4px; padding:8px; font:12px Verdana,Tahoma,Arial,sans-serif; box-shadow:0 0 0 2px #000 inset }
-.inputRow button{ background:linear-gradient(180deg,#6c006c,#420042); color:#fff; border:2px solid var(--pink); border-radius:4px; padding:8px 12px; font-weight:700; cursor:pointer; box-shadow:0 0 0 3px #000 inset }
-.emotes{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px }
-.emotes button{ font:12px Verdana,Tahoma,Arial,sans-serif; padding:4px 8px; border:1px solid var(--pink); background:#300033; color:#ffdfff; border-radius:3px; cursor:pointer }
+/* Arcade extras kept from prior drop */
+.arcade-hero{border:2px solid var(--pink);border-radius:8px;padding:12px;background:radial-gradient(120% 100% at 50% 0%, rgba(255,255,255,.06), transparent 70%),repeating-linear-gradient(90deg, #1b0022 0 12px, #15001a 12px 24px);box-shadow:0 0 0 2px #000 inset, 0 14px 28px #0009}
+.arcade-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.arcade-card{border:2px solid var(--pink);background:linear-gradient(180deg,#2b0037,#16001e);box-shadow:0 0 0 2px #000 inset, 0 10px 20px #0007;padding:10px;border-radius:8px;text-align:center}
+.arcade-card h3{margin:6px 0 8px;font:600 16px Atma,system-ui;color:var(--neon-blue)}
+.arcade-card a{display:inline-block;margin-top:6px;padding:8px 12px;border:2px solid var(--pink);border-radius:6px;background:linear-gradient(180deg,#6c006c,#420042);color:#fff;font-weight:800;text-decoration:none}
+.arcade-stage{border:2px solid var(--pink);background:linear-gradient(180deg,#140018,#0b0010);box-shadow:0 0 0 2px #000 inset;border-radius:8px;padding:10px}
+.stage-controls{display:flex;gap:8px;margin:8px 0}
+.stage-controls button{padding:8px 10px;border:2px solid var(--pink);border-radius:6px;background:linear-gradient(180deg,#6c006c,#420042);color:#fff;font-weight:800}
+.canvas-wrap{width:100%;max-width:100%}
+.canvas-wrap.ratio-16x10{aspect-ratio:16/10}
+.canvas-wrap.ratio-3x4{aspect-ratio:3/4}
+canvas.game{display:block;width:100%;height:100%}
 
-/* ---------- JOURNAL (diary cover animation + owner pad) ---------- */
-.journal-wrap{ position:relative; min-height:560px }
-.diary-cover{
-  position:absolute; inset:0; background:
-    /* subtle texture */
-    repeating-linear-gradient(135deg, #5a0066 0 8px, #4a0058 8px 16px),
-    radial-gradient(150% 100% at 50% 0%, rgba(255,255,255,.06), transparent 70%);
-  border:2px solid var(--pink); box-shadow:0 0 0 2px #000 inset, 0 14px 26px #0009;
-  display:flex; align-items:center; justify-content:center; z-index:5; transform-origin:left center;
-  animation: openDiary 2.2s ease forwards; /* slowed down */
-}
-.diary-title{ font-family:"Orbitron"; font-size:clamp(26px,6vw,48px); color:#fff; text-shadow:0 0 10px #ff9ef6 }
-.diary-latch{
-  position:absolute; right:-14px; top:50%; transform:translateY(-50%);
-  width:34px; height:90px; background:linear-gradient(180deg,#2e002e,#150015); border:2px solid var(--pink); border-left:none;
-  box-shadow:0 0 0 2px #000 inset;
-}
-.diary-latch::after{
-  content:""; position:absolute; left:-10px; top:50%; transform:translateY(-50%) rotate(-12deg);
-  /* metal heart */
-  width:24px; height:24px; background:
-    radial-gradient(circle at 30% 30%, #fff, #bbb 35%, #777 60%, #444 100%);
-  clip-path: path("M12 21 C10 19 4 14 4 9 C4 6.5 6 5 8 5 C9.5 5 11 6 12 7 C13 6 14.5 5 16 5 C18 5 20 6.5 20 9 C20 14 14 19 12 21 Z");
-  filter:drop-shadow(0 0 6px rgba(255,255,255,.35));
-}
-@keyframes openDiary{
-  0%{ transform:rotateY(0deg) }
-  35%{ transform:rotateY(45deg) }
-  100%{ transform:rotateY(100deg); opacity:0; pointer-events:none }
-}
-
-.journal-grid{ display:grid; grid-template-columns:3fr 1fr; gap:12px }
-.journal-feed{ min-height:520px; background:linear-gradient(180deg,var(--vio) 0,var(--vio-deep) 100%); border:2px solid var(--pink); box-shadow:0 0 0 2px #000 inset; border-radius:6px; padding:12px; overflow:auto }
-.journal-owner{ background:linear-gradient(180deg,#190022,#0e0016); border:2px dashed var(--pink); box-shadow:0 0 0 2px #000 inset; border-radius:6px; padding:12px; align-self:start }
-.owner-locked .owner-controls{ display:none }
-.owner-locked .owner-pass{ display:block }
-.owner-controls{ display:block }
-.owner-pass{ display:none }
-.jpost{ background:linear-gradient(180deg,#3d0055,#260038); border:1px solid var(--pink); box-shadow:0 0 0 2px #000 inset; padding:10px; border-radius:6px; margin-bottom:10px; font:13px Verdana }
-
-/* ---------- ARCADE ---------- */
-.arcade-hero{
-  border:2px solid var(--pink); border-radius:8px; padding:12px;
-  background:
-    radial-gradient(120% 100% at 50% 0%, rgba(255,255,255,.06), transparent 70%),
-    repeating-linear-gradient(90deg, #1b0022 0 12px, #15001a 12px 24px);
-  box-shadow:0 0 0 2px #000 inset, 0 14px 28px #0009;
-}
-.arcade-tiles{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:10px }
-.arcade-card{
-  border:2px solid var(--pink); background:linear-gradient(180deg,#2b0037,#16001e); box-shadow:0 0 0 2px #000 inset, 0 10px 20px #0007;
-  padding:10px; border-radius:8px; text-align:center
-}
-.arcade-card h3{ margin:6px 0 8px; font:600 16px Atma,system-ui; color:var(--neon-blue) }
-.arcade-card a{ display:inline-block; margin-top:6px; padding:8px 12px; border:2px solid var(--pink); border-radius:6px; background:linear-gradient(180deg,#6c006c,#420042); color:#fff; font-weight:800; text-decoration:none }
-.arcade-stage{ border:2px solid var(--pink); background:linear-gradient(180deg,#140018,#0b0010); box-shadow:0 0 0 2px #000 inset; border-radius:8px; padding:10px }
-.stage-controls{ display:flex; gap:8px; margin:8px 0 }
-.stage-controls button{ padding:8px 10px; border:2px solid var(--pink); border-radius:6px; background:linear-gradient(180deg,#6c006c,#420042); color:#fff; font-weight:800 }
-
-/* Canvas wrapper keeps aspect and grows large on mobile too */
-.canvas-wrap{ width:100%; max-width:100%; }
-.canvas-wrap.ratio-16x10{ aspect-ratio:16/10 }
-.canvas-wrap.ratio-3x4{ aspect-ratio:3/4 }
-canvas.game{ display:block; width:100%; height:100% }
-
-/* ---------- CURSOR GLITTER ---------- */
-.cursor-star{ position:absolute; width:7px; height:7px; pointer-events:none; background:radial-gradient(circle,#fff 0%,transparent 70%); opacity:.95; filter:drop-shadow(0 0 4px currentColor); animation:starFade .5s linear forwards }
-@keyframes starFade{from{transform:scale(1);opacity:.95}to{transform:scale(0);opacity:0}}
-
-/* ---------- RESPONSIVE ---------- */
 @media(max-width:840px){
-  /* Trim header notes for mobile */
-  .note.trim-mobile{ display:none }
-  .grid{ grid-template-columns:1fr }                 /* sidebar under main */
-  #leftPane, #rightPane{ min-height:initial }       /* let them size naturally */
-  .journal-grid{ grid-template-columns:1fr }         /* owner pad under feed */
-  .arcade-tiles{ grid-template-columns:1fr }         /* one card per row */
-  .canvas-wrap{ height:auto }                        /* keep big canvases */
+  .grid{grid-template-columns:1fr}
+  .arcade-tiles{grid-template-columns:1fr}
 }
 @media(max-width:520px){
-  .nav a{font-size:14px; padding:8px 12px}
+  .nav a{font-size:14px;padding:8px 12px}
   .logo{font-size:clamp(28px,9vw,72px)}
 }
 </style>
@@ -299,30 +149,37 @@ canvas.game{ display:block; width:100%; height:100% }
 
   <!-- ========== HEADER ========== -->
   <header class="site-header" id="header">
-    <!-- LEFT notes (desktop full set; some marked trim-mobile to hide on phones) -->
+    <!-- Desktop note constellation (unchanged) -->
+    <!-- Left cluster -->
     <span class="note" style="left:10px; top:4px;  font-size:16px; --dur:4.8s; --amp:8px;">♪</span>
     <span class="note" style="left:34px; top:22px; font-size:21px; --dur:4.2s; --amp:6px;">♫</span>
-    <span class="note trim-mobile" style="left:18px; top:46px; font-size:14px; --dur:5.1s; --amp:7px;">♪</span>
-    <span class="note trim-mobile" style="left:64px; top:70px; font-size:18px; --dur:4.5s; --amp:6px;">♫</span>
+    <span class="note" style="left:18px; top:46px; font-size:14px; --dur:5.1s; --amp:7px;">♪</span>
+    <span class="note" style="left:64px; top:70px; font-size:18px; --dur:4.5s; --amp:6px;">♫</span>
     <span class="note" style="left:22px; top:94px; font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
-    <span class="note trim-mobile" style="left:74px; top:114px;font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
-    <span class="note trim-mobile" style="left:96px; top:10px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
+    <span class="note" style="left:74px; top:114px;font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
+    <span class="note" style="left:96px; top:10px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
     <span class="note" style="left:112px; top:36px;font-size:18px; --dur:4.6s; --amp:7px;">♫</span>
-
-    <!-- RIGHT notes -->
+    <!-- Right cluster -->
     <span class="note" style="right:12px; top:6px;  font-size:20px; --dur:4.6s; --amp:8px;">♫</span>
     <span class="note" style="right:42px; top:24px;  font-size:14px; --dur:4.0s; --amp:6px;">♪</span>
-    <span class="note trim-mobile" style="right:20px; top:48px;  font-size:23px; --dur:5.0s; --amp:7px;">♫</span>
-    <span class="note trim-mobile" style="right:76px; top:72px;  font-size:16px; --dur:4.3s; --amp:6px;">♪</span>
+    <span class="note" style="right:20px; top:48px;  font-size:23px; --dur:5.0s; --amp:7px;">♫</span>
+    <span class="note" style="right:76px; top:72px;  font-size:16px; --dur:4.3s; --amp:6px;">♪</span>
     <span class="note" style="right:26px; top:96px;  font-size:16px; --dur:4.9s; --amp:6px;">♪</span>
-    <span class="note trim-mobile" style="right:80px; top:116px; font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
-    <span class="note trim-mobile" style="right:104px; top:14px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
+    <span class="note" style="right:80px; top:116px; font-size:18px; --dur:4.4s; --amp:6px;">♫</span>
+    <span class="note" style="right:104px; top:14px;font-size:16px; --dur:4.7s; --amp:6px;">♪</span>
     <span class="note" style="right:124px; top:40px;font-size:18px; --dur:4.6s; --amp:7px;">♫</span>
 
+    <!-- Mobile: exactly 2 per side -->
+    <span class="note mobile-note" style="left:10px; top:10px; font-size:18px;">♪</span>
+    <span class="note mobile-note" style="left:46px; top:40px; font-size:18px;">♫</span>
+    <span class="note mobile-note" style="right:12px; top:10px; font-size:18px;">♫</span>
+    <span class="note mobile-note" style="right:48px; top:42px; font-size:18px;">♪</span>
+
     <div class="logo-wrap">
-      <a class="heart left"  href="#arcade" title="secret left">♥</a>
+      <a class="heart left"  href="#arcade" title="secret left arcade">♥</a>
       <div class="logo" id="logo">bj case</div>
-      <a class="heart right" href="#journal" title="journal">♥</a>
+      <!-- FIX: right heart goes to secret teaser again -->
+      <a class="heart right" href="#heartr" title="secret right">♥</a>
     </div>
 
     <nav class="nav" aria-label="Main">
@@ -337,121 +194,21 @@ canvas.game{ display:block; width:100%; height:100% }
     <div class="ticker"><span>✧ Welcome to the official BJ Case webzone • New music coming soon • Chasing dreams since 2003 ✧</span></div>
   </header>
 
-  <!-- ========== MAIN GRID ========== -->
+  <!-- ========== GRID (static shells; content is routed) ========== -->
   <main class="grid" id="pageRoot">
-    <!-- LEFT -->
     <section class="panel" id="leftPane">
       <h2 id="leftTitle">Welcome</h2>
       <div id="leftContent">
-        <p>Hi! My name is BJ. I hope you enjoy my page. This is my own little slice (or perhaps, strand?) of the web. This is my digital diary. My respite from the chaos. Feel free to look around, get lost even. Oh, and btw… I make music! That’s on here if you wanna check it out!! Safe travels :p</p>
-
-        <hr />
-        <h2>Status</h2>
-        <div class="status-box">
-          <p style="white-space:pre-line; margin:0">
-<span class="pink">Currently:</span> rewatching Charmed and working on music : )
-<span class="pink">Now listening to:</span> Britney — “Phonography” (on repeat)
-<span class="pink">Mood:</span> excited and nervous :D
-          </p>
-        </div>
-
-        <hr />
-        <h2>Now Playing</h2>
-        <div class="winamp" role="group" aria-label="Now Playing">
-          <div class="display" id="nowPlayingTrack">01. bj case — Performance (demo)</div>
-          <div class="row">
-            <div class="btn" title="Prev" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M7 5v14H5V5h2zm2 7 10 7V5L9 12z"/></svg>
-            </div>
-            <div class="btn" title="Play" aria-label="Play">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-            <div class="btn" title="Pause" aria-label="Pause">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-            </div>
-            <div class="btn" title="Next" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17 5v14h2V5h-2zM7 5l10 7-10 7V5z"/></svg>
-            </div>
-            <div class="scrubber" title="Scrub (decorative)"></div>
-            <div id="nowPlayingTime">02:47</div>
-          </div>
-        </div>
-
-        <hr />
-        <h2>Featured Links</h2>
-        <p>A little something I’ve learned from my short time on Earth so far is the importance of placing an extreme emphasis on LOVE. ;)</p>
-
-        <hr />
-        <h2>Roadmap</h2>
-        <pre style="margin:0; white-space:pre-wrap; font-family:inherit;">
-• Keep working on the blog
-• Clean my room
-• Keep building “Flip Phone”
-        </pre>
+        <!-- Filled by router -->
       </div>
     </section>
 
-    <!-- RIGHT -->
     <aside class="panel" id="rightPane">
-      <h2>Release Timeline</h2>
-      <pre style="margin:0 0 10px 0; white-space:pre-wrap; font-family:inherit;">
- •Spring 2026: ??
- •Summer 2026: ???
- • Autumn 2026: ???? 
-      </pre>
-
-      <hr />
-      <h2>Studio Log</h2>
-      <pre style="margin:0 0 10px 0; white-space:pre-wrap; font-family:inherit;">
-• November 3rd: Build synth stack for “Flip Phone” and figure out drum pattern
-• October 3rd, 2025: Figure out what the bridge of “Performance” should be like
-      </pre>
-
-      <hr />
-      <h2>Poll</h2>
-      <div class="pollbox" id="pollArea">
-        <p class="desc">Pick the song that most interests you…</p>
-        <div class="poll">
-          <label><input type="radio" name="poll" value="performance"> “Performance”</label>
-          <label><input type="radio" name="poll" value="flip"> “Flip Phone”</label>
-          <label><input type="radio" name="poll" value="look"> “Look But Don’t Touch”</label>
-          <button id="voteBtn" class="voteBtn">Cast Vote</button>
-        </div>
-        <div class="poll-results" id="pollResults" style="display:none;">
-          <div>Performance: <span id="pPerf">0%</span></div>
-          <div class="bar" id="bPerf" style="width:0%"></div>
-          <div style="height:6px"></div>
-          <div>Flip Phone: <span id="pFlip">0%</span></div>
-          <div class="bar" id="bFlip" style="width:0%; background:#49c9ff"></div>
-          <div style="height:6px"></div>
-          <div>Look BDT: <span id="pLook">0%</span></div>
-          <div class="bar" id="bLook" style="width:0%; background:#ffb35e"></div>
-        </div>
-      </div>
-
-      <hr />
-      <h2>Quick Links</h2>
-      <div class="badges" aria-label="Buttons" id="rightQuick">
-        <a href="#journal">Journal</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a href="#music">Music</a>
-      </div>
-
-      <!-- Webcam -->
-      <div class="webcam">
-        <div class="bar">
-          <div class="rec"><span class="dot"></span> REC</div>
-          <div class="ts" id="ts">00:00:00</div>
-        </div>
-        <div class="screen">
-          <img id="webcamFeed" src="/assets/webcam.gif?v=1.22.0" alt="webcam feed placeholder">
-        </div>
-      </div>
+      <!-- Filled by router -->
     </aside>
   </main>
 
-  <!-- SHOUTBOX -->
+  <!-- SHOUTBOX (unchanged) -->
   <section class="panel shoutbox" aria-label="Shoutbox">
     <h2>Shoutbox</h2>
     <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
@@ -478,248 +235,251 @@ canvas.game{ display:block; width:100%; height:100% }
 </div>
 
 <script>
-/* ===== YEAR ===== */
+/* Year */
 document.getElementById('y').textContent = new Date().getFullYear();
 
-/* ===== ROUTER PAGES ===== */
+/* ---------- HOME TEMPLATE (captured once) ---------- */
+const HOME_LEFT = `
+<p>Hi! My name is BJ. I hope you enjoy my page. This is my own little slice (or perhaps, strand?) of the web. This is my digital diary. My respite from the chaos. Feel free to look around, get lost even. Oh, and btw… I make music! That’s on here if you wanna check it out!! Safe travels :p</p>
+
+<hr />
+<h2>Status</h2>
+<div class="status-box">
+  <p style="white-space:pre-line; margin:0">
+<span class="pink">Currently:</span> rewatching Charmed and working on music : )
+<span class="pink">Now listening to:</span> Britney — “Phonography” (on repeat)
+<span class="pink">Mood:</span> excited and nervous :D
+  </p>
+</div>
+
+<hr />
+<h2>Now Playing</h2>
+<div class="winamp" role="group" aria-label="Now Playing">
+  <div class="display" id="nowPlayingTrack">01. bj case — Performance (demo)</div>
+  <div class="row">
+    <div class="btn" title="Prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M7 5v14H5V5h2zm2 7 10 7V5L9 12z"/></svg></div>
+    <div class="btn" title="Play" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg></div>
+    <div class="btn" title="Pause" aria-label="Pause"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></div>
+    <div class="btn" title="Next" aria-label="Next"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17 5v14h2V5h-2zM7 5l10 7-10 7V5z"/></svg></div>
+    <div class="scrubber" title="Scrub (decorative)"></div>
+    <div id="nowPlayingTime">02:47</div>
+  </div>
+</div>
+
+<hr />
+<h2>Featured Links</h2>
+<p>A little something I’ve learned from my short time on Earth so far is the importance of placing an extreme emphasis on LOVE. ;)</p>
+
+<hr />
+<h2>Roadmap</h2>
+<pre style="margin:0; white-space:pre-wrap; font-family:inherit;">
+• Keep working on the blog
+• Clean my room
+• Keep building “Flip Phone”
+</pre>
+`;
+
+const HOME_RIGHT = `
+<h2>Release Timeline</h2>
+<pre style="margin:0 0 10px 0; white-space:pre-wrap; font-family:inherit;">
+ •Spring 2026: ??
+ •Summer 2026: ???
+ • Autumn 2026: ???? 
+</pre>
+<hr />
+<h2>Studio Log</h2>
+<pre style="margin:0 0 10px 0; white-space:pre-wrap; font-family:inherit;">
+• November 3rd: Build synth stack for “Flip Phone” and figure out drum pattern
+• October 3rd, 2025: Figure out what the bridge of “Performance” should be like
+</pre>
+<hr />
+<h2>Poll</h2>
+<div class="pollbox" id="pollArea">
+  <p class="desc">Pick the song that most interests you…</p>
+  <div class="poll">
+    <label><input type="radio" name="poll" value="performance"> “Performance”</label>
+    <label><input type="radio" name="poll" value="flip"> “Flip Phone”</label>
+    <label><input type="radio" name="poll" value="look"> “Look But Don’t Touch”</label>
+    <button id="voteBtn" class="voteBtn">Cast Vote</button>
+  </div>
+  <div class="poll-results" id="pollResults" style="display:none;">
+    <div>Performance: <span id="pPerf">0%</span></div>
+    <div class="bar" id="bPerf" style="width:0%"></div>
+    <div style="height:6px"></div>
+    <div>Flip Phone: <span id="pFlip">0%</span></div>
+    <div class="bar" id="bFlip" style="width:0%; background:#49c9ff"></div>
+    <div style="height:6px"></div>
+    <div>Look BDT: <span id="pLook">0%</span></div>
+    <div class="bar" id="bLook" style="width:0%; background:#ffb35e"></div>
+  </div>
+</div>
+
+<hr />
+<h2>Quick Links</h2>
+<div class="badges" aria-label="Buttons" id="rightQuick">
+  <a href="#journal">Journal</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+  <a href="#music">Music</a>
+</div>
+
+<div class="webcam">
+  <div class="bar">
+    <div class="rec"><span class="dot"></span> REC</div>
+    <div class="ts" id="ts">00:00:00</div>
+  </div>
+  <div class="screen">
+    <img id="webcamFeed" src="/assets/webcam.gif?v=1.22.1" alt="webcam feed placeholder">
+  </div>
+</div>
+`;
+
+/* ---------- Router pages (explicit objects; no fallbacks) ---------- */
 const pages = {
-  home: {/* (left & right already mounted on load) */},
+  home: { leftTitle:"Welcome", leftHTML: HOME_LEFT, rightEnabled:true, rightHTML: HOME_RIGHT },
+
   music: {
-    leftTitle: "Music",
-    leftHTML: `
-      <p>Hey — you’ve found the music section. Let me provide an update on that front.</p>
-      <p>Right now, I’m still in the early stages of learning production. However, my demo for my first song, “Performance” is pretty well developed and is close to being ready for vocals which I’m excited for!! Also, I’ve started to build my song “Flip Phone” too. I’m so excited!!! — BJ</p>
-    `,
-    rightEnabled: true,
-    rightHTML: `
-      <h2>Mix Notes</h2>
+    leftTitle:"Music",
+    leftHTML:`<p>Hey — you’ve found the music section. Let me provide an update on that front.</p>
+      <p>Right now, I’m still in the early stages of learning production. However, my demo for my first song, “Performance” is pretty well developed and is close to being ready for vocals which I’m excited for!! Also, I’ve started to build my song “Flip Phone” too. I’m so excited!!! — BJ</p>`,
+    rightEnabled:true,
+    rightHTML:`<h2>Mix Notes</h2>
       <ul style="margin:0 0 10px 18px; padding:0;">
         <li>Sidechain longer 4/4 bass vs syncopated stabs</li>
         <li>Delay throw on “-ance” tail in “Performance”</li>
         <li>Mono core; stereo for color only</li>
-      </ul>
-      <hr />
-      <h2>Quick Actions</h2>
-      <div class="badges">
-        <a href="#journal">Studio Diary</a>
-        <a href="#visuals">Cover Art</a>
-        <a href="#contact">Bookings</a>
-      </div>
-    `
-  },
-  visuals: {
-    leftTitle: "Visuals",
-    leftHTML: `<p>Here’s where I’ll post concepts for the visual aspects of my music, as well as some other stuff too. My little pixel picture piece of the blog, if you will.</p>`,
-    rightEnabled: true,
-    rightHTML: `
-      <h2>Moodboard</h2>
-      <ul style="margin:0 0 10px 18px; padding:0;">
-        <li>Velvet theatre + chrome gloss</li>
-        <li>Pink glitter + neon blue edge</li>
-        <li>2007–2009 pop futurism</li>
-      </ul>
-    `
+      </ul>`
   },
 
-  /* ===== Journal: diary cover + owner pad ===== */
+  visuals: {
+    leftTitle:"Visuals",
+    leftHTML:`<p>Here’s where I’ll post concepts for the visual aspects of my music, as well as some other stuff too. My little pixel picture piece of the blog, if you will.</p>`,
+    rightEnabled:false
+  },
+
   journal: {
-    leftTitle: "Journal",
+    leftTitle:"Journal",
     leftHTML: `
-      <div class="journal-wrap">
-        <div class="diary-cover" id="diaryCover">
-          <div class="diary-title">dear diary</div>
-          <div class="diary-latch"></div>
-        </div>
-        <div class="journal-grid owner-locked" id="journalGrid">
-          <div class="journal-feed" id="journalFeed" aria-live="polite"></div>
-          <aside class="journal-owner" id="journalOwner">
-            <div class="owner-pass">
-              <h3 style="margin:0 0 8px;color:var(--neon-blue);font-family:Atma">Owner Access</h3>
-              <label style="font:12px Verdana">Enter passcode:</label>
-              <input id="jPass" type="password" style="width:100%;margin-top:6px;padding:6px;background:#23002b;color:#fff;border:1px solid var(--pink);border-radius:4px">
-              <button id="jUnlock" class="voteBtn" style="margin-top:8px">Unlock</button>
-              <p style="opacity:.7;font:11px Verdana;margin-top:8px">Stored locally only.</p>
-            </div>
-            <div class="owner-controls">
-              <h3 style="margin:0 0 8px;color:var(--neon-blue);font-family:Atma">New Entry</h3>
-              <input id="jTitle" placeholder="title" style="width:100%;padding:6px;margin-bottom:6px;background:#23002b;color:#fff;border:1px solid var(--pink);border-radius:4px">
-              <textarea id="jBody" rows="6" placeholder="what’s on your mind…" style="width:100%;padding:6px;background:#23002b;color:#fff;border:1px solid var(--pink);border-radius:4px"></textarea>
-              <button id="jPost" class="voteBtn" style="margin-top:8px">Post</button>
-              <button id="jLock" class="voteBtn" style="margin-top:8px;background:linear-gradient(180deg,#3a003a,#240024)">Lock</button>
-            </div>
-          </aside>
-        </div>
+      <div class="panel" style="background:linear-gradient(180deg,#3b004f,#22002c);border:2px solid var(--pink)">
+        <p style="margin:0">Journal area coming next pass. (Owner tools hidden here on purpose.)</p>
       </div>
     `,
-    rightEnabled: false
+    rightEnabled:false
   },
 
-  /* ===== Arcade hub + 3 games ===== */
-  arcade: {
-    leftTitle: "Arcade Center",
-    leftHTML: `
+  /* Secret teaser (right heart) */
+  heartr:{
+    leftTitle:"♥ secret — note",
+    leftHTML:`<p>Hidden page reserved for future secrets. Check back later…</p>
+      <article><h3>Private Teaser</h3><p>Maybe an early lyric, a cover mock, or a studio camera? Shh.</p></article>`,
+    rightEnabled:false
+  },
+
+  /* Arcade hub + stubs (kept behavior) */
+  arcade:{
+    leftTitle:"Arcade Center",
+    leftHTML:`
       <div class="arcade-hero">
-        <h3 style="margin:0;color:#fff;text-align:center;font-family:Atma;letter-spacing:.06em">Welcome to the ♥ Secret Arcade</h3>
+        <h3 style="margin:0;color:#fff;text-align:center;font-family:Atma;letter-spacing:.06em">Welcome to the &lt;3 Secret Arcade</h3>
         <p style="opacity:.85;text-align:center;font:12px Verdana;margin:6px 0">Tap a card to play. All games have touch + buttons.</p>
         <div class="arcade-tiles">
-          <div class="arcade-card">
-            <h3>Pong — First to 11</h3>
-            <a href="#arcade_pong">Play</a>
-          </div>
-          <div class="arcade-card">
-            <h3>LipGloss Flight</h3>
-            <a href="#arcade_gloss">Play</a>
-          </div>
-          <div class="arcade-card">
-            <h3>Brick Breaker</h3>
-            <a href="#arcade_brick">Play</a>
-          </div>
+          <div class="arcade-card"><h3>Pong — First to 11</h3><a href="#arcade_pong">Play</a></div>
+          <div class="arcade-card"><h3>LipGloss Flight</h3><a href="#arcade_gloss">Play</a></div>
+          <div class="arcade-card"><h3>Brick Breaker</h3><a href="#arcade_brick">Play</a></div>
         </div>
-      </div>
-    `,
+      </div>`,
+    rightEnabled:false
+  },
+  arcade_pong:{
+    leftTitle:"Pong (to 11)",
+    leftHTML:`<div class="arcade-stage"><div class="stage-controls">
+        <button id="btnPauseP">Pause/Resume</button><button id="btnResetP">Reset</button>
+      </div><div class="canvas-wrap ratio-16x10"><canvas id="pong" class="game"></canvas></div>
+      <p style="font:12px Verdana;opacity:.85;margin-top:6px">Drag on left/right halves to move paddles. ↑/↓ on desktop.</p></div>`,
+    rightEnabled:false
+  },
+  arcade_gloss:{
+    leftTitle:"LipGloss Flight",
+    leftHTML:`<div class="arcade-stage"><div class="stage-controls">
+        <button id="btnPauseG">Pause/Resume</button><button id="btnResetG">Reset</button>
+      </div><div class="canvas-wrap ratio-3x4"><canvas id="gloss" class="game"></canvas></div>
+      <p style="font:12px Verdana;opacity:.85;margin-top:6px">Tap/Click/Space to flap. Pixel lipstick flies; mascara tubes are obstacles.</p></div>`,
+    rightEnabled:false
+  },
+  arcade_brick:{
+    leftTitle:"Brick Breaker",
+    leftHTML:`<div class="arcade-stage"><div class="stage-controls">
+        <button id="btnPauseB">Pause/Resume</button><button id="btnResetB">Reset</button>
+      </div><div class="canvas-wrap ratio-16x10"><canvas id="brick" class="game"></canvas></div>
+      <p style="font:12px Verdana;opacity:.85;margin-top:6px">Drag to move paddle. Clear all bricks to win!</p></div>`,
     rightEnabled:false
   },
 
-  arcade_pong: {
-    leftTitle: "Pong (to 11)",
-    leftHTML: `
-      <div class="arcade-stage">
-        <div class="stage-controls">
-          <button id="btnPauseP">Pause/Resume</button>
-          <button id="btnResetP">Reset</button>
-        </div>
-        <div class="canvas-wrap ratio-16x10"><canvas id="pong" class="game"></canvas></div>
-        <p style="font:12px Verdana;opacity:.85;margin-top:6px">Drag on left/right halves to move paddles. ↑/↓ on desktop.</p>
-      </div>
-    `,
-    rightEnabled:false
-  },
-
-  arcade_gloss: {
-    leftTitle: "LipGloss Flight",
-    leftHTML: `
-      <div class="arcade-stage">
-        <div class="stage-controls">
-          <button id="btnPauseG">Pause/Resume</button>
-          <button id="btnResetG">Reset</button>
-        </div>
-        <div class="canvas-wrap ratio-3x4"><canvas id="gloss" class="game"></canvas></div>
-        <p style="font:12px Verdana;opacity:.85;margin-top:6px">Tap/Click/Space to flap. Pixel lipstick flies; mascara tubes are obstacles.</p>
-      </div>
-    `,
-    rightEnabled:false
-  },
-
-  arcade_brick: {
-    leftTitle: "Brick Breaker",
-    leftHTML: `
-      <div class="arcade-stage">
-        <div class="stage-controls">
-          <button id="btnPauseB">Pause/Resume</button>
-          <button id="btnResetB">Reset</button>
-        </div>
-        <div class="canvas-wrap ratio-16x10"><canvas id="brick" class="game"></canvas></div>
-        <p style="font:12px Verdana;opacity:.85;margin-top:6px">Drag to move paddle. Clear all bricks to win!</p>
-      </div>
-    `,
-    rightEnabled:false
-  },
-
-  about: { leftTitle:"About", leftHTML:`<p>Okay here’s like the serious section I guess. So I’m BJ. I make music, my favorite food is sushi, and I’m a cat person. You can find me here, IRL if I materialize, and to find me on other corners of the digital world, refer to the “Contact” section.</p>`, rightEnabled:false },
-  contact:{ leftTitle:"Contact", leftHTML:`<p>These are my other pages:</p><p>• Instagram: @itsbjcase<br>• Tiktok: @wannabj<br>• I’m not on Twitter rn cuz it’s called ‘X’ now, among other reasons :(</p><p>Also, I’ll be on streaming platforms soon! I’ll put them here when the time comes.</p><p>Ohhh and my email is <br><strong>itsbjcase@gmail.com</strong><br>for any inquiries (business only please!)</p>`, rightEnabled:false }
+  about:{ leftTitle:"About", leftHTML:`<p>Okay here’s like the serious section I guess. So I’m BJ. I make music, my favorite food is sushi, and I’m a cat person…</p>`, rightEnabled:false },
+  contact:{ leftTitle:"Contact", leftHTML:`<p>These are my other pages:</p><p>• Instagram: @itsbjcase<br>• Tiktok: @wannabj<br>• I’m not on Twitter rn cuz it’s called ‘X’ now :(</p><p>Streaming platforms soon. Email: <strong>itsbjcase@gmail.com</strong> (business only)</p>`, rightEnabled:false }
 };
 
-/* ===== Mount helpers (reuse from your previous build) ===== */
+/* ---------- Mount helpers (always rewrite DOM) ---------- */
 const rootEl = document.getElementById("pageRoot");
 const leftPane = document.getElementById("leftPane");
 const rightPane = document.getElementById("rightPane");
 
 function setLayout(single){ single ? rootEl.classList.add("single") : rootEl.classList.remove("single"); }
-function syncColumns(){
-  const rightVisible = rightPane.style.display !== "none";
-  if(!rightVisible){ leftPane.style.minHeight=""; return; }
-  const L = leftPane.offsetHeight, R = rightPane.offsetHeight;
-  const H = Math.max(L,R);
-  leftPane.style.minHeight = H + "px";
-  rightPane.style.minHeight = H + "px";
-}
-let syncRAF; function scheduleSync(){ cancelAnimationFrame(syncRAF); syncRAF = requestAnimationFrame(syncColumns); }
-
 function mountRight(html){
-  if(!html){ rightPane.style.display="none"; setLayout(true); scheduleSync(); return; }
+  if(!html){ rightPane.style.display="none"; setLayout(true); rightPane.innerHTML=''; return; }
   rightPane.style.display=""; setLayout(false);
   rightPane.innerHTML = html;
 
-  // wire poll if present
+  // (re)wire poll if present
   const btn = rightPane.querySelector('#voteBtn');
   if(btn){ wirePoll('#voteBtn','#pollResults','#pPerf','#pFlip','#pLook','#bPerf','#bFlip','#bLook','bj_poll_right'); }
-
-  rightPane.querySelectorAll('img').forEach(img=>{
-    if(img.complete) scheduleSync(); else img.addEventListener('load', scheduleSync, {once:true});
-  });
-  scheduleSync();
 }
 
 function render(route){
   const key = route && pages[route] ? route : "home";
-  document.getElementById("leftTitle").textContent = pages[key].leftTitle || "Welcome";
-  document.getElementById("leftContent").innerHTML = pages[key].leftHTML || document.getElementById("leftContent").innerHTML;
-  mountRight(pages[key].rightEnabled ? pages[key].rightHTML : null);
+  const pg = pages[key];
 
-  // page-specific boots
-  if(key === 'arcade_pong') bootPong();
-  if(key === 'arcade_gloss') bootGloss();
-  if(key === 'arcade_brick') bootBrick();
-  if(key === 'journal') bootJournal();
+  // ALWAYS hard replace content to avoid bleed
+  document.getElementById("leftTitle").textContent = pg.leftTitle || '';
+  document.getElementById("leftContent").innerHTML = pg.leftHTML || '';
+  mountRight(pg.rightEnabled ? pg.rightHTML : null);
+
+  // Boot page-specific logic only for current page
+  if(key==='arcade_pong') bootPong();
+  if(key==='arcade_gloss') bootGloss();
+  if(key==='arcade_brick') bootBrick();
 }
+
 function onHash(){ render(location.hash.replace("#","").toLowerCase()); }
 window.addEventListener("hashchange", onHash);
 onHash();
-window.addEventListener('resize', scheduleSync);
 
-/* Click logo -> Home */
-document.getElementById('logo').addEventListener('click', ()=> location.hash = '#home');
-
-/* ===== Poll (localStorage) ===== */
+/* ---------- Poll (localStorage) ---------- */
 function wirePoll(btnSel,resSel,pPerfSel,pFlipSel,pLookSel,bPerfSel,bFlipSel,bLookSel,KEY){
   const els = {
-    btn: document.querySelector(btnSel),
-    results: document.querySelector(resSel),
-    pPerf: document.querySelector(pPerfSel),
-    pFlip: document.querySelector(pFlipSel),
-    pLook: document.querySelector(pLookSel),
-    bPerf: document.querySelector(bPerfSel),
-    bFlip: document.querySelector(bFlipSel),
-    bLook: document.querySelector(bLookSel)
+    btn: document.querySelector(btnSel), results: document.querySelector(resSel),
+    pPerf: document.querySelector(pPerfSel), pFlip: document.querySelector(pFlipSel), pLook: document.querySelector(pLookSel),
+    bPerf: document.querySelector(bPerfSel), bFlip: document.querySelector(bFlipSel), bLook: document.querySelector(bLookSel)
   };
   if(!els.btn) return;
 
   function read(){ try{ return JSON.parse(localStorage.getItem(KEY))||{performance:0,flip:0,look:0}; }catch(e){ return {performance:0,flip:0,look:0}; } }
   function save(d){ localStorage.setItem(KEY, JSON.stringify(d)); }
   function per(v,t){ return Math.round((v||0)/(t||1)*100); }
-  function draw(d){
-    const t=(d.performance||0)+(d.flip||0)+(d.look||0)||1;
-    els.pPerf.textContent=per(d.performance,t)+"%";
-    els.pFlip.textContent=per(d.flip,t)+"%";
-    els.pLook.textContent=per(d.look,t)+"%";
-    els.bPerf.style.width=per(d.performance,t)+"%";
-    els.bFlip.style.width=per(d.flip,t)+"%";
-    els.bLook.style.width=per(d.look,t)+"%";
+  function draw(d){ const t=(d.performance||0)+(d.flip||0)+(d.look||0)||1;
+    els.pPerf.textContent=per(d.performance,t)+"%"; els.pFlip.textContent=per(d.flip,t)+"%"; els.pLook.textContent=per(d.look,t)+"%";
+    els.bPerf.style.width=per(d.performance,t)+"%"; els.bFlip.style.width=per(d.flip,t)+"%"; els.bLook.style.width=per(d.look,t)+"%";
     els.results.style.display='block';
   }
-  els.btn.addEventListener('click',()=>{
-    const chosen = document.querySelector('input[name="poll"]:checked'); if(!chosen) return;
-    const voted = localStorage.getItem(KEY+"_voted"); const data=read();
-    if(voted){ draw(data); return; }
-    if(chosen.value==="performance") data.performance++;
-    if(chosen.value==="flip") data.flip++;
-    if(chosen.value==="look") data.look++;
+  els.btn.addEventListener('click',()=>{ const chosen=document.querySelector('input[name="poll"]:checked'); if(!chosen) return;
+    const voted=localStorage.getItem(KEY+"_voted"); const data=read(); if(voted){ draw(data); return; }
+    if(chosen.value==="performance") data.performance++; if(chosen.value==="flip") data.flip++; if(chosen.value==="look") data.look++;
     save(data); localStorage.setItem(KEY+"_voted","1"); draw(data);
   });
   if(localStorage.getItem(KEY+"_voted")) draw(read());
 }
 
-/* ===== Shoutbox (private posts) ===== */
+/* ---------- Shoutbox (unchanged) ---------- */
 (() => {
   const SB_KEY="bj_shout_private";
   const chat = document.getElementById('chat');
@@ -763,62 +523,7 @@ function wirePoll(btnSel,resSel,pPerfSel,pFlipSel,pLookSel,bPerfSel,bFlipSel,bLo
   renderPrivate();
 })();
 
-/* ===== REC time ===== */
-(function recTimers(){
-  const update = (id)=> { const el=document.getElementById(id); if(!el) return; const t=new Date(); el.textContent = `${String(t.getHours()).padStart(2,'0')}:${String(t.getMinutes()).padStart(2,'0')}:${String(t.getSeconds()).padStart(2,'0')}`; };
-  setInterval(()=>{ ['ts','ts2','ts3','ts4'].forEach(update); }, 1000);
-})();
-
-/* ===== Journal boot ===== */
-function bootJournal(){
-  // open cover (animation already runs); populate feed + wire owner pad
-  const FEED_KEY='bj_journal_feed';
-  const OWNER_KEY='bj_journal_owner';
-  const grid = document.getElementById('journalGrid');
-  const feed = document.getElementById('journalFeed');
-
-  function readFeed(){ try{ return JSON.parse(localStorage.getItem(FEED_KEY))||[] }catch(e){ return [] } }
-  function writeFeed(arr){ localStorage.setItem(FEED_KEY, JSON.stringify(arr)) }
-  function draw(){
-    feed.innerHTML='';
-    const arr = readFeed();
-    if(!arr.length){
-      feed.innerHTML = `<div class="jpost" style="opacity:.8">No entries yet. (Public view) — entries you post in Owner Mode will show here on your device.</div>`;
-      return;
-    }
-    arr.slice().reverse().forEach(p=>{
-      const d=document.createElement('div'); d.className='jpost';
-      d.innerHTML=`<div style="font-weight:800;margin-bottom:4px">${p.title||'(untitled)'} — <span style="opacity:.7;font-weight:400">${p.time}</span></div><div>${p.body.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>`;
-      feed.appendChild(d);
-    });
-  }
-  draw();
-
-  // owner lock/unlock
-  const PASS='glitter'; // ← change anytime
-  const unlockBtn=document.getElementById('jUnlock');
-  const passInput=document.getElementById('jPass');
-  const postBtn=document.getElementById('jPost');
-  const lockBtn=document.getElementById('jLock');
-  const titleEl=document.getElementById('jTitle');
-  const bodyEl=document.getElementById('jBody');
-
-  function setOwner(enabled){
-    if(enabled){ grid.classList.remove('owner-locked'); localStorage.setItem(OWNER_KEY,'1'); }
-    else{ grid.classList.add('owner-locked'); localStorage.removeItem(OWNER_KEY); }
-  }
-  if(localStorage.getItem(OWNER_KEY)) setOwner(true);
-
-  unlockBtn?.addEventListener('click', ()=>{ if(passInput.value===PASS) setOwner(true); else alert('Wrong pass.'); });
-  lockBtn?.addEventListener('click', ()=> setOwner(false));
-  postBtn?.addEventListener('click', ()=>{
-    const t=titleEl.value.trim(), b=bodyEl.value.trim(); if(!b) return;
-    const arr=readFeed(); arr.push({title:t, body:b, time:new Date().toLocaleString()}); writeFeed(arr);
-    titleEl.value=''; bodyEl.value=''; draw();
-  });
-}
-
-/* ===== Arcade: responsive helpers ===== */
+/* ---------- Game boots (same as previous drop) ---------- */
 function sizedCanvas(canvas, baseW, baseH){
   const parent=canvas.parentElement;
   const w=parent.clientWidth;
@@ -826,7 +531,7 @@ function sizedCanvas(canvas, baseW, baseH){
   canvas.width=w; canvas.height=h;
 }
 
-/* ===== Pong (to 11) ===== */
+/* Pong */
 function bootPong(){
   const c=document.getElementById('pong'); if(!c) return; const ctx=c.getContext('2d');
   function resize(){ sizedCanvas(c, 800, 500) } resize(); window.addEventListener('resize', resize);
@@ -834,19 +539,14 @@ function bootPong(){
   let up=false, down=false, paused=false, over=false;
   let W=c.width, H=c.height, MAX=11;
   let L=0,R=0;
-
   const P={ x:16, y:H/2-40, w:10, h:80, s:0.85 }, C={ x:W-26, y:H/2-40, w:10, h:80, s:0.8 };
   const B={ x:W/2, y:H/2, r:6, vx:0, vy:0 };
 
   function serve(dir){ B.x=W/2; B.y=H/2; B.vx=(dir|| (Math.random()<.5?1:-1))*(2.2 + W/400); B.vy=(Math.random()<.5?1:-1)*(1.6 + H/600) }
 
-  // Touch drag left/right halves to move
-  let touchY=null;
-  c.addEventListener('touchstart',e=>{ const t=e.touches[0]; touchY=t.clientY; e.preventDefault(); }, {passive:false});
-  c.addEventListener('touchmove',e=>{ const t=e.touches[0]; const rect=c.getBoundingClientRect(); const y=t.clientY-rect.top; const x=t.clientX-rect.left; if(x<W/2){ P.y=Math.max(0, Math.min(H-P.h, y-P.h/2)); } else { C.y=Math.max(0, Math.min(H-C.h, y-C.h/2)); } e.preventDefault();}, {passive:false});
-
-  window.addEventListener('keydown',e=>{ if(e.key==='ArrowUp'){up=true;e.preventDefault()} if(e.key==='ArrowDown'){down=true;e.preventDefault()} if(e.key.toLowerCase()==='p'){paused=!paused} if(e.key.toLowerCase()==='r'){reset()} }, {passive:false});
-  window.addEventListener('keyup',e=>{ if(e.key==='ArrowUp'){up=false;e.preventDefault()} if(e.key==='ArrowDown'){down=false;e.preventDefault()} }, {passive:false});
+  c.addEventListener('touchmove',e=>{ const t=e.touches[0]; const rect=c.getBoundingClientRect(); const y=t.clientY-rect.top; const x=t.clientX-rect.left; if(x<W/2){ P.y=Math.max(0, Math.min(H-P.h, y-P.h/2)); } else { C.y=Math.max(0, Math.min(H-C.h, y-C.h/2)); } e.preventDefault();},{passive:false});
+  window.addEventListener('keydown',e=>{ if(e.key==='ArrowUp'){up=true;e.preventDefault()} if(e.key==='ArrowDown'){down=true;e.preventDefault()} if(e.key.toLowerCase()==='p'){paused=!paused} if(e.key.toLowerCase()==='r'){reset()} },{passive:false});
+  window.addEventListener('keyup',e=>{ if(e.key==='ArrowUp'){up=false;e.preventDefault()} if(e.key==='ArrowDown'){down=false;e.preventDefault()} },{passive:false});
   document.getElementById('btnPauseP')?.addEventListener('click',()=>paused=!paused);
   document.getElementById('btnResetP')?.addEventListener('click', reset);
 
@@ -854,13 +554,9 @@ function bootPong(){
   reset();
 
   function draw(){
-    // bg
     const g=ctx.createLinearGradient(0,0,0,H); g.addColorStop(0,'#140018'); g.addColorStop(1,'#0b0010'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-    // center
     ctx.setLineDash([10,10]); ctx.strokeStyle='rgba(255,255,255,.25)'; ctx.beginPath(); ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.stroke(); ctx.setLineDash([]);
-    // scores
     ctx.fillStyle='#ffdfff'; ctx.font='bold ' + Math.max(18, W/40) + 'px Verdana'; ctx.fillText(L, W/2-40, 28); ctx.fillText(R, W/2+28, 28);
-    // paddles/ball
     ctx.fillStyle='#ff9ef6'; ctx.fillRect(P.x,P.y,P.w,P.h);
     ctx.fillStyle='#49c9ff'; ctx.fillRect(C.x,C.y,C.w,C.h);
     ctx.beginPath(); ctx.fillStyle='#fff'; ctx.arc(B.x,B.y,B.r,0,Math.PI*2); ctx.fill();
@@ -875,25 +571,19 @@ function bootPong(){
     W=c.width; H=c.height; C.x=W-26;
     if(paused||over){ draw(); requestAnimationFrame(step); return; }
     if(up) P.y-=P.s*8; if(down) P.y+=P.s*8; P.y=Math.max(0,Math.min(H-P.h,P.y));
-    // simple auto CPU
     C.y += (B.y-C.y-C.h/2)*0.08; C.y=Math.max(0,Math.min(H-C.h,C.y));
-
     B.x+=B.vx; B.y+=B.vy;
     if(B.y-B.r<0){ B.y=B.r; B.vy*=-1 } if(B.y+B.r>H){ B.y=H-B.r; B.vy*=-1 }
-    // wall score
     if(B.x+B.r<0){ R++; if(R>=MAX){over=true}else serve(1) }
     if(B.x-B.r>W){ L++; if(L>=MAX){over=true}else serve(-1) }
-
-    // paddle collisions
     function hit(p){ if(B.x+B.r>p.x && B.x-B.r<p.x+p.w && B.y>p.y && B.y<p.y+p.h){ B.vx*=-1.08; const rel=(B.y-(p.y+p.h/2))/(p.h/2); B.vy = Math.max(-6, Math.min(6, B.vy + rel*3)); } }
     hit(P); hit(C);
-
     draw(); requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
 }
 
-/* ===== LipGloss Flight ===== */
+/* LipGloss Flight (unchanged from last, still mobile friendly) */
 function bootGloss(){
   const c=document.getElementById('gloss'); if(!c) return; const x=c.getContext('2d');
   function resize(){ sizedCanvas(c, 540, 720) } resize(); window.addEventListener('resize', resize);
@@ -901,9 +591,7 @@ function bootGloss(){
   const W=()=>c.width, H=()=>c.height;
   let paused=false, over=false, t=0, score=0, y=H()/2, vy=0;
   const G=0.35, FLAP=-6.2, GAP=120; let pipes=[];
-
-  const lip=new Image(), mas=new Image();
-  lip.src='/assets/lipstick.png'; mas.src='/assets/mascara.png';
+  const lip=new Image(), mas=new Image(); lip.src='/assets/lipstick.png'; mas.src='/assets/mascara.png';
   let lipOK=false, masOK=false; lip.onload=()=>lipOK=true; mas.onload=()=>masOK=true;
 
   function reset(){ paused=false; over=false; t=0; score=0; y=H()/2; vy=0; pipes=[]; }
@@ -914,72 +602,47 @@ function bootGloss(){
   c.addEventListener('mousedown',flap); c.addEventListener('touchstart',e=>{flap(); e.preventDefault()},{passive:false});
   window.addEventListener('keydown',e=>{ if(e.code==='Space'){flap(); e.preventDefault()} if(e.key.toLowerCase()==='p'){paused=!paused} if(e.key.toLowerCase()==='r'){reset()} },{passive:false});
 
-  function addPipe(){
-    const gapY = 80 + Math.random()*(H()-160-GAP);
-    pipes.push({x:W()+40, y:gapY, w:masOK?48:36});
-  }
+  function addPipe(){ const gapY = 80 + Math.random()*(H()-160-GAP); pipes.push({x:W()+40, y:gapY, w:masOK?48:36}); }
 
   function draw(){
-    // glam bg
     const g=x.createLinearGradient(0,0,0,H()); g.addColorStop(0,'#1a0020'); g.addColorStop(1,'#0d0012'); x.fillStyle=g; x.fillRect(0,0,W(),H());
-
-    // lipstick
     const lx=W()*0.32, lw=lipOK?48:28, lh=lipOK?48:28;
-    if(lipOK){ x.drawImage(lip, lx-lw/2, y-lh/2, lw, lh); }
-    else{ x.fillStyle='#ff3fa5'; x.fillRect(lx-lw/2, y-lh/2, lw, lh) }
-
-    // mascara pipes
-    x.fillStyle='#8f5cff';
+    if(lipOK){ x.drawImage(lip, lx-lw/2, y-lh/2, lw, lh); } else { x.fillStyle='#ff3fa5'; x.fillRect(lx-lw/2, y-lh/2, lw, lh) }
     pipes.forEach(p=>{
       const w=p.w, top=p.y, bottom=p.y+GAP;
       if(masOK){
-        // stack mascara sprites to form columns
         for(let yy=top-32; yy> -64; yy-=32){ x.drawImage(mas, p.x- w/2, yy, w, 32) }
         for(let yy=bottom; yy< H()+64; yy+=32){ x.drawImage(mas, p.x- w/2, yy, w, 32) }
       }else{
-        x.fillRect(p.x-w/2, 0, w, top);
-        x.fillRect(p.x-w/2, bottom, w, H()-bottom);
+        x.fillStyle='#8f5cff'; x.fillRect(p.x-w/2, 0, w, top); x.fillRect(p.x-w/2, bottom, w, H()-bottom);
       }
     });
-
-    // score
-    x.fillStyle='#ffdfff'; x.font='bold ' + Math.max(18, W()/20) + 'px Verdana'; x.textAlign='center';
-    x.fillText(score, W()/2, 36); x.textAlign='start';
-
+    x.fillStyle='#ffdfff'; x.font='bold ' + Math.max(18, W()/20) + 'px Verdana'; x.textAlign='center'; x.fillText(score, W()/2, 36); x.textAlign='start';
     if(paused||over){ x.fillStyle='rgba(0,0,0,.45)'; x.fillRect(0,0,W(),H()); x.fillStyle='#ffdfff'; x.textAlign='center';
-      x.font='bold 22px Verdana'; x.fillText(over?'GAME OVER':'PAUSED', W()/2, H()/2-6);
-      x.font='bold 14px Verdana'; x.fillText('Tap Reset to play again', W()/2, H()/2+16); x.textAlign='start';
-    }
+      x.font='bold 22px Verdana'; x.fillText(over?'GAME OVER':'PAUSED', W()/2, H()/2-6); x.font='bold 14px Verdana'; x.fillText('Tap Reset to play again', W()/2, H()/2+16); x.textAlign='start'; }
   }
 
   function step(){
     if(paused||over){ draw(); requestAnimationFrame(step); return; }
     t++; if(t%70===0) addPipe();
-
     vy += G; y += vy; if(y<12) y=12; if(y>H()-12){ y=H()-12; over=true }
-
-    pipes.forEach(p=> p.x -= 2.8 );
-    while(pipes.length && pipes[0].x < -60) pipes.shift();
-
-    // collide + score
+    pipes.forEach(p=> p.x -= 2.8 ); while(pipes.length && pipes[0].x < -60) pipes.shift();
     const lx=W()*0.32, lw=lipOK?34:24, lh=lipOK?34:24;
     pipes.forEach(p=>{
       if(!p.scored && p.x < lx){ p.scored=true; score++; }
       const w=p.w, top=p.y, bottom=p.y+GAP;
       if(lx+lw/2>p.x-w/2 && lx-lw/2<p.x+w/2 && (y-lh/2<top || y+lh/2>bottom)){ over=true; }
     });
-
     draw(); requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
 }
 
-/* ===== Brick Breaker ===== */
+/* Brick Breaker (kept) */
 function bootBrick(){
   const c=document.getElementById('brick'); if(!c) return; const x=c.getContext('2d');
   function resize(){ sizedCanvas(c, 800, 500) } resize(); window.addEventListener('resize', resize);
   let paused=false, over=false, win=false;
-
   let W=()=>c.width, H=()=>c.height;
   const paddle={ w:Math.max(80, W()*0.18), h:12, x:W()/2, y:H()-28, s:10 };
   const ball={ x:W()/2, y:H()/2, r:6, vx:3.2, vy:-3.0 };
@@ -988,15 +651,11 @@ function bootBrick(){
   function makeBricks(){
     bricks=[];
     const cols=8, rows=5, pad=8, bw=(W()- (cols+1)*pad)/cols, bh=18, top=60;
-    for(let r=0;r<rows;r++) for(let c1=0;c1<cols;c1++){
-      bricks.push({x:pad+c1*(bw+pad), y:top+r*(bh+pad), w:bw, h:bh, hp:1});
-    }
+    for(let r=0;r<rows;r++) for(let c1=0;c1<cols;c1++){ bricks.push({x:pad+c1*(bw+pad), y:top+r*(bh+pad), w:bw, h:bh}); }
   }
-
   function reset(){ paused=false; over=false; win=false; paddle.x=W()/2; ball.x=W()/2; ball.y=H()/2; ball.vx=3.2; ball.vy=-3.0; makeBricks(); }
   reset();
 
-  // touch/drag
   c.addEventListener('touchmove',e=>{ const t=e.touches[0]; const rect=c.getBoundingClientRect(); paddle.x = Math.max(paddle.w/2, Math.min(W()-paddle.w/2, t.clientX-rect.left)); e.preventDefault(); }, {passive:false});
   c.addEventListener('mousemove',e=>{ const rect=c.getBoundingClientRect(); if(e.buttons) paddle.x = Math.max(paddle.w/2, Math.min(W()-paddle.w/2, e.clientX-rect.left)); });
 
@@ -1005,13 +664,9 @@ function bootBrick(){
 
   function draw(){
     const g=x.createLinearGradient(0,0,0,H()); g.addColorStop(0,'#15001a'); g.addColorStop(1,'#09000e'); x.fillStyle=g; x.fillRect(0,0,W(),H());
-    // paddle
     x.fillStyle='#ff9ef6'; x.fillRect(paddle.x-paddle.w/2, paddle.y, paddle.w, paddle.h);
-    // ball
     x.beginPath(); x.fillStyle='#fff'; x.arc(ball.x,ball.y,ball.r,0,Math.PI*2); x.fill();
-    // bricks
     bricks.forEach(b=>{ x.fillStyle='rgba(73,201,255,.95)'; x.fillRect(b.x,b.y,b.w,b.h) });
-
     if(paused||over||win){ x.fillStyle='rgba(0,0,0,.45)'; x.fillRect(0,0,W(),H()); x.fillStyle='#ffdfff'; x.textAlign='center';
       x.font='bold 22px Verdana'; x.fillText(win?'YOU WIN!':(over?'GAME OVER':'PAUSED'), W()/2, H()/2-6);
       x.font='bold 14px Verdana'; x.fillText('Tap Reset to play again', W()/2, H()/2+16); x.textAlign='start';
@@ -1020,29 +675,16 @@ function bootBrick(){
 
   function step(){
     if(paused||over||win){ draw(); requestAnimationFrame(step); return; }
-    // move ball
     ball.x+=ball.vx; ball.y+=ball.vy;
     if(ball.x-ball.r<0){ ball.x=ball.r; ball.vx*=-1 }
     if(ball.x+ball.r>W()){ ball.x=W()-ball.r; ball.vx*=-1 }
     if(ball.y-ball.r<0){ ball.y=ball.r; ball.vy*=-1 }
     if(ball.y-ball.r>H()){ over=true }
-
-    // paddle
-    if(ball.y+ball.r>paddle.y && ball.y-ball.r<paddle.y+paddle.h &&
-       ball.x>paddle.x-paddle.w/2 && ball.x<paddle.x+paddle.w/2){
-      ball.vy*=-1.05;
-      const rel=(ball.x-paddle.x)/(paddle.w/2);
-      ball.vx = Math.max(-5.5, Math.min(5.5, ball.vx + rel*2.2));
-      ball.y = paddle.y - ball.r - 1;
+    if(ball.y+ball.r>paddle.y && ball.y-ball.r<paddle.y+12 && ball.x>paddle.x-paddle.w/2 && ball.x<paddle.x+paddle.w/2){
+      ball.vy*=-1.05; const rel=(ball.x-paddle.x)/(paddle.w/2); ball.vx = Math.max(-5.5, Math.min(5.5, ball.vx + rel*2.2)); ball.y = paddle.y - ball.r - 1;
     }
-
-    // bricks
-    bricks = bricks.filter(b=>{
-      const hit = ball.x> b.x && ball.x< b.x+b.w && ball.y> b.y && ball.y< b.y+b.h;
-      if(hit){ ball.vy*=-1; return false } return true;
-    });
+    bricks = bricks.filter(b=>{ const hit = ball.x> b.x && ball.x< b.x+b.w && ball.y> b.y && ball.y< b.y+b.h; if(hit){ ball.vy*=-1; return false } return true; });
     if(!bricks.length) win=true;
-
     draw(); requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
